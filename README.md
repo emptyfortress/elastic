@@ -1,5 +1,8 @@
 # elastic
-
+Прототип интерфейса поиска для elasticsearch.
+* vue
+* vuetify
+* mdi icon
 ## Project setup
 ```
 npm install
