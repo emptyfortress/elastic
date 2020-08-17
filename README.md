@@ -3,6 +3,11 @@
 * vue
 * vuetify
 * mdi icon
+* pug sass
+
+# Auto deploy at vercel with git integration
+https://elastic.emptyfortress.vercel.app/#/
+
 ## Project setup
 ```
 npm install
