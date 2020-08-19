@@ -137,28 +137,6 @@ export default {
 	height: 39px;
 	/* background: #ccc; */
 }
-.searchbox {
-	width: 100%;
-	display: flex;
-	margin-left: 8rem;
-	align-items: center;
-	.where {
-		height: 24px;
-		width: 200px;
-		margin-right: 1rem;
-	}
-	input {
-		border: none;
-		width: 69%;
-		outline: none;
-		background: #fff;
-		border-radius: 4px;
-		/* width: 400px; */
-		height: 39px;
-		color: #000;
-		padding: 0 .5rem;
-	}
-}
 
 .hint {
 	height: 48px;

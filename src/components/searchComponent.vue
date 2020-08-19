@@ -4,14 +4,15 @@ v-scale-transition(origin="center right" mode="out-in")
 		.where
 			v-select(:items="scope" dark dense value="Везде" hide-detail)
 		.place
-			input(:placeholder="holder" 
+			input(:placeholder="holder"
 				v-model="query"
 				@blur="searchResultsVisible = false"
 				@focus="searchResultsVisible = true"
 				@keydown.esc="searchResultsVisible = false"
+				@input="softReset"
 				)
 			.closeIcon(v-show="query.length > 0" @click="reset") &times;
-			v-list(v-show="query.length > 0 && searchResultsVisible" v-model="history" dense).complete
+			v-list(v-show="query.length > 0 && searchResultsVisible" v-model="history" dense elevation="1").complete
 				v-list-item-group
 					v-list-item
 						v-list-item-icon
@@ -20,9 +21,11 @@ v-scale-transition(origin="center right" mode="out-in")
 				.noresult Нет предыдущих поисков с '{{ query }}'
 					
 		v-btn(outlined color="#fff" @click="show = !show").ml-2 Найти
+		searchFocus(@keyup="test")
 </template>
 
 <script>
+import searchFocus from '@/components/searchFocus'
 
 export default {
 	data () {
@@ -35,12 +38,21 @@ export default {
 			searchResultsVisible: false,
 		}
 	},
+	components: {
+		searchFocus
+	},
 	computed: {
 		searchMode() { return this.$store.getters.searchMode },
 	},
 	methods: {
 		reset () {
 			this.query = ''
+		},
+		softReset () {
+			this.searchResultsVisible = true
+		},
+		test () {
+			alert('cool')
 		}
 	}
 }
@@ -81,7 +93,6 @@ export default {
 	width: 100%;
 	max-height: 300px;
 	background: #fff;
-	box-shadow: 0 2px 6px rgba(0,0,0,.3);
 	overflow: auto;
 }
 .noresult {
