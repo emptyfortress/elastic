@@ -1,7 +1,7 @@
 <template lang="pug">
 v-navigation-drawer(v-model="drawer" dark color="docolor" clipped app :mini-variant.sync="mini" )
 	v-list
-		v-list-item(link @click="goTo(item.url)" v-for="item in menu" :key="item.text"
+		v-list-item(link @click="goTo(item.url)" v-for="item in menu" :key="item.id"
 			:class="path === item.url ? 'active' : ''")
 			v-list-item-icon
 				v-icon {{ item.icon }}
@@ -22,13 +22,13 @@ export default {
 				height: 24,
 			},
 			menu: [
-				{ url: '/', icon: 'mdi-home-roof', text: 'Главная' },
-				{ url: '', icon: 'mdi-folder-outline', text: 'Папка' },
-				{ url: '', icon: 'mdi-folder-outline', text: 'Папка' },
-				{ url: '', icon: 'mdi-folder-outline', text: 'Папка' },
-				{ url: '', icon: 'mdi-folder-outline', text: 'Папка' },
-				{ url: '', icon: 'mdi-folder-outline', text: 'Папка' },
-				{ url: '', icon: 'mdi-folder-outline', text: 'Папка' },
+				{ id: 0, url: '/', icon: 'mdi-home-roof', text: 'Главная' },
+				{ id: 1, url: '', icon: 'mdi-folder-outline', text: 'Папка' },
+				{ id: 2, url: '', icon: 'mdi-folder-outline', text: 'Папка' },
+				{ id: 3, url: '', icon: 'mdi-folder-outline', text: 'Папка' },
+				{ id: 4, url: '', icon: 'mdi-folder-outline', text: 'Папка' },
+				{ id: 5, url: '', icon: 'mdi-folder-outline', text: 'Папка' },
+				{ id: 6, url: '', icon: 'mdi-folder-outline', text: 'Папка' },
 			],
 		}
 	},

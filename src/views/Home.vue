@@ -1,7 +1,6 @@
 <template lang="pug">
-div( class="home" )
-	HelloWorld
-	p(v-for="n in 50") lorem ipsum
+.home
+	.zag Это дашборд или папка
 
 </template>
 
@@ -20,3 +19,15 @@ export default {
 }
 
 </script>
+
+<style scoped lang="scss">
+@import '@/assets/css/colors.scss';
+
+.home {
+	margin-top: 6rem;
+}
+.zag {
+	font-size: 1.8rem;
+	color: #666;
+}
+</style>

@@ -3,8 +3,8 @@ import App from './App.vue'
 import router from './router/router.js'
 import store from './store/store.js'
 import vuetify from './plugins/vuetify'
-import '@/assets/css/main.scss'
 import '@/assets/css/support.css'
+import '@/assets/css/main.scss'
 
 Vue.config.productionTip = false
 

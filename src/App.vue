@@ -1,11 +1,28 @@
 <template lang="pug">
 v-app 
 	Drawer
-	v-app-bar(app color="docolor" flat collapse-on-scroll clipped-left :class="calcWidth()" dark elevation="2").pr-2
-		v-app-bar-nav-icon
-		.logo Docsvision
-	v-content
-		v-container.rel
+	v-app-bar(app color="docolor" flat collapse-on-scroll clipped-left :class="calcWidth()" elevation="2" ).pr-2
+		v-app-bar-nav-icon(color="#fff")
+		.logo(v-show="logo") Docsvision
+		v-spacer
+		searchComponent
+		v-btn( href="" icon  v-show="offsetTop" @click="toggleSearch").mr-3
+			v-icon(color="#fff") mdi-magnify
+		v-avatar(color="docolor darken-2" size="35" v-show="offsetTop" v-ripple)
+			img(src="@/assets/img/user0.svg")
+	v-content(v-scroll="handleScroll").rel
+		v-slide-y-transition(mode="out-in")
+			.hint(v-show="searchMode")
+				v-checkbox(label="Документы" v-model="doc" :disabled="sotr")
+				v-checkbox(label="Задания" v-model="task" :disabled="sotr")
+				v-checkbox(label="Сотрудники" v-model="sotr" )
+				.vert
+				v-checkbox(label="Я - автор" :disabled="sotr")
+				v-checkbox(label="Нормативные"  :disabled="sotr")
+				v-checkbox(label="По организации" :disabled="sotr")
+				.vert(v-show="!sotr")
+				v-checkbox(label="Точное совпадение" )
+		v-container
 			transition(name="slide-fade" mode="out-in")
 				div
 					v-slide-x-transition(mode="out-in")
@@ -14,15 +31,38 @@ v-app
 
 <script>
 import Drawer from './components/Drawer'
+import searchComponent from '@/components/searchComponent'
 
 export default {
 	name: 'App', 
 	components: { 
-		Drawer
+		Drawer,
+		searchComponent,
 	}, 
 	data () {
 		return {
-			
+			offsetTop: true,
+			scroll: false,
+			logo: true,
+			doc: true,
+			task: true,
+			sotr: false,
+			scope: [  'Везде', 'В текущей папке', 'В моих папках' ]
+		}
+	},
+	computed: {
+		drawer() { return this.$store.getters.drawer },
+		mini() { return this.$store.getters.mini },
+		searchMode() { return this.$store.getters.searchMode },
+
+	},
+	watch: {
+		sotr: function() {
+			let that = this
+			if (this.sotr) {
+				that.doc = false
+				that.task = false
+			} else { that.doc = true }
 		}
 	},
 	methods: {
@@ -34,14 +74,34 @@ export default {
 				return 'mid'
 			} return 'sm'
 		},
+		toggleSearch() {
+			this.$store.commit('toggleSearchMode')
+		},
+		handleScroll() {
+			if (window.pageYOffset > 300) {
+				this.scroll = true
+			} else if (window.pageYOffset > 0 && this.mini) {
+				this.offsetTop = false
+				this.logo = false
+			} else if (window.pageYOffset > 0) {
+				this.offsetTop = false
+				this.logo = true
+			} else {
+				this.offsetTop = true
+				this.scroll = false
+				this.logo = true
+			}
+		},
 		
 	}
 }
 </script>
 
 <style scoped lang="scss">
+@import '@/assets/css/colors.scss';
+
 .rel {
-		/* background: #ccc; */
+	position: relative;
 }
 .v-content {
 		background: #efefef;
@@ -52,5 +112,82 @@ export default {
 		font-size: 1.4rem;
 }
 
+.v-toolbar.v-toolbar--collapsed {
+	max-width: 260px;
+	&.sm {
+		max-width: 48px;
+	}
+	&.mid {
+		max-width: 82px;
+	}
+}
+.icon-user, .icon-search, .icon-search-scan {
+	font-size: 1.2rem;
+	margin-left: -4px;
+}
+.leftmargin {
+	margin-left: 40px;
+	div {
+		margin-right: 40px;
+	}
+}
+.v-sheet.v-card:not(.v-sheet--outlined) {
+	box-shadow: none;
+	background: transparent;
+	height: 39px;
+	/* background: #ccc; */
+}
+.searchbox {
+	width: 100%;
+	display: flex;
+	margin-left: 8rem;
+	align-items: center;
+	.where {
+		height: 24px;
+		width: 200px;
+		margin-right: 1rem;
+	}
+	input {
+		border: none;
+		width: 69%;
+		outline: none;
+		background: #fff;
+		border-radius: 4px;
+		/* width: 400px; */
+		height: 39px;
+		color: #000;
+		padding: 0 .5rem;
+	}
+}
 
+.hint {
+	height: 48px;
+	background: #fff;
+	width: 100%;
+	padding: 0 2rem;
+	display: flex;
+	border-bottom: 1px solid #B0BEC5;
+	position: absolute;
+	top: 0;
+	left: 0;
+	.v-input--selection-controls {
+		margin: 0;
+		padding: 0;
+		margin-top: .8rem;
+		margin-right: 2rem;
+	}
+}
+.vert {
+	height: 26px;
+	width: 1px;
+	background: #ccc;
+	margin-right: 2rem;
+	margin-top: 11px;
+}
+.subbar {
+	width: 100%;
+	height: 42px;
+	background: #ccc;
+	margin-top: 64px;
+}
 </style>
