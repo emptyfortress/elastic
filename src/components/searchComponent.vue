@@ -13,6 +13,7 @@ v-scale-transition(origin="center right" mode="out-in")
 				@keyup="performSearch"
 				@keydown.up.prevent="hightlightPrev"
 				@keydown.down.prevent="hightlightNext"
+				@keydown.enter="goToLink(searchResults[highlightedIndex].item.txt)"
 				)
 			.closeIcon(v-show="query.length > 0" @click="reset") &times;
 			v-list(v-show="query.length > 0 && searchResultsVisible" v-model="history" dense elevation="1").complete
@@ -76,9 +77,11 @@ export default {
 	methods: {
 		reset () {
 			this.query = ''
+			this.highlightedIndex = 0
 		},
 		softReset () {
 			this.searchResultsVisible = true
+			this.highlightedIndex = 0
 		},
 		setfocus () {
 			let that = this
@@ -116,6 +119,9 @@ export default {
 		},
 		scrollIntoView () {
 			this.$refs.results[this.highlightedIndex].$el.scrollIntoView({ block: 'nearest' })
+		},
+		goToLink (e) {
+			console.log(e)
 		}
 	},
 	watch: {
