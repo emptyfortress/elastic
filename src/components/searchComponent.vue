@@ -6,19 +6,22 @@ v-scale-transition(origin="center right" mode="out-in")
 		.place
 			input(:placeholder="holder"
 				v-model="query"
-				@blur="searchResultsVisible = false"
 				@focus="searchResultsVisible = true"
 				@keydown.esc="searchResultsVisible = false"
 				@input="softReset"
 				ref="search"
 				@keyup="performSearch"
+				@keydown.up.prevent="hightlightPrev"
+				@keydown.down.prevent="hightlightNext"
 				)
 			.closeIcon(v-show="query.length > 0" @click="reset") &times;
 			v-list(v-show="query.length > 0 && searchResultsVisible" v-model="history" dense elevation="1").complete
-				v-list-item-group
-					v-list-item(v-for="post in searchResults" 
+				v-list-item-group()
+					v-list-item(v-for="(post, index) in searchResults" :key="index"
 						href="/#/results"
 						@mousedown.prevent="searchResultsVisible = true"
+						:class="{'selection' : index === highlightedIndex}"
+						ref="results"
 						)
 						v-list-item-icon
 							v-icon(size="20" color="#aaa") mdi-clock-time-two-outline
@@ -44,6 +47,7 @@ export default {
 			searchResultsVisible: false,
 			posts: [],
 			searchResults: [],
+			highlightedIndex: 0,
 			options: {
 				shouldSort: true,
 				includeMatches: true,
@@ -77,7 +81,10 @@ export default {
 			this.searchResultsVisible = true
 		},
 		setfocus () {
-			this.$refs.search.focus()
+			let that = this
+			setTimeout(function() {
+				that.$refs.search.focus()
+			},500)
 		},
 		focusSearch (e) {
 			if (e.key === '/' || e.key === '.') {
@@ -95,6 +102,21 @@ export default {
 					this.searchResults = results
 				})
 		},
+		hightlightPrev () {
+			if (this.highlightedIndex > 0) {
+				this.highlightedIndex = this.highlightedIndex - 1
+				this.scrollIntoView()
+			}
+		},
+		hightlightNext () {
+			if (this.highlightedIndex < this.searchResults.length - 1) {
+				this.highlightedIndex = this.highlightedIndex + 1
+				this.scrollIntoView()
+			}
+		},
+		scrollIntoView () {
+			this.$refs.results[this.highlightedIndex].$el.scrollIntoView({ block: 'nearest' })
+		}
 	},
 	watch: {
 		active: function() {
@@ -160,5 +182,11 @@ export default {
 }
 .v-application--is-ltr .v-list-item__action:first-child, .v-application--is-ltr .v-list-item__icon:first-child {
 	margin-right: 1rem;
+}
+.v-list-item:hover {
+	background: #efefef;
+}
+.selection {
+	background: #efefef;
 }
 </style>
