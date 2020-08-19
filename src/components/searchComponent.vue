@@ -34,6 +34,7 @@ import searchFocus from '@/components/searchFocus'
 import axios from 'axios'
 
 export default {
+	props: ['active'],
 	data () {
 		return {
 			scope: [  'Везде', 'В текущей папке', 'В моих папках' ],
@@ -60,6 +61,7 @@ export default {
 			.then(response => {
 				this.posts = response.data
 			})
+		this.setfocus()
 	},
 	components: {
 		searchFocus
@@ -73,6 +75,9 @@ export default {
 		},
 		softReset () {
 			this.searchResultsVisible = true
+		},
+		setfocus () {
+			this.$refs.search.focus()
 		},
 		focusSearch (e) {
 			if (e.key === '/' || e.key === '.') {
@@ -91,6 +96,16 @@ export default {
 				})
 		},
 	},
+	watch: {
+		active: function() {
+			if (this.active) {
+				let that = this
+				setTimeout(function() {
+					that.$refs.search.focus()
+				},500)
+			}
+		}
+	}
 }
 
 </script>

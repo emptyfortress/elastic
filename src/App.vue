@@ -5,7 +5,7 @@ v-app
 		v-app-bar-nav-icon(color="#fff")
 		.logo(v-show="logo") Docsvision
 		v-spacer
-		searchComponent
+		searchComponent(:active="active")
 		v-btn( href="" icon  v-show="offsetTop" @click="toggleSearch").mr-3
 			v-icon(color="#fff") mdi-magnify
 		v-avatar(color="docolor darken-2" size="35" v-show="offsetTop" v-ripple)
@@ -47,7 +47,8 @@ export default {
 			doc: true,
 			task: true,
 			sotr: false,
-			scope: [  'Везде', 'В текущей папке', 'В моих папках' ]
+			scope: [  'Везде', 'В текущей папке', 'В моих папках' ],
+			active: false,
 		}
 	},
 	computed: {
@@ -76,6 +77,7 @@ export default {
 		},
 		toggleSearch() {
 			this.$store.commit('toggleSearchMode')
+			this.active = !this.active
 		},
 		handleScroll() {
 			if (window.pageYOffset > 300) {
