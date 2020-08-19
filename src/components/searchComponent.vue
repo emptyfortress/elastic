@@ -11,15 +11,19 @@ v-scale-transition(origin="center right" mode="out-in")
 				@keydown.esc="searchResultsVisible = false"
 				@input="softReset"
 				ref="search"
+				@keyup="performSearch"
 				)
 			.closeIcon(v-show="query.length > 0" @click="reset") &times;
 			v-list(v-show="query.length > 0 && searchResultsVisible" v-model="history" dense elevation="1").complete
 				v-list-item-group
-					v-list-item
+					v-list-item(v-for="post in searchResults" 
+						href="/#/results"
+						@mousedown.prevent="searchResultsVisible = true"
+						)
 						v-list-item-icon
-							v-icon mdi-history
-						v-list-item-content Some text here
-				.noresult Нет предыдущих поисков с '{{ query }}'
+							v-icon(size="20" color="#aaa") mdi-clock-time-two-outline
+						v-list-item-content {{ post.item.txt }}
+				.noresult(v-show="searchResults.length === 0") Нет предыдущих поисков с '{{ query }}'
 					
 		v-btn(outlined color="#fff" @click="show = !show").ml-2 Найти
 		searchFocus(@keyup="focusSearch")
@@ -27,17 +31,35 @@ v-scale-transition(origin="center right" mode="out-in")
 
 <script>
 import searchFocus from '@/components/searchFocus'
+import axios from 'axios'
 
 export default {
 	data () {
 		return {
 			scope: [  'Везде', 'В текущей папке', 'В моих папках' ],
-			// searchMode: true,
 			history: 1,
 			holder: 'Номер, содержание, ФИО участников, текст документов и др.',
 			query: '',
 			searchResultsVisible: false,
+			posts: [],
+			searchResults: [],
+			options: {
+				shouldSort: true,
+				includeMatches: true,
+				threshold: 0.4,
+				location: 0,
+				distance: 500,
+				maxPatternLength: 32,
+				minMatchCharLength: 1,
+				keys: ['txt'],
+			}
 		}
+	},
+	created () {
+		axios.get('/history.json')
+			.then(response => {
+				this.posts = response.data
+			})
 	},
 	components: {
 		searchFocus
@@ -53,7 +75,7 @@ export default {
 			this.searchResultsVisible = true
 		},
 		focusSearch (e) {
-			if (e.key === '/') {
+			if (e.key === '/' || e.key === '.') {
 				this.$store.commit('toggleSearchMode')
 				this.query = ''
 				let that = this
@@ -61,7 +83,13 @@ export default {
 					that.$refs.search.focus()
 				},500)
 			}
-		}
+		},
+		performSearch () {
+			this.$search(this.query, this.posts, this.options)
+				.then(results => {
+					this.searchResults = results
+				})
+		},
 	},
 }
 
@@ -104,7 +132,9 @@ export default {
 	overflow: auto;
 }
 .noresult {
-	padding: 1rem;
+	padding-left: 1rem;
+	color: #aaa;
+	/* padding: 1rem; */
 }
 .closeIcon {
 	position: absolute;
@@ -112,5 +142,8 @@ export default {
 	right: 1rem;
 	font-size: 1.4rem;
 	cursor: pointer;
+}
+.v-application--is-ltr .v-list-item__action:first-child, .v-application--is-ltr .v-list-item__icon:first-child {
+	margin-right: 1rem;
 }
 </style>
