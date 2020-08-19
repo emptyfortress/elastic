@@ -10,6 +10,7 @@ v-scale-transition(origin="center right" mode="out-in")
 				@focus="searchResultsVisible = true"
 				@keydown.esc="searchResultsVisible = false"
 				@input="softReset"
+				ref="search"
 				)
 			.closeIcon(v-show="query.length > 0" @click="reset") &times;
 			v-list(v-show="query.length > 0 && searchResultsVisible" v-model="history" dense elevation="1").complete
@@ -21,7 +22,7 @@ v-scale-transition(origin="center right" mode="out-in")
 				.noresult Нет предыдущих поисков с '{{ query }}'
 					
 		v-btn(outlined color="#fff" @click="show = !show").ml-2 Найти
-		searchFocus(@keyup="test")
+		searchFocus(@keyup="focusSearch")
 </template>
 
 <script>
@@ -51,10 +52,17 @@ export default {
 		softReset () {
 			this.searchResultsVisible = true
 		},
-		test () {
-			alert('cool')
+		focusSearch (e) {
+			if (e.key === '/') {
+				this.$store.commit('toggleSearchMode')
+				this.query = ''
+				let that = this
+				setTimeout(function() {
+					that.$refs.search.focus()
+				},500)
+			}
 		}
-	}
+	},
 }
 
 </script>
