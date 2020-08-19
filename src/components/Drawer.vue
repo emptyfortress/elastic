@@ -23,18 +23,20 @@ export default {
 			},
 			menu: [
 				{ id: 0, url: '/', icon: 'mdi-home-roof', text: 'Главная' },
-				{ id: 1, url: '', icon: 'mdi-folder-outline', text: 'Папка' },
-				{ id: 2, url: '', icon: 'mdi-folder-outline', text: 'Папка' },
-				{ id: 3, url: '', icon: 'mdi-folder-outline', text: 'Папка' },
-				{ id: 4, url: '', icon: 'mdi-folder-outline', text: 'Папка' },
-				{ id: 5, url: '', icon: 'mdi-folder-outline', text: 'Папка' },
-				{ id: 6, url: '', icon: 'mdi-folder-outline', text: 'Папка' },
+				{ id: 1, url: '/folder', icon: 'mdi-folder-outline', text: 'Папка' },
+				{ id: 2, url: '/folder', icon: 'mdi-folder-outline', text: 'Папка' },
+				{ id: 3, url: '/folder', icon: 'mdi-folder-outline', text: 'Папка' },
+				{ id: 4, url: '/folder', icon: 'mdi-folder-outline', text: 'Папка' },
+				{ id: 5, url: '/folder', icon: 'mdi-folder-outline', text: 'Папка' },
+				{ id: 6, url: '/folder', icon: 'mdi-folder-outline', text: 'Папка' },
 			],
 		}
 	},
 	methods: {
 		goTo(e) {
-			this.$router.push(e)
+			if (this.$route.path === e) {
+				return
+			} else this.$router.push(e)
 			this.$store.commit('setSearchMode', false)
 		},
 		toggleMini() {
