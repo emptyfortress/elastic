@@ -156,7 +156,7 @@ export default {
 			}
 			setTimeout( function() {
 				that.$store.commit('setLoading', false)
-			}, 1000)
+			}, 2000)
 		},
 	},
 	watch: {

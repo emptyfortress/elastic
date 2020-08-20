@@ -3,7 +3,9 @@ v-app
 	Drawer(:maincolor="maincolor")
 	v-app-bar(app :color="maincolor" flat collapse-on-scroll clipped-left :class="calcWidth()" elevation="2" ).pr-2
 		v-app-bar-nav-icon(color="#fff" @click="$store.commit('toggleDrawer')")
-		.logo(v-show="logo") Docsvision
+		.logo(v-show="logo")
+			span(v-if="$route.name === 'results'") Поиск
+			span(v-else) Docsvision
 		v-spacer
 		searchComponent(:active="active")
 		v-btn( href="" icon  v-show="offsetTop" @click="toggleSearch").mr-3
@@ -22,8 +24,7 @@ v-app
 				v-checkbox(label="По организации" :disabled="sotr")
 				.vert(v-show="!sotr")
 				v-checkbox(label="Точное совпадение" )
-		//- v-container(:fluid="$route.name === 'results'").red
-		v-container
+		v-container(:class="searchMode ? 'searching' : ''").cont
 			transition(name="slide-fade" mode="out-in")
 				div
 					v-slide-x-transition(mode="out-in")
@@ -127,10 +128,18 @@ export default {
 .v-main {
 		background: #efefef;
 }
+.cont {
+	padding: 0;
+	transition: .2s all ease;
+	&.searching {
+		margin-top: 48px;
+	}
+}
 
 .logo {
-		color: #fff;
-		font-size: 1.4rem;
+	color: #fff;
+	font-size: 1.4rem;
+	width: 250px;
 }
 
 .v-toolbar.v-toolbar--collapsed {
@@ -156,11 +165,10 @@ export default {
 	box-shadow: none;
 	background: transparent;
 	height: 39px;
-	/* background: #ccc; */
 }
 
 .hint {
-	/* height: 48px; */
+	height: 48px;
 	background: #fff;
 	width: 100%;
 	padding: 0 2rem;
@@ -184,10 +192,5 @@ export default {
 	margin-right: 2rem;
 	margin-top: 11px;
 }
-.subbar {
-	width: 100%;
-	height: 42px;
-	background: #ccc;
-	margin-top: 64px;
-}
+
 </style>
