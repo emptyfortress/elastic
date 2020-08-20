@@ -13,13 +13,13 @@ v-scale-transition(origin="center right" mode="out-in")
 				@keyup="performSearch"
 				@keydown.up.prevent="hightlightPrev"
 				@keydown.down.prevent="hightlightNext"
-				@keydown.enter="goToLink(searchResults[highlightedIndex].item.txt)"
+				@keydown.enter="goToLink(highlightedIndex)"
 				)
 			.closeIcon(v-show="query.length > 0" @click="reset") &times;
 			v-list(v-show="query.length > 0 && searchResultsVisible" v-model="history" dense elevation="1").complete
 				v-list-item-group()
 					v-list-item(v-for="(post, index) in searchResults" :key="index"
-						href="/#/results"
+						href=""
 						@mousedown.prevent="searchResultsVisible = true"
 						:class="{'selection' : index === highlightedIndex}"
 						ref="results"
@@ -48,7 +48,7 @@ export default {
 			searchResultsVisible: false,
 			posts: [],
 			searchResults: [],
-			highlightedIndex: 0,
+			highlightedIndex: null,
 			options: {
 				shouldSort: true,
 				includeMatches: true,
@@ -77,11 +77,11 @@ export default {
 	methods: {
 		reset () {
 			this.query = ''
-			this.highlightedIndex = 0
+			this.highlightedIndex = null
 		},
 		softReset () {
 			this.searchResultsVisible = true
-			this.highlightedIndex = 0
+			this.highlightedIndex = null
 		},
 		setfocus () {
 			let that = this
@@ -106,13 +106,18 @@ export default {
 				})
 		},
 		hightlightPrev () {
-			if (this.highlightedIndex > 0) {
+			if (this.highlightedIndex === null) {
+				this.highlightedIndex = this.searchResults.length -1
+				this.scrollIntoView()
+			} else if (this.highlightedIndex > 0) {
 				this.highlightedIndex = this.highlightedIndex - 1
 				this.scrollIntoView()
 			}
 		},
 		hightlightNext () {
-			if (this.highlightedIndex < this.searchResults.length - 1) {
+			if (this.highlightedIndex === null) {
+				this.highlightedIndex = 0
+			} else if (this.highlightedIndex < this.searchResults.length - 1) {
 				this.highlightedIndex = this.highlightedIndex + 1
 				this.scrollIntoView()
 			}
@@ -121,23 +126,21 @@ export default {
 			this.$refs.results[this.highlightedIndex].$el.scrollIntoView({ block: 'nearest' })
 		},
 		goToLink (e) {
-			if (this.$route.path === '/results') {
-				this.searchResultsVisible = false
-				this.$store.commit('setMini', true)
-				this.query = e
+			this.searchResultsVisible = false
+			this.$store.commit('setMini', true)
+			let tot = '/results/' + this.query
+			if (e === null) {
+				this.$router.push(tot)
 			} else {
-				this.searchResultsVisible = false
-				this.$store.commit('setMini', true)
-				this.$router.push({name: 'results', params: { query: e }})
+				this.query = this.searchResults[e].item.txt
+				let tut = '/results/' + this.query
+				this.$router.push(tut)
 			}
 		},
 		find () {
 			if (this.$route.path === '/results') {
 				this.searchResultsVisible = false
 				this.$store.commit('setMini', true)
-				// this.$router.push({name: 'results', params: { query: this.query }})
-
-				// this.$route.params.query = this.query
 			} else {
 				let tot = '/results/' + this.query
 				this.searchResultsVisible = false

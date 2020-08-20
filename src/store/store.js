@@ -8,11 +8,13 @@ export default new Vuex.Store({
 		drawer: true,
 		mini: false,
 		searchMode: false,
+		loading: false,
 	},
 	getters: {
 		drawer: state => { return state.drawer },
 		mini: state => { return state.mini },
 		searchMode: state => { return state.searchMode },
+		loading: state => { return state.loading },
 	},
 	mutations: {
 		toggleDrawer (state) { state.drawer = !state.drawer },
