@@ -17,12 +17,13 @@ v-scale-transition(origin="center right" mode="out-in")
 				)
 			.closeIcon(v-show="query.length > 0" @click="reset") &times;
 			v-list(v-show="query.length > 0 && searchResultsVisible" v-model="history" dense elevation="1").complete
-				v-list-item-group()
+				v-list-item-group
 					v-list-item(v-for="(post, index) in searchResults" :key="index"
 						href=""
 						@mousedown.prevent="searchResultsVisible = true"
 						:class="{'selection' : index === highlightedIndex}"
 						ref="results"
+						@click="goToLink(index)"
 						)
 						v-list-item-icon
 							v-icon(size="20" color="#aaa") mdi-clock-time-two-outline
@@ -138,16 +139,15 @@ export default {
 			}
 		},
 		find () {
-			if (this.$route.path === '/results') {
-				this.searchResultsVisible = false
-				this.$store.commit('setMini', true)
+			this.searchResultsVisible = false
+			this.$store.commit('setMini', true)
+			if (this.query === this.$route.params.id) {
+				return
 			} else {
 				let tot = '/results/' + this.query
-				this.searchResultsVisible = false
-				this.$store.commit('setMini', true)
 				this.$router.push(tot)
 			}
-		}
+		},
 	},
 	watch: {
 		active: function() {
