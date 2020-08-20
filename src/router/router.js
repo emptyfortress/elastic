@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import SearchResults from '@/components/SearchResults'
+import Folder from '@/components/Folder'
+
 
 Vue.use(VueRouter)
 
@@ -9,6 +12,18 @@ const routes = [
 		path: '/',
 		name: 'Home',
 		component: Home
+	},
+	{
+		path: '/results',
+		name: 'results',
+		component: SearchResults,
+		props: true,
+	},
+	{
+		path: '/folder',
+		name: 'folder',
+		component: Folder,
+		props: true,
 	},
 	{
 		path: '/about',

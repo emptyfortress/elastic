@@ -1,5 +1,5 @@
 <template lang="pug">
-v-navigation-drawer(v-model="drawer" dark color="docolor" clipped app :mini-variant.sync="mini" )
+v-navigation-drawer(v-model="drawer" dark :color="maincolor" clipped app :mini-variant.sync="mini" )
 	v-list
 		v-list-item(link @click="goTo(item.url)" v-for="item in menu" :key="item.id"
 			:class="path === item.url ? 'active' : ''")
@@ -15,6 +15,7 @@ v-navigation-drawer(v-model="drawer" dark color="docolor" clipped app :mini-vari
 <script>
 
 export default {
+	props: ['maincolor'],
 	data() {
 		return {
 			size: {
@@ -23,12 +24,9 @@ export default {
 			},
 			menu: [
 				{ id: 0, url: '/', icon: 'mdi-home-roof', text: 'Главная' },
-				{ id: 1, url: '/folder', icon: 'mdi-folder-outline', text: 'Папка' },
-				{ id: 2, url: '/folder', icon: 'mdi-folder-outline', text: 'Папка' },
+				{ id: 1, url: '/doc', icon: 'mdi-folder-outline', text: 'Документы' },
+				{ id: 2, url: '/task', icon: 'mdi-folder-outline', text: 'Задания' },
 				{ id: 3, url: '/folder', icon: 'mdi-folder-outline', text: 'Папка' },
-				{ id: 4, url: '/folder', icon: 'mdi-folder-outline', text: 'Папка' },
-				{ id: 5, url: '/folder', icon: 'mdi-folder-outline', text: 'Папка' },
-				{ id: 6, url: '/folder', icon: 'mdi-folder-outline', text: 'Папка' },
 			],
 		}
 	},

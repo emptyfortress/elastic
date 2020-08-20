@@ -29,7 +29,7 @@ v-scale-transition(origin="center right" mode="out-in")
 						v-list-item-content {{ post.item.txt }}
 				.noresult(v-show="searchResults.length === 0") Нет предыдущих поисков с '{{ query }}'
 					
-		v-btn(outlined color="#fff" @click="show = !show").ml-2 Найти
+		v-btn(outlined color="#fff" @click="find" :disabled="!query.length" dark).ml-2 Найти
 		searchFocus(@keyup="focusSearch")
 </template>
 
@@ -121,7 +121,12 @@ export default {
 			this.$refs.results[this.highlightedIndex].$el.scrollIntoView({ block: 'nearest' })
 		},
 		goToLink (e) {
-			console.log(e)
+			this.searchResultsVisible = false
+			this.$router.push({name: 'results', params: { query: e }})
+		},
+		find () {
+			this.searchResultsVisible = false
+			this.$router.push({name: 'results', params: { query: this.query }})
 		}
 	},
 	watch: {
