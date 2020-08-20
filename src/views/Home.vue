@@ -32,11 +32,7 @@ export default {
 @import '@/assets/css/colors.scss';
 
 .home {
-	margin-top: 6rem;
-}
-.zag {
-	font-size: 1.8rem;
-	color: #666;
+	margin-top: 4rem;
 }
 .inf {
 	width: 750px;

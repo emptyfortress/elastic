@@ -21,6 +21,7 @@ export default new Vuex.Store({
 		setMini (state, payload) { state.mini = payload },
 		toggleSearchMode (state) { state.searchMode = !state.searchMode },
 		setSearchMode (state, payload) { state.searchMode = payload },
+		setLoading (state, payload) { state.loading = payload },
 	},
 	actions: {
 	},

@@ -127,6 +127,8 @@ export default {
 			this.$refs.results[this.highlightedIndex].$el.scrollIntoView({ block: 'nearest' })
 		},
 		goToLink (e) {
+			let that = this
+			this.$store.commit('setLoading', true)
 			this.searchResultsVisible = false
 			this.$store.commit('setMini', true)
 			let tot = '/results/' + this.query
@@ -137,8 +139,13 @@ export default {
 				let tut = '/results/' + this.query
 				this.$router.push(tut)
 			}
+			setTimeout( function() {
+				that.$store.commit('setLoading', false)
+			}, 1000)
 		},
 		find () {
+			let that = this
+			this.$store.commit('setLoading', true)
 			this.searchResultsVisible = false
 			this.$store.commit('setMini', true)
 			if (this.query === this.$route.params.id) {
@@ -147,6 +154,9 @@ export default {
 				let tot = '/results/' + this.query
 				this.$router.push(tot)
 			}
+			setTimeout( function() {
+				that.$store.commit('setLoading', false)
+			}, 1000)
 		},
 	},
 	watch: {

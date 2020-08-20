@@ -2,7 +2,7 @@
 v-app 
 	Drawer(:maincolor="maincolor")
 	v-app-bar(app :color="maincolor" flat collapse-on-scroll clipped-left :class="calcWidth()" elevation="2" ).pr-2
-		v-app-bar-nav-icon(color="#fff")
+		v-app-bar-nav-icon(color="#fff" @click="$store.commit('toggleDrawer')")
 		.logo(v-show="logo") Docsvision
 		v-spacer
 		searchComponent(:active="active")
@@ -22,6 +22,7 @@ v-app
 				v-checkbox(label="По организации" :disabled="sotr")
 				.vert(v-show="!sotr")
 				v-checkbox(label="Точное совпадение" )
+		//- v-container(:fluid="$route.name === 'results'").red
 		v-container
 			transition(name="slide-fade" mode="out-in")
 				div
@@ -159,11 +160,12 @@ export default {
 }
 
 .hint {
-	height: 48px;
+	/* height: 48px; */
 	background: #fff;
 	width: 100%;
 	padding: 0 2rem;
 	display: flex;
+	flex-wrap: wrap;
 	border-bottom: 1px solid #B0BEC5;
 	position: absolute;
 	top: 0;
