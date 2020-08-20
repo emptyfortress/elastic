@@ -121,12 +121,29 @@ export default {
 			this.$refs.results[this.highlightedIndex].$el.scrollIntoView({ block: 'nearest' })
 		},
 		goToLink (e) {
-			this.searchResultsVisible = false
-			this.$router.push({name: 'results', params: { query: e }})
+			if (this.$route.path === '/results') {
+				this.searchResultsVisible = false
+				this.$store.commit('setMini', true)
+				this.query = e
+			} else {
+				this.searchResultsVisible = false
+				this.$store.commit('setMini', true)
+				this.$router.push({name: 'results', params: { query: e }})
+			}
 		},
 		find () {
-			this.searchResultsVisible = false
-			this.$router.push({name: 'results', params: { query: this.query }})
+			if (this.$route.path === '/results') {
+				this.searchResultsVisible = false
+				this.$store.commit('setMini', true)
+				// this.$router.push({name: 'results', params: { query: this.query }})
+
+				// this.$route.params.query = this.query
+			} else {
+				let tot = '/results/' + this.query
+				this.searchResultsVisible = false
+				this.$store.commit('setMini', true)
+				this.$router.push(tot)
+			}
 		}
 	},
 	watch: {

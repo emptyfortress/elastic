@@ -1,6 +1,6 @@
 <template lang="pug">
 .ma-5
-	h2 Folder
+	h2 Task
 </template>
 
 <script>

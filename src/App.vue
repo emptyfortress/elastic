@@ -8,9 +8,9 @@ v-app
 		searchComponent(:active="active")
 		v-btn( href="" icon  v-show="offsetTop" @click="toggleSearch").mr-3
 			v-icon(color="#fff") mdi-magnify
-		v-avatar(color="blue-grey darken-2" size="35" v-show="offsetTop" v-ripple)
+		v-avatar(color="blue lighten-4" size="35" v-show="offsetTop" v-ripple @click="pri")
 			img(src="@/assets/img/user0.svg")
-	v-content(v-scroll="handleScroll").rel
+	v-main(v-scroll="handleScroll").rel
 		v-slide-y-transition(mode="out-in")
 			.hint(v-show="searchMode")
 				v-checkbox(label="Документы" v-model="doc" :disabled="sotr")
@@ -56,17 +56,17 @@ export default {
 		mini() { return this.$store.getters.mini },
 		searchMode() { return this.$store.getters.searchMode },
 		maincolor() {
-			let path = this.$route.path
-			switch (path) {
-			case '/results':
+			let name = this.$route.name
+			switch (name) {
+			case 'results':
 				return 'purple'
-			case '/doc':
+			case 'doc':
 				return 'docolor'
-			case '/task':
+			case 'task':
 				return 'taskcolor'
-			case '/folder':
+			case 'folder':
 				return 'dark'
-			case '/':
+			case 'Home':
 				return 'dark'
 			default: return 'dark'
 			}
@@ -82,6 +82,9 @@ export default {
 		}
 	},
 	methods: {
+		pri () {
+			console.log(this.$route.name)
+		},
 		calcWidth() {
 			const po = window.pageYOffset
 			if (this.drawer && !this.mini && po > 0) {
@@ -120,7 +123,7 @@ export default {
 .rel {
 	position: relative;
 }
-.v-content {
+.v-main {
 		background: #efefef;
 }
 
