@@ -19,25 +19,26 @@
 				v-btn(depressed color="blue-grey" dark small) Искать глобально
 		.sort
 			.d-flex
+				v-checkbox(label="Сначала результаты со мной" dense).my
 				span Сортировать по:
 				.nk дата
 				.nk тип
 				.nk алфавит
 				.nk состояние
-				v-checkbox(label="Сначала результаты со мной" dense).my
 			div
 				v-icon mdi-format-list-bulleted
 				v-icon mdi-view-grid
 			
 		.one 
-			p ljljl
+			Filters
 		.one
-			p(v-for="n in 100") laskdj
+			//- p(v-for="n in 100") laskdj
 	//- .zag searchresults {{ $route.params.id }}
 
 </template>
 
 <script>
+import Filters from '@/components/Filters'
 
 export default {
 	data () {
@@ -54,6 +55,9 @@ export default {
 		loading () {
 			return this.$store.getters.loading
 		}
+	},
+	components: {
+		Filters,
 	}
 }
 
@@ -65,10 +69,10 @@ export default {
 .searchgrid {
 	display: grid;
 	grid-template-columns: 300px auto;
-	grid-gap: 1rem;
+	grid-gap: 2rem;
 }
 .one {
-	background: #ccc;
+	/* background: #fff; */
 }
 .zero {
 	grid-column: 1/3;
@@ -96,7 +100,7 @@ export default {
 	height: 24px;
 	margin: 0;
 	padding: 0;
-	margin-left: 3rem;
+	margin-right: 5rem;
 }
 .v-breadcrumbs {
 	padding: 0;
