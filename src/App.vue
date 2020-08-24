@@ -14,21 +14,11 @@ v-app
 			v-icon(color="#fff") mdi-magnify
 		v-avatar(color="blue lighten-4" size="35" v-show="offsetTop" v-ripple @click="pri")
 			img(src="@/assets/img/user0.svg")
-	v-main(v-scroll="handleScroll").rel
-		v-slide-y-transition(mode="out-in")
-			.hint(v-show="searchMode")
-				v-checkbox(label="Документы" v-model="doc" :disabled="sotr")
-				v-checkbox(label="Задания" v-model="task" :disabled="sotr")
-				v-checkbox(label="Сотрудники" v-model="sotr" )
-				.vert
-				v-checkbox(label="Я - автор" :disabled="sotr")
-				v-checkbox(label="Нормативные"  :disabled="sotr")
-				v-checkbox(label="По организации" :disabled="sotr")
-				.vert(v-show="!sotr")
-				v-checkbox(label="Точное совпадение" )
-		v-container(:class="searchMode ? 'searching' : ''").cont
+	v-main(v-scroll="handleScroll")
+		v-container.cont
 			transition(name="slide-fade" mode="out-in")
 				div
+					Hint(:searchMode="searchMode")
 					v-slide-x-transition(mode="out-in")
 						router-view
 </template>
@@ -36,12 +26,15 @@ v-app
 <script>
 import Drawer from './components/Drawer'
 import searchComponent from '@/components/searchComponent'
+import Hint from '@/components/Hint'
+
 
 export default {
 	name: 'App', 
 	components: { 
 		Drawer,
 		searchComponent,
+		Hint
 	}, 
 	data () {
 		return {
@@ -128,14 +121,11 @@ export default {
 	position: relative;
 }
 .v-main {
-		background: #efefef;
+	background: #efefef;
 }
 .cont {
-	padding: 0;
+	padding: 0 1rem;
 	transition: .2s all ease;
-	&.searching {
-		margin-top: 48px;
-	}
 }
 
 .logo {
@@ -169,30 +159,5 @@ export default {
 	height: 39px;
 }
 
-.hint {
-	height: 48px;
-	background: #fff;
-	width: 100%;
-	padding: 0 2rem;
-	display: flex;
-	flex-wrap: wrap;
-	border-bottom: 1px solid #B0BEC5;
-	position: absolute;
-	top: 0;
-	left: 0;
-	.v-input--selection-controls {
-		margin: 0;
-		padding: 0;
-		margin-top: .8rem;
-		margin-right: 2rem;
-	}
-}
-.vert {
-	height: 26px;
-	width: 1px;
-	background: #ccc;
-	margin-right: 2rem;
-	margin-top: 11px;
-}
 
 </style>

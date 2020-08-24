@@ -32,6 +32,7 @@
 		.one 
 			Filters
 		.one
+			listItem
 			//- p(v-for="n in 100") laskdj
 	//- .zag searchresults {{ $route.params.id }}
 
@@ -39,6 +40,7 @@
 
 <script>
 import Filters from '@/components/Filters'
+import listItem from '@/components/listItem'
 
 export default {
 	data () {
@@ -58,6 +60,7 @@ export default {
 	},
 	components: {
 		Filters,
+		listItem
 	}
 }
 
