@@ -178,7 +178,7 @@ export default {
 .searchbox {
 	width: 100%;
 	display: flex;
-	margin-left: 8rem;
+	margin-left: 6rem;
 	align-items: center;
 	.where {
 		height: 24px;

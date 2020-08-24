@@ -3,7 +3,7 @@ v-app
 	Drawer(:maincolor="maincolor")
 	v-app-bar(app :color="maincolor" flat collapse-on-scroll clipped-left :class="calcWidth()" elevation="2" ).pr-2
 		v-app-bar-nav-icon(color="#fff" @click="$store.commit('toggleDrawer')")
-		.logo(v-show="logo")
+		.logo(v-show="logo && !$vuetify.breakpoint.mobile")
 			v-btn(icon v-if="$route.name === 'results'" dark large @click="$router.go(-1)")
 				v-icon mdi-arrow-left-circle-outline
 			span(v-if="$route.name === 'results'") Поиск

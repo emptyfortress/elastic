@@ -2,17 +2,17 @@
 v-slide-y-transition(mode="out-in")
 	.hint(v-show="searchMode")
 		div.one
-			v-checkbox(dense label="Документы" v-model="doc" :disabled="sotr" :class="md ? 'my' : '' ")
+			v-checkbox(dense :color="col" label="Документы" v-model="doc" :disabled="sotr" :class="md ? 'my' : '' ")
 		div.two
-			v-checkbox(dense label="Задания" v-model="task" :disabled="sotr")
+			v-checkbox(dense :color="col" label="Задания" v-model="task" :disabled="sotr")
 		div.three
-			v-checkbox(dense label="Файлы" v-model="task" :disabled="sotr")
+			v-checkbox(dense :color="col" label="Файлы" v-model="task" :disabled="sotr")
 		div.four
-			v-checkbox(dense label="Я - автор" :disabled="sotr")
+			v-checkbox(dense :color="col" label="Я - автор" :disabled="sotr")
 		div.five
-			v-checkbox(dense label="По организации" :disabled="sotr")
+			v-checkbox(dense :color="col" label="По организации" :disabled="sotr")
 		div.six
-			v-checkbox(dense label="Точное совпадение" )
+			v-checkbox(dense :color="col" label="Точное совпадение" )
 
 </template>
 
@@ -23,6 +23,13 @@ export default {
 	data () {
 		return {
 			
+		}
+	},
+	computed: {
+		col () {
+			if (this.$route.name === 'results') {
+				return 'purple'
+			} else return ''
 		}
 	}
 }

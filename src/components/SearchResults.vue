@@ -6,17 +6,19 @@
 			v-breadcrumbs(:items="bread")
 			.alls
 				.res {{ query }}:
-				div найдено 345 результатов в 2 категориях &mdash;
+				div найдено 345 результатов в 3 категориях &mdash;
 				div
 					v-chip(color="docolor" dark)
 						v-avatar 234
 						|Документы
-				div
 					v-chip(color="taskcolor" dark ) 
 						v-avatar 37
 						|Задания
-				v-spacer
-				v-btn(depressed color="blue-grey" dark small) Искать глобально
+					v-chip(color="dark" dark ) 
+						v-avatar 9
+						|Файлы
+				.dow
+					v-btn(depressed color="blue-grey" dark small) Искать всюду
 		.sort
 			.d-flex
 				v-checkbox(label="Сначала результаты со мной" dense).my
@@ -29,9 +31,9 @@
 				v-icon mdi-format-list-bulleted
 				v-icon mdi-view-grid
 			
-		.one 
+		div
 			Filters
-		.one
+		div
 			listItem
 			//- p(v-for="n in 100") laskdj
 	//- .zag searchresults {{ $route.params.id }}
@@ -71,11 +73,8 @@ export default {
 
 .searchgrid {
 	display: grid;
-	grid-template-columns: 300px auto;
+	grid-template-columns: 260px auto;
 	grid-gap: 2rem;
-}
-.one {
-	/* background: #fff; */
 }
 .zero {
 	grid-column: 1/3;
@@ -111,15 +110,22 @@ export default {
 	
 }
 .alls {
-	display: flex;
-	align-items: center;
+	display: grid;
+	align-items: flex-start;
+	grid-template-columns: auto auto 1fr auto;
 	padding: 1rem 0;
-	div {
-		margin-right: 1rem;
+	grid-gap: .5rem;
+	.v-chip {
+		cursor: pointer;
+		margin-right: .25rem;
+		margin-bottom: .25rem;
+		.v-avatar {
+			margin-right: .5rem;
+		}
 	}
 }
-.v-chip {
-	cursor: pointer;
+.dow {
+	align-self: flex-end;
 }
 
 </style>

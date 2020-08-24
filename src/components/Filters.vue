@@ -64,5 +64,9 @@ export default {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	.badge {
+		margin-bottom: -6px;
+	}
+
 }
 </style>
