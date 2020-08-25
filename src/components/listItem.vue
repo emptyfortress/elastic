@@ -1,34 +1,84 @@
 <template lang="pug">
 div
-	.item(v-for="n in 7")
-		.ic
-			i.icon-doc
-			.qua 5
-		.attr.ml-5
+	.item.task
+		.attr.first
 			.status Задание
 			.status На исполнение
-
+			v-spacer
+			.status В работе
 		.txt
 			.titul
 				span Служебная 
 				span.hl записка 
 				span  о закупке канцелярии
 			.attr
-				.status Подготовка
 				.status Автор: Иванов И.К.
 				.status Изменено: 23.10.2020
+				.status
 			.finding 
 				span laksjdlakjs
 				span.hl laksjs
 				span alskj lakjs lakjs lkaj slgk
 
-			.file
-				img(src="@/assets/img/filetype/doc.svg" width="12")
-				.zg Служебная записка № 345 от 12.10.2020 о закупке канцелярии
+			.ic
+				i.icon-doc
+				.qua 5
 			.file
 				img(src="@/assets/img/filetype/doc.svg" width="12")
 				.zg Служебная записка № 345 от 12.10.2020 о закупке канцелярии
 			.more Еще
+
+	.item.doc
+		.attr.first
+			.status Документ
+			.status Заявка
+			v-spacer
+			.status На согласовании
+		.txt
+			.titul
+				span Служебная 
+				span.hl записка 
+				span  о закупке канцелярии
+			.attr
+				.status Автор: Иванов И.К.
+				.status Изменено: 23.10.2020
+				.status
+			.finding 
+				span laksjdlakjs
+				span.hl laksjs
+				span alskj lakjs lakjs lkaj slgk
+
+			.ic
+				i.icon-doc
+				.qua 5
+			.file
+				img(src="@/assets/img/filetype/doc.svg" width="12")
+				.zg Служебная записка № 345 от 12.10.2020 о закупке канцелярии
+			.more Еще
+
+	.item.file
+		.attr.first
+			.status Файл
+			.status Основной
+			.status
+		.txt
+			.fille
+				img(src="@/assets/img/filetype/doc.svg" height="64")
+				.zg
+					span Служебная 
+					span.hl записка 
+					span  о закупке канцелярии
+				.attr
+					.status Автор: Иванов И.К.
+					.status Изменено: 23.10.2020
+					v-spacer
+					.status 28kB
+				.finding 
+					span laksjdlakjs
+					span.hl laksjs
+					span alskj lakjs lakjs lkaj slgk
+		.card Родительская карточка:
+			a(href="").ml-5 Задание на ознакомление
 
 </template>
 
@@ -45,22 +95,33 @@ span.hl {
 	display: flex;
 	font-size: .8rem;
 	color: #999;
-	> div {
+	&.first {
+		margin-left: 17px;
+	}
+	> :first-child {
 		margin-right: 2rem;
+	}
+	> :last-child {
+		margin-right: .5rem;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		font-size: 0.7rem;
 	}
 	margin-bottom: .5rem;
 }
+.titul {
+	font-size: 1.2rem;
+}
+.titul .zg {
+	font-size: 1.0rem;
+	color: $link;
+}
 .txt {
-	margin: 0 1rem;
-	.finding {
-		margin-bottom: .5rem;
-	}
-	.titul {
-		font-size: 1.2rem;
-	}
+	margin-left: 1rem;
 	.file {
 		display: flex;
-		font-size: 0.9rem;
+		align-items: flex-start;
+		margin-top: 1.0rem;
 		img {
 			display: inline-block;
 			margin-right: .5rem;
@@ -68,9 +129,10 @@ span.hl {
 	}
 	.zg {
 		color: $link;
+		font-size: 0.9rem;
+		line-height: 110%;
 		&:hover {
 			text-decoration: underline;
-			
 		}
 	}
 }
@@ -81,20 +143,35 @@ span.hl {
 	margin-bottom: .5rem;
 	border: 1px solid #dedede;
 	border-radius: 3px;
-	border-left: 5px solid $taskcolor;
 	cursor: pointer;
 	padding: .5rem;
-	&:hover {
-		border: 1px solid $link;
+	&.task {
 		border-left: 5px solid $taskcolor;
-		
+		&:hover {
+			border: 1px solid $link;
+			border-left: 5px solid $taskcolor;
+		}
+	}
+	&.doc {
+		border-left: 5px solid $docolor;
+		&:hover {
+			border: 1px solid $link;
+			border-left: 5px solid $docolor;
+		}
+	}
+	&.file {
+		border-left: 5px solid $dark;
+		&:hover {
+			border: 1px solid $link;
+			border-left: 5px solid $dark;
+		}
 	}
 }
 
 .ic {
 	float: right;
 	position: relative;
-	/* margin-left: 1rem; */
+	margin-left: 1rem;
 	i {
 		font-size: 1.9rem;
 		color: $blue-grey;
@@ -120,5 +197,18 @@ span.hl {
 	&:hover {
 		text-decoration: underline;
 	}
+}
+.fille {
+	display: grid;
+	grid-template-columns: 60px auto;
+	img {
+		grid-column: 1/2;
+		grid-row: span 3
+	}
+}
+.card {
+	font-size: 0.9rem;
+	margin-top: 1rem;
+	margin-left: 17px;
 }
 </style>

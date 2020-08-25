@@ -6,7 +6,7 @@
 			v-breadcrumbs(:items="bread")
 			.alls
 				.res {{ query }}:
-				div найдено 345 результатов в 3 категориях &mdash;
+				div.find найдено 345 результатов в 3 категориях &mdash;
 				div
 					v-chip(color="docolor" dark)
 						v-avatar 234
@@ -34,7 +34,8 @@
 		div
 			Filters
 		div
-			listItem
+			listItem1(v-for="item in items" :item="item" :key="item.id")
+			//- listItem
 			//- p(v-for="n in 100") laskdj
 	//- .zag searchresults {{ $route.params.id }}
 
@@ -42,7 +43,8 @@
 
 <script>
 import Filters from '@/components/Filters'
-import listItem from '@/components/listItem'
+import listItem1 from '@/components/listItem1'
+import items from '@/store/data.js'
 
 export default {
 	data () {
@@ -53,6 +55,7 @@ export default {
 				{text: 'Мои папки', href: '/'},
 				{text: 'Заявки', href: '/'},
 			],
+			items,
 		}
 	},
 	computed: {
@@ -62,7 +65,7 @@ export default {
 	},
 	components: {
 		Filters,
-		listItem
+		listItem1
 	}
 }
 
@@ -126,6 +129,9 @@ export default {
 }
 .dow {
 	align-self: flex-end;
+}
+.find {
+	margin-top: .5rem;
 }
 
 </style>
