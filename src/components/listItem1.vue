@@ -1,25 +1,25 @@
 <template lang="pug">
 .item(:class="item.item.type" @click="ttt")
 	.attr.first
-		.status Задание
-		.status На исполнение
+		.status {{ item.item.typ }}
+		.status {{ item.item.vid }}
 		v-spacer
-		.status В работе
+		.status {{ item.item.status }}
 	.txt
-		TextHighlight(:queries="queries").titul {{ item.item.html }}
+		TextHighlight(:queries="queries").titul {{ item.item.title }}
 		.attr
-			TextHighlight(:queries="queries").status Автор: Иванов И.К.
-			TextHighlight(:queries="queries").status Изменено: 23.10.2020
+			TextHighlight(:queries="queries").status Автор: {{ item.item.author }}
+			TextHighlight(:queries="queries").status Изменено: {{ item.item.changed }}
 			.status
 		TextHighlight(:queries="queries") {{item.item.digest}}
 
-		.ic
+		.ic(v-if="item.item.file")
 			i.icon-doc
-			.qua 5
-		.files
+			.qua {{ item.item.num }}
+		.files(v-if="item.item.file")
 			img(src="@/assets/img/filetype/doc.svg" width="12")
-			TextHighlight(:queries="queries").zg Служебная записка № 345 от 12.10.2020 о закупке канцелярии
-		.more Еще
+			TextHighlight(:queries="queries").zg {{ item.item.file }}
+		.more(v-if="item.item.file") Еще
 
 </template>
 

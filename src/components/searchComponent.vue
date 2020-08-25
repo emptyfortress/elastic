@@ -65,12 +65,13 @@ export default {
 			options1: {
 				shouldSort: true,
 				includeMatches: true,
-				threshold: 0.4,
+				threshold: 0.1,
 				location: 0,
-				distance: 500,
+				distance: 1000,
+				tokenize: true,
 				maxPatternLength: 32,
 				minMatchCharLength: 1,
-				keys: ['html'],
+				keys: ['title', 'author', 'digest', 'file'],
 			}
 
 		}
@@ -148,10 +149,18 @@ export default {
 			let tot = '/results/' + this.query
 			if (e === null) {
 				this.$router.push(tot)
+				this.$search(this.query, this.items, this.options1)
+					.then(results => {
+						this.$store.commit('setSearchItemsResults', results)
+					})
 			} else {
 				this.query = this.searchResults[e].item.txt
 				let tut = '/results/' + this.query
 				this.$router.push(tut)
+				this.$search(this.query, this.items, this.options1)
+					.then(results => {
+						this.$store.commit('setSearchItemsResults', results)
+					})
 			}
 			setTimeout( function() {
 				that.$store.commit('setLoading', false)
