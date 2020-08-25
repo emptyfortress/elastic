@@ -10,13 +10,15 @@ export default new Vuex.Store({
 		searchMode: false,
 		loading: false,
 		searchItemsResults: [],
+		filterResults: [],
 	},
 	getters: {
 		drawer: state => { return state.drawer },
 		mini: state => { return state.mini },
 		searchMode: state => { return state.searchMode },
 		loading: state => { return state.loading },
-		searchItemsResults: state => { return state.searchItemsResults}
+		searchItemsResults: state => { return state.searchItemsResults },
+		filterResults: state => { return state.filterResults },
 	},
 	mutations: {
 		toggleDrawer (state) { state.drawer = !state.drawer },
@@ -25,6 +27,7 @@ export default new Vuex.Store({
 		setSearchMode (state, payload) { state.searchMode = payload },
 		setLoading (state, payload) { state.loading = payload },
 		setSearchItemsResults (state, payload) { state.searchItemsResults = payload },
+		setFilterResults (state, payload) { state.filterResults = payload },
 	},
 	actions: {
 	},

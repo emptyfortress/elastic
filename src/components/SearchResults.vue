@@ -6,15 +6,16 @@
 			v-breadcrumbs(:items="bread")
 			.alls
 				.res {{ query }}:
-				div.find найдено {{ total }} результатов в {{ category }} категориях &mdash;
+				.find(v-if="total") найдено {{ total }} результатов в {{ category }} категориях &mdash;
+				.find(v-else) Ничего не найдено. Измените условия поиска.
 				div
-					v-chip(color="docolor" dark)
+					v-chip(v-if="totaldoc" color="docolor" dark)
 						v-avatar {{ totaldoc }}
 						|Документы
-					v-chip(color="taskcolor" dark ) 
+					v-chip(v-if="totaltask" color="taskcolor" dark ) 
 						v-avatar {{ totaltask}}
 						|Задания
-					v-chip(color="dark" dark ) 
+					v-chip(v-if="totalfile" color="dark" dark ) 
 						v-avatar {{ totalfile }}
 						|Файлы
 				.dow
@@ -33,8 +34,13 @@
 			
 		div
 			Filters
-		div
-			listItem1(v-for="item in searchItemsResults" :item="item" :key="item.id" :zapros="query")
+		div(v-if="total")
+			listItem1(v-for="item in filterResults" :item="item" :key="item.id" :zapros="query")
+		div(v-else)
+			.nothing
+				img(src="@/assets/img/nothing.svg")
+				.big Ничего не найдено
+				.small Проверьте, нет ли опечаток. Попробуйте изменить запрос.
 
 </template>
 
@@ -62,6 +68,9 @@ export default {
 		searchItemsResults () {
 			return this.$store.getters.searchItemsResults
 		},
+		filterResults () {
+			return this.$store.getters.filterResults
+		},
 		total () {
 			return this.searchItemsResults.length
 		},
@@ -78,9 +87,11 @@ export default {
 			let temp = 0;
 			if (this.totaldoc) {
 				temp ++
-			} else if (this.totaltask) {
+			} 
+			if (this.totaltask) {
 				temp ++
-			} else if (this.totalfile) {
+			} 
+			if (this.totalfile) {
 				temp ++
 			}
 			return temp
@@ -157,6 +168,23 @@ export default {
 }
 .find {
 	margin-top: .5rem;
+}
+.nothing {
+	text-align: center;
+	img {
+		width: 200px;
+		display: block;
+		margin: 0 auto;
+	}
+	.big {
+		text-align: center;
+		font-size: 1.3rem;
+	}
+	.small {
+		font-size: 0.9rem;
+		margin-top: 1rem;
+	}
+	
 }
 
 </style>

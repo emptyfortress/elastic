@@ -1,0 +1,29 @@
+<svg width="371" height="273" viewBox="0 0 371 273" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M41 69H327.5L323.5 90H341.5L326 120.5L335 207H36L41 139.5L30 91H45.5L41 69Z" fill="#C8D3D7"/>
+<rect x="99" width="173" height="239" rx="6" fill="#849AA4"/>
+<rect x="109" y="28" width="154" height="200" fill="white"/>
+<circle cx="111" cy="14" r="5" fill="white"/>
+<circle cx="125" cy="14" r="5" fill="white"/>
+<circle cx="139" cy="14" r="5" fill="white"/>
+<circle cx="39.5" cy="123.5" r="14.5" fill="white" stroke="#849AA4" stroke-width="4"/>
+<circle cx="20.5" cy="223.5" r="7" fill="white" stroke="#849AA4" stroke-width="3"/>
+<circle cx="312.5" cy="227.5" r="7" fill="white" stroke="#849AA4" stroke-width="3"/>
+<circle cx="39" cy="259" r="4" fill="white" stroke="#849AA4" stroke-width="2"/>
+<circle cx="325.5" cy="123.5" r="14.5" fill="white" stroke="#849AA4" stroke-width="4"/>
+<rect x="32.7065" y="37.4386" width="5" height="19" rx="2.5" transform="rotate(-7.97246 32.7065 37.4386)" fill="#C8D3D7"/>
+<rect x="10.5959" y="48.9632" width="5" height="19" rx="2.5" transform="rotate(-45.8985 10.5959 48.9632)" fill="#C8D3D7"/>
+<rect x="0.450272" y="77.6907" width="5" height="19" rx="2.5" transform="rotate(-95.1668 0.450272 77.6907)" fill="#C8D3D7"/>
+<rect width="5" height="19" rx="2.5" transform="matrix(-0.990335 -0.138697 -0.138697 0.990335 337.587 37.6935)" fill="#C8D3D7"/>
+<rect width="5" height="19" rx="2.5" transform="matrix(-0.695931 -0.718109 -0.718109 0.695931 359.698 49.2181)" fill="#C8D3D7"/>
+<rect width="5" height="19" rx="2.5" transform="matrix(0.0900548 -0.995937 -0.995937 -0.0900548 369.843 77.9456)" fill="#C8D3D7"/>
+<line x1="59.8284" y1="234" x2="68" y2="242.172" stroke="#C8D3D7" stroke-width="4" stroke-linecap="round"/>
+<line x1="2" y1="-2" x2="13.5563" y2="-2" transform="matrix(-0.707107 0.707107 0.707107 0.707107 71 234)" stroke="#C8D3D7" stroke-width="4" stroke-linecap="round"/>
+<line x1="352.828" y1="219" x2="361" y2="227.172" stroke="#C8D3D7" stroke-width="4" stroke-linecap="round"/>
+<line x1="2" y1="-2" x2="13.5563" y2="-2" transform="matrix(-0.707107 0.707107 0.707107 0.707107 364 219)" stroke="#C8D3D7" stroke-width="4" stroke-linecap="round"/>
+<line x1="311.554" y1="254.688" x2="315.12" y2="261.974" stroke="#C8D3D7" stroke-width="3" stroke-linecap="round"/>
+<line x1="1.5" y1="-1.5" x2="9.61168" y2="-1.5" transform="matrix(-0.898175 0.439638 0.439638 0.898175 319.007 257.242)" stroke="#C8D3D7" stroke-width="3" stroke-linecap="round"/>
+<ellipse cx="186" cy="265" rx="84" ry="8" fill="#E1E7EA"/>
+<circle cx="158.5" cy="74.5" r="5.5" fill="#849AA4"/>
+<circle cx="211.5" cy="74.5" r="5.5" fill="#849AA4"/>
+<rect x="171" y="95" width="28" height="7" rx="3.5" fill="#849AA4"/>
+</svg>
