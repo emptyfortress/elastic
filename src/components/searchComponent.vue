@@ -144,6 +144,7 @@ export default {
 			}, 1000)
 		},
 		find () {
+			console.log(this.query)
 			let that = this
 			this.$store.commit('setLoading', true)
 			this.searchResultsVisible = false

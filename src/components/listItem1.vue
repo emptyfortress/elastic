@@ -6,12 +6,12 @@
 		v-spacer
 		.status В работе
 	.txt
-		.titul(v-html="item.html")
+		TextHighlight(:queries="queries").titul {{ item.html }}
 			//- span.hl записка 
 			//- span  о закупке канцелярии
 		.attr
-			.status Автор: Иванов И.К.
-			.status Изменено: 23.10.2020
+			TextHighlight(:queries="queries").status Автор: Иванов И.К.
+			TextHighlight(:queries="queries").status Изменено: 23.10.2020
 			.status
 		.finding 
 			span laksjdlakjs
@@ -29,13 +29,23 @@
 </template>
 
 <script>
+import TextHighlight from 'vue-text-highlight'
 
 export default {
-	props: ['item', ],
+	props: ['item', 'zapros' ],
 	data () {
 		return {
-			
 		}
+	},
+	computed: {
+		queries () {
+			let ar = []
+			ar.push(this.zapros)
+			return ar
+		}
+	},
+	components: {
+		TextHighlight,
 	}
 }
 

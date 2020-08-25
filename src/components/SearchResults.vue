@@ -34,7 +34,7 @@
 		div
 			Filters
 		div
-			listItem1(v-for="item in items" :item="item" :key="item.id")
+			listItem1(v-for="item in items" :item="item" :key="item.id" :zapros="query")
 			//- listItem
 			//- p(v-for="n in 100") laskdj
 	//- .zag searchresults {{ $route.params.id }}
@@ -49,7 +49,6 @@ import items from '@/store/data.js'
 export default {
 	data () {
 		return {
-			query: this.$route.params.id,
 			bread: [
 				{text: 'Docsvison', href: '/'},
 				{text: 'Мои папки', href: '/'},
@@ -59,6 +58,9 @@ export default {
 		}
 	},
 	computed: {
+		query () {
+			return this.$route.params.id
+		},
 		loading () {
 			return this.$store.getters.loading
 		}
