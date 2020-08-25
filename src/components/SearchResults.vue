@@ -6,16 +6,16 @@
 			v-breadcrumbs(:items="bread")
 			.alls
 				.res {{ query }}:
-				div.find найдено 345 результатов в 3 категориях &mdash;
+				div.find найдено {{ total }} результатов в {{ category }} категориях &mdash;
 				div
 					v-chip(color="docolor" dark)
-						v-avatar 234
+						v-avatar {{ totaldoc }}
 						|Документы
 					v-chip(color="taskcolor" dark ) 
-						v-avatar 37
+						v-avatar {{ totaltask}}
 						|Задания
 					v-chip(color="dark" dark ) 
-						v-avatar 9
+						v-avatar {{ totalfile }}
 						|Файлы
 				.dow
 					v-btn(depressed color="blue-grey" dark small) Искать всюду
@@ -23,9 +23,9 @@
 			.d-flex
 				v-checkbox(label="Сначала результаты со мной" dense).my
 				span Сортировать по:
+				.nk релевантность
 				.nk дата
 				.nk тип
-				.nk алфавит
 				.nk состояние
 			div
 				v-icon mdi-format-list-bulleted
@@ -61,6 +61,29 @@ export default {
 		},
 		searchItemsResults () {
 			return this.$store.getters.searchItemsResults
+		},
+		total () {
+			return this.searchItemsResults.length
+		},
+		totaldoc () {
+			return this.searchItemsResults.filter( item => item.item.type === 'doc').length
+		},
+		totaltask () {
+			return this.searchItemsResults.filter( item => item.item.type === 'task').length
+		},
+		totalfile () {
+			return this.searchItemsResults.filter( item => item.item.type === 'file').length
+		},
+		category () {
+			let temp = 0;
+			if (this.totaldoc) {
+				temp ++
+			} else if (this.totaltask) {
+				temp ++
+			} else if (this.totalfile) {
+				temp ++
+			}
+			return temp
 		}
 	},
 	components: {
