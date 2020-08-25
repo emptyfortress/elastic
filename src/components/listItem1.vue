@@ -1,5 +1,5 @@
 <template lang="pug">
-.item(:class="item.type")
+.item(:class="item.type" @click="ttt")
 	.attr.first
 		.status Задание
 		.status На исполнение
@@ -39,13 +39,16 @@ export default {
 	},
 	computed: {
 		queries () {
-			let ar = []
-			ar.push(this.zapros)
-			return ar
+			return this.zapros.split(' ')
 		}
 	},
 	components: {
 		TextHighlight,
+	},
+	methods: {
+		ttt () {
+			console.log(this.queries)
+		}
 	}
 }
 
