@@ -1,17 +1,17 @@
 <template lang="pug">
-.item(:class="item.type" @click="ttt")
+.item(:class="item.item.type" @click="ttt")
 	.attr.first
 		.status Задание
 		.status На исполнение
 		v-spacer
 		.status В работе
 	.txt
-		TextHighlight(:queries="queries").titul {{ item.html }}
+		TextHighlight(:queries="queries").titul {{ item.item.html }}
 		.attr
 			TextHighlight(:queries="queries").status Автор: Иванов И.К.
 			TextHighlight(:queries="queries").status Изменено: 23.10.2020
 			.status
-		TextHighlight(:queries="queries") {{item.digest}}
+		TextHighlight(:queries="queries") {{item.item.digest}}
 
 		.ic
 			i.icon-doc

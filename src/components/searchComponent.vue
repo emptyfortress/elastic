@@ -37,6 +37,7 @@ v-scale-transition(origin="center right" mode="out-in")
 <script>
 import searchFocus from '@/components/searchFocus'
 import axios from 'axios'
+import items from '@/store/data.js'
 
 export default {
 	props: ['active'],
@@ -48,6 +49,7 @@ export default {
 			query: '',
 			searchResultsVisible: false,
 			posts: [],
+			items,
 			searchResults: [],
 			highlightedIndex: null,
 			options: {
@@ -59,7 +61,18 @@ export default {
 				maxPatternLength: 32,
 				minMatchCharLength: 1,
 				keys: ['txt'],
+			},
+			options1: {
+				shouldSort: true,
+				includeMatches: true,
+				threshold: 0.4,
+				location: 0,
+				distance: 500,
+				maxPatternLength: 32,
+				minMatchCharLength: 1,
+				keys: ['html'],
 			}
+
 		}
 	},
 	created () {
@@ -74,6 +87,7 @@ export default {
 	},
 	computed: {
 		searchMode() { return this.$store.getters.searchMode },
+		searchItemsResults() { return this.$store.getters.searchItemsResults}
 	},
 	methods: {
 		reset () {
@@ -150,10 +164,15 @@ export default {
 			this.searchResultsVisible = false
 			this.$store.commit('setMini', true)
 			if (this.query === this.$route.params.id) {
+				this.$store.commit('setLoading', false)
 				return
 			} else {
 				let tot = '/results/' + this.query
 				this.$router.push(tot)
+				this.$search(this.query, this.items, this.options1)
+					.then(results => {
+						this.$store.commit('setSearchItemsResults', results)
+					})
 			}
 			setTimeout( function() {
 				that.$store.commit('setLoading', false)

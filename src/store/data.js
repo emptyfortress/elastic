@@ -9,7 +9,7 @@ const items = [
 	{
 		id: 1,
 		type: 'task',
-		html: 'это по русски заголовок test',
+		html: 'fuck test',
 		digest: 'this is digest of the task or doc',
 		name: 'laksdj'
 	},

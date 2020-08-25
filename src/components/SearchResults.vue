@@ -34,17 +34,13 @@
 		div
 			Filters
 		div
-			listItem1(v-for="item in items" :item="item" :key="item.id" :zapros="query")
-			//- listItem
-			//- p(v-for="n in 100") laskdj
-	//- .zag searchresults {{ $route.params.id }}
+			listItem1(v-for="item in searchItemsResults" :item="item" :key="item.id" :zapros="query")
 
 </template>
 
 <script>
 import Filters from '@/components/Filters'
 import listItem1 from '@/components/listItem1'
-import items from '@/store/data.js'
 
 export default {
 	data () {
@@ -54,7 +50,6 @@ export default {
 				{text: 'Мои папки', href: '/'},
 				{text: 'Заявки', href: '/'},
 			],
-			items,
 		}
 	},
 	computed: {
@@ -63,11 +58,16 @@ export default {
 		},
 		loading () {
 			return this.$store.getters.loading
+		},
+		searchItemsResults () {
+			return this.$store.getters.searchItemsResults
 		}
 	},
 	components: {
 		Filters,
 		listItem1
+	},
+	methods: {
 	}
 }
 
