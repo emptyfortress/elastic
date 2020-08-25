@@ -7,23 +7,18 @@
 		.status В работе
 	.txt
 		TextHighlight(:queries="queries").titul {{ item.html }}
-			//- span.hl записка 
-			//- span  о закупке канцелярии
 		.attr
 			TextHighlight(:queries="queries").status Автор: Иванов И.К.
 			TextHighlight(:queries="queries").status Изменено: 23.10.2020
 			.status
-		.finding 
-			span laksjdlakjs
-			span.hl laksjs
-			span alskj lakjs lakjs lkaj slgk
+		TextHighlight(:queries="queries") {{item.digest}}
 
 		.ic
 			i.icon-doc
 			.qua 5
-		.file
+		.files
 			img(src="@/assets/img/filetype/doc.svg" width="12")
-			.zg Служебная записка № 345 от 12.10.2020 о закупке канцелярии
+			TextHighlight(:queries="queries").zg Служебная записка № 345 от 12.10.2020 о закупке канцелярии
 		.more Еще
 
 </template>
@@ -108,7 +103,7 @@ export default {
 }
 .txt {
 	margin-left: 1rem;
-	.file {
+	.files {
 		display: flex;
 		align-items: flex-start;
 		margin-top: 1.0rem;
@@ -142,8 +137,9 @@ export default {
 	float: right;
 	position: relative;
 	margin-left: 1rem;
+	margin-top: 2.3rem;
 	i {
-		font-size: 1.9rem;
+		font-size: 1.5rem;
 		color: $blue-grey;
 	}
 	.qua {
