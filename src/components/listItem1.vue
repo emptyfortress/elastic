@@ -5,13 +5,13 @@
 		.status {{ item.item.vid }}
 		v-spacer
 		.status {{ item.item.status }}
-	.txt
+	.txt(v-if="item.item.type !== 'file'")
 		TextHighlight(:queries="queries").titul {{ item.item.title }}
 		.attr
 			TextHighlight(:queries="queries").status Автор: {{ item.item.author }}
 			TextHighlight(:queries="queries").status Изменено: {{ item.item.changed }}
 			.status
-		TextHighlight(:queries="queries") {{item.item.digest}}
+		TextHighlight(:queries="queries") {{ item.item.digest }}
 
 		.ic(v-if="item.item.file")
 			i.icon-doc
@@ -19,7 +19,19 @@
 		.files(v-if="item.item.file")
 			img(src="@/assets/img/filetype/doc.svg" width="12")
 			TextHighlight(:queries="queries").zg {{ item.item.file }}
-		.more(v-if="item.item.file") Еще
+		.more(v-if="item.item.file") Еще...
+	.txt(v-else)
+		.fille
+			img(src="@/assets/img/filetype/doc.svg" height="64")
+			TextHighlight(:queries="queries").zg {{ item.item.file }}
+			.attr
+				TextHighlight(:queries="queries").status Автор: {{ item.item.author }}
+				TextHighlight(:queries="queries").status Изменено: {{ item.item.changed }}
+				v-spacer
+				.status 28kB
+			TextHighlight(:queries="queries").finding {{ item.item.digest }}
+	.card(v-if="item.item.type === 'file'") Родительская карточка:
+		TextHighlight(:queries="queries").ml-5.mylink {{ item.item.title }}
 
 </template>
 
@@ -159,14 +171,13 @@ export default {
 .more {
 	font-size: 0.8rem;
 	color: $link;
-	margin-left: 1.5rem;
 	&:hover {
 		text-decoration: underline;
 	}
 }
 .fille {
 	display: grid;
-	grid-template-columns: 60px auto;
+	grid-template-columns: 70px auto;
 	img {
 		grid-column: 1/2;
 		grid-row: span 3
@@ -176,5 +187,11 @@ export default {
 	font-size: 0.9rem;
 	margin-top: 1rem;
 	margin-left: 17px;
+}
+.mylink {
+	color: $link;
+	&:hover {
+		text-decoration: underline;
+	}
 }
 </style>
