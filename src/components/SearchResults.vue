@@ -32,14 +32,23 @@
 				.nk тип
 				.nk состояние
 			div
-				v-icon mdi-format-list-bulleted
-				v-icon mdi-view-grid
+				v-btn(icon @click="grid = false")
+					v-icon mdi-format-list-bulleted-square
+				v-btn(icon @click="grid = true")
+					v-icon mdi-view-grid
 			
 		div
 			Filters
-		div(v-if="total")
+		div(v-if="total && !grid")
 			listItem1(v-for="item in filterResults" :item="item" :key="item.id" :zapros="query")
-		div(v-else)
+		div(v-if="total && grid").boxcont
+			.box(v-for="item in filterResults")
+				.preview
+					div
+						i.icon-hourglass
+						p превью
+ 
+		div(v-if="!total")
 			.nothing
 				img(src="@/assets/img/nothing.svg")
 				.big Ничего не найдено
@@ -54,6 +63,7 @@ import listItem1 from '@/components/listItem1'
 export default {
 	data () {
 		return {
+			grid: false,
 			bread: [
 				{text: 'Docsvison', href: '/'},
 				{text: 'Мои папки', href: '/'},
@@ -194,7 +204,37 @@ export default {
 		font-size: 0.9rem;
 		margin-top: 1rem;
 	}
-	
+}
+.boxcont {
+	display: flex;
+	gap: 1rem;
+	flex-wrap: wrap;
+}
+.box {
+	/* background: #cecece; */
+	flex-basis: 203px;
+	flex-grow: 1;
+	flex-shrink: 1;
+	.preview {
+		width: 200px;
+		height: 260px;
+		background: #fff;
+		margin: auto;
+		border-radius: 4px;
+		border: 1px solid #dedede;
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		color: #ccc;
+		align-items: center;
+		text-align: center;
+		i {
+			font-size: 1.3rem;
+		}
+		&:hover {
+			border-color: $link;
+		}
+	}
 }
 
 </style>
