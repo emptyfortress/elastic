@@ -196,7 +196,7 @@ const items = [
 		id: 15,
 		type: 'doc',
 		typ: 'Документ',
-		vid: 'Квартальная цель',
+		vid: 'Служебная записка',
 		status: 'На подписании',
 		title: 'Цели на 4 кв',
 		author: 'Орлов П.А.',
@@ -311,7 +311,7 @@ const items = [
 	},
 	{
 		id: 25,
-		type: 'doc',
+		type: 'task',
 		typ: 'Задание',
 		vid: 'На согласование',
 		status: 'Завершено',
@@ -319,6 +319,8 @@ const items = [
 		author: 'Петров П.А.',
 		changed: '19.10.2020',
 		digest: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+		file: 'Список договоров',
+		num: 1,
 	},
 ]
 
