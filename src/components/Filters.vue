@@ -4,10 +4,14 @@
 		.z Фильтры
 		.lin Сбросить все
 	section
-		.section(v-for="item in typecard") {{ item.section }}
-			.item(v-for="prop in item.child" v-if="badge(item.id, prop.id)")
+		.section Тип карточки
+			.item(v-for="prop in child" v-if="badge(prop.id)")
 				v-checkbox(dense :label="prop.name" :value="prop.id" v-model="checked").my
-				.badge {{ badge(item.id, prop.id) }}
+				.badge {{ badge(prop.id) }}
+		.section(v-if="showSecond") Вид документа
+			.item(v-for="prop in child1" v-if="badge(prop.id)")
+				v-checkbox(dense :label="prop.name" :value="prop.id" v-model="checked").my
+				.badge {{ badge(prop.id) }}
 
 </template>
 
@@ -16,33 +20,20 @@
 export default {
 	data () {
 		return {
-			docC: false,
-			taskC: false,
-			fileC: false,
 			filter: [],
 			checked: [],
-			typecard: [
-				{
-					id: 0,
-					section: 'Тип карточки',
-					child: [
-						{ id: 1, name: 'Документ' },
-						{ id: 2, name: 'Задание' },
-						{ id: 3, name: 'Группа заданий' },
-						{ id: 4, name: 'Файл' },
-					]
-				},
-				{
-					id: 1,
-					section: 'Вид документа',
-					child: [
-						{ id: 5, name: 'Приказ' },
-						{ id: 6, name: 'Договор' },
-						{ id: 7, name: 'Служебная записка' },
-						{ id: 8, name: 'Заявление' },
-					]
-				},
-			]
+			child: [
+				{ id: 1, name: 'Документ' },
+				{ id: 2, name: 'Задание' },
+				{ id: 3, name: 'Группа заданий' },
+				{ id: 4, name: 'Файл' },
+			],
+			child1: [
+				{ id: 5, name: 'Приказ' },
+				{ id: 6, name: 'Договор' },
+				{ id: 7, name: 'Служебная записка' },
+				{ id: 8, name: 'Заявление' },
+			],
 		}
 	},
 	created () {
@@ -53,9 +44,14 @@ export default {
 		searchItemsResults () {
 			return this.$store.getters.searchItemsResults
 		},
+		showSecond () {
+			if (this.badge(5) + this.badge(6) + this.badge(7) + this.badge(8)) {
+				return true
+			} else return false
+		}
 	},
 	methods: {
-		badge(a, e) {
+		badge(e) {
 			switch (e) {
 			case 1:
 				return this.searchItemsResults.filter( item => item.item.type === 'doc').length
