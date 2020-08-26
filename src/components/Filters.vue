@@ -6,12 +6,13 @@
 	section
 		.section Тип карточки
 			.item(v-for="prop in child" v-if="badge(prop.id)")
-				v-checkbox(dense :label="prop.name" :value="prop.id" v-model="checked").my
+				v-checkbox(dense :label="prop.name" :value="prop.id" v-model="checked1").my
 				.badge {{ badge(prop.id) }}
 		.section(v-if="showSecond") Вид документа
 			.item(v-for="prop in child1" v-if="badge(prop.id)")
-				v-checkbox(dense :label="prop.name" :value="prop.id" v-model="checked").my
+				v-checkbox(dense :label="prop.name" :value="prop.id" v-model="checked1").my
 				.badge {{ badge(prop.id) }}
+		.section Дата регистрации
 
 </template>
 
@@ -21,7 +22,7 @@ export default {
 	data () {
 		return {
 			filter: [],
-			checked: [],
+			checked1: [],
 			child: [
 				{ id: 1, name: 'Документ' },
 				{ id: 2, name: 'Задание' },
@@ -41,6 +42,9 @@ export default {
 		this.$store.commit('setFilterResults', this.filter)
 	},
 	computed: {
+		checked () {
+			return this.$store.getters.checked
+		},
 		searchItemsResults () {
 			return this.$store.getters.searchItemsResults
 		},
@@ -74,56 +78,59 @@ export default {
 	},
 	watch: {
 		checked: function() {
-			if (this.checked.length) {
-				if (this.checked.includes(1) && this.checked.includes(2)) {
+			this.checked1 = this.checked
+		},
+		checked1: function() {
+			if (this.checked1.length) {
+				if (this.checked1.includes(1) && this.checked1.includes(2)) {
 					let temp = this.searchItemsResults.filter( item => {
 						return (item.item.type === 'doc' || item.item.type === 'task')
 					})
 					this.$store.commit('setFilterResults', temp)
 				} 
-				else if (this.checked.includes(1)) {
+				else if (this.checked1.includes(1)) {
 					let temp = this.searchItemsResults.filter( item => {
 						return (item.item.type === 'doc')
 					})
 					this.$store.commit('setFilterResults', temp)
 				}
-				else if (this.checked.includes(2)) {
+				else if (this.checked1.includes(2)) {
 					let temp = this.searchItemsResults.filter( item => {
 						return (item.item.type === 'task')
 					})
 					this.$store.commit('setFilterResults', temp)
 				}
-				else if (this.checked.includes(3)) {
+				else if (this.checked1.includes(3)) {
 					let temp = this.searchItemsResults.filter( item => {
 						return (item.item.typ === 'Группа заданий')
 					})
 					this.$store.commit('setFilterResults', temp)
 				}
-				else if (this.checked.includes(4)) {
+				else if (this.checked1.includes(4)) {
 					let temp = this.searchItemsResults.filter( item => {
 						return (item.item.type === 'file')
 					})
 					this.$store.commit('setFilterResults', temp)
 				}
-				else if (this.checked.includes(5)) {
+				else if (this.checked5.includes(5)) {
 					let temp = this.searchItemsResults.filter( item => {
 						return (item.item.vid === 'Приказ')
 					})
 					this.$store.commit('setFilterResults', temp)
 				}
-				else if (this.checked.includes(6)) {
+				else if (this.checked6.includes(6)) {
 					let temp = this.searchItemsResults.filter( item => {
 						return (item.item.vid === 'Договор')
 					})
 					this.$store.commit('setFilterResults', temp)
 				}
-				else if (this.checked.includes(7)) {
+				else if (this.checked7.includes(7)) {
 					let temp = this.searchItemsResults.filter( item => {
 						return (item.item.vid === 'Служебная записка')
 					})
 					this.$store.commit('setFilterResults', temp)
 				}
-				else if (this.checked.includes(8)) {
+				else if (this.checked8.includes(8)) {
 					let temp = this.searchItemsResults.filter( item => {
 						return (item.item.vid === 'Заявление')
 					})

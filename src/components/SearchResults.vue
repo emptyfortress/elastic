@@ -9,16 +9,16 @@
 				.find(v-if="total") найдено {{ total }} результатов в {{ category }} категориях &mdash;
 				.find(v-else) Ничего не найдено. Измените условия поиска.
 				div
-					v-chip(v-if="totaldoc" color="docolor" dark)
+					v-chip(v-if="totaldoc" color="docolor" dark @click="setCheck(1)")
 						v-avatar {{ totaldoc }}
 						|Документы
-					v-chip(v-if="totaltask" color="taskcolor" dark ) 
+					v-chip(v-if="totaltask" color="taskcolor" dark @click="setCheck(2)") 
 						v-avatar {{ totaltask}}
 						|Задания
-					v-chip(v-if="totaltask1" color="taskcolor" dark ) 
+					v-chip(v-if="totaltask1" color="taskcolor" dark @click="setCheck(3)") 
 						v-avatar {{ totaltask1}}
 						|ГЗ
-					v-chip(v-if="totalfile" color="dark" dark ) 
+					v-chip(v-if="totalfile" color="dark" dark @click="setCheck(4)") 
 						v-avatar {{ totalfile }}
 						|Файлы
 				.dow
@@ -125,6 +125,10 @@ export default {
 		Preview,
 	},
 	methods: {
+		setCheck (e) {
+			let doc = [e]
+			this.$store.commit('setChecked', doc)
+		}
 		// searchAll () {
 		// 	this.$store.commit('setFilterResults', this.items)
 		// }

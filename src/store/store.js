@@ -11,6 +11,7 @@ export default new Vuex.Store({
 		loading: false,
 		searchItemsResults: [],
 		filterResults: [],
+		checked: [],
 	},
 	getters: {
 		drawer: state => { return state.drawer },
@@ -19,6 +20,7 @@ export default new Vuex.Store({
 		loading: state => { return state.loading },
 		searchItemsResults: state => { return state.searchItemsResults },
 		filterResults: state => { return state.filterResults },
+		checked: state => { return state.checked },
 	},
 	mutations: {
 		toggleDrawer (state) { state.drawer = !state.drawer },
@@ -28,6 +30,7 @@ export default new Vuex.Store({
 		setLoading (state, payload) { state.loading = payload },
 		setSearchItemsResults (state, payload) { state.searchItemsResults = payload },
 		setFilterResults (state, payload) { state.filterResults = payload },
+		setChecked (state, payload) { state.checked = payload },
 	},
 	actions: {
 	},
