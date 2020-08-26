@@ -1,12 +1,12 @@
 <template lang="pug">
 .all
-	v-skeleton-loader(v-if="loading" type="card-avatar, article, actions")
+	Loader(v-if="loading")
 	.searchgrid(v-else)
 		.zero
 			v-breadcrumbs(:items="bread")
 			.alls
 				.res {{ query }}:
-				.find(v-if="total") найдено {{ total }} результатов в {{ category }} категориях &mdash;
+				.find(v-if="total") найдено <span>{{ total }}</span> результатов в {{ category }} категориях &mdash;
 				.find(v-else) Ничего не найдено. Измените условия поиска.
 				div
 					v-chip(v-if="totaldoc" color="docolor" dark @click="setCheck(1)")
@@ -60,6 +60,7 @@
 import Filters from '@/components/Filters'
 import listItem1 from '@/components/listItem1'
 import Preview from '@/components/Preview'
+import Loader from '@/components/Loader'
 // import items from '@/store/data.js'
 
 export default {
@@ -123,6 +124,7 @@ export default {
 		Filters,
 		listItem1,
 		Preview,
+		Loader,
 	},
 	methods: {
 		setCheck (e) {
@@ -199,6 +201,10 @@ export default {
 }
 .find {
 	margin-top: .5rem;
+	span {
+		font-size: 1.6rem;
+		line-height: 1rem;
+	}
 }
 .nothing {
 	text-align: center;

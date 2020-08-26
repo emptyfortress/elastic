@@ -7,15 +7,15 @@
 	section
 		.section Тип карточки
 			.item(v-for="prop in child" v-if="badge(prop.id)")
-				v-checkbox(dense :label="prop.name" :value="prop.id" v-model="checked1").my
+				v-checkbox(color="purple" dense :label="prop.name" :value="prop.id" v-model="checked1").my
 				.badge {{ badge(prop.id) }}
 		.section(v-if="showSecond") Вид документа
 			.item(v-for="prop in child1" v-if="badge(prop.id)")
-				v-checkbox(dense :label="prop.name" :value="prop.id" v-model="checked1").my
+				v-checkbox(color="purple" dense :label="prop.name" :value="prop.id" v-model="checked1").my
 				.badge {{ badge(prop.id) }}
 		.section(v-if="showSecond1") Вид задания
 			.item(v-for="prop in child2" v-if="badge(prop.id)")
-				v-checkbox(dense :label="prop.name" :value="prop.id" v-model="checked1").my
+				v-checkbox(color="purple" dense :label="prop.name" :value="prop.id" v-model="checked1").my
 				.badge {{ badge(prop.id) }}
 		.section.mt-5 Дата регистрации (диапазон)
 			v-menu( v-model="menu2" :nudge-right="40" ref="menu" :close-on-content-click="false" transition="scale-transition" offset-y min-width="290px" )
@@ -26,13 +26,13 @@
 					v-btn(text color="primary" @click="menu2 = false") Cancel
 					v-btn(text color="primary" @click="$refs.menu.save(dates)") OK
 			.item
-				v-checkbox(dense value="9" label="Текущая неделя" v-model="checked1").my
+				v-checkbox(color="purple" dense value="9" label="Текущая неделя" v-model="checked1").my
 				.badge 3
 			.item
-				v-checkbox(dense value="10" label="Текущий месяц" v-model="checked1").my
+				v-checkbox(color="purple" dense value="10" label="Текущий месяц" v-model="checked1").my
 				.badge 8
 			.item
-				v-checkbox(dense value="11" label="Текущий квартал" v-model="checked1").my
+				v-checkbox(color="purple" dense value="11" label="Текущий квартал" v-model="checked1").my
 				.badge 34
 
 </template>
