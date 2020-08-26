@@ -15,6 +15,9 @@
 					v-chip(v-if="totaltask" color="taskcolor" dark ) 
 						v-avatar {{ totaltask}}
 						|Задания
+					v-chip(v-if="totaltask1" color="taskcolor" dark ) 
+						v-avatar {{ totaltask1}}
+						|ГЗ
 					v-chip(v-if="totalfile" color="dark" dark ) 
 						v-avatar {{ totalfile }}
 						|Файлы
@@ -80,6 +83,9 @@ export default {
 		totaltask () {
 			return this.searchItemsResults.filter( item => item.item.type === 'task').length
 		},
+		totaltask1 () {
+			return this.searchItemsResults.filter( item => item.item.typ === 'Группа заданий').length
+		},
 		totalfile () {
 			return this.searchItemsResults.filter( item => item.item.type === 'file').length
 		},
@@ -89,6 +95,9 @@ export default {
 				temp ++
 			} 
 			if (this.totaltask) {
+				temp ++
+			} 
+			if (this.totaltask1) {
 				temp ++
 			} 
 			if (this.totalfile) {
@@ -158,6 +167,7 @@ export default {
 		cursor: pointer;
 		margin-right: .25rem;
 		margin-bottom: .25rem;
+		padding-left: 4px;
 		.v-avatar {
 			margin-right: .5rem;
 		}

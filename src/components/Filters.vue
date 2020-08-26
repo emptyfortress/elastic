@@ -4,21 +4,10 @@
 		.z Фильтры
 		.lin Сбросить все
 	section
-		.section Тип карточки
-		.item
-			v-checkbox(dense label="Документ" v-model="docC").my
-			.badge {{ doc }}
-		.item
-			v-checkbox(dense label="Задание" v-model="taskC").my
-			.badge {{ task }}
-		.item
-			v-checkbox(dense label="Группа заданий" v-model="fileC").my
-			.badge {{ file }}
-	section
-		.section Вид документа
-		.item
-			v-checkbox(dense label="Документ").my
-			.badge {{ doc }}
+		.section(v-for="item in typecard") {{ item.section }}
+			.item(v-for="prop in item.child")
+				v-checkbox(dense :label="prop.name" :value="prop.id" v-model="checkedtype").my
+				.badge {{ badge(prop.id) }}
 
 </template>
 
@@ -31,6 +20,26 @@ export default {
 			taskC: false,
 			fileC: false,
 			filter: [],
+			checkedtype: [],
+			typecard: [
+				{
+					section: 'Тип документа',
+					child: [
+						{ id: 1, name: 'Документ' },
+						{ id: 2, name: 'Задание' },
+						{ id: 3, name: 'Группа заданий' },
+						{ id: 4, name: 'Файл' },
+					]
+				},
+				{
+					section: 'Вид карточки',
+					child: [
+						{ id: 4, name: 'Документ' },
+						{ id: 6, name: 'Задание' },
+						{ id: 7, name: 'Файл' },
+					]
+				},
+			]
 		}
 	},
 	created () {
@@ -41,15 +50,18 @@ export default {
 		searchItemsResults () {
 			return this.$store.getters.searchItemsResults
 		},
-		doc () {
-			return this.searchItemsResults.filter( item => item.item.type === 'doc').length
-		},
-		task () {
-			return this.searchItemsResults.filter( item => item.item.type === 'task').length
-		},
-		file () {
-			return this.searchItemsResults.filter( item => item.item.type === 'file').length
-		},
+	},
+	methods: {
+		badge(e) {
+			switch (e) {
+			case 1:
+				return this.searchItemsResults.filter( item => item.item.type === 'doc').length
+			case 2:
+				return this.searchItemsResults.filter( item => item.item.type === 'task').length
+			case 3:
+				return this.searchItemsResults.filter( item => item.item.type === 'file').length
+			}
+		}
 	},
 	watch: {
 		docC: function() {
