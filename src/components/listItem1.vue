@@ -1,5 +1,5 @@
 <template lang="pug">
-.item(:class="item.item.type" @click="ttt")
+.item(:class="item.item.type")
 	.attr.first
 		.status {{ item.item.typ }}
 		.status {{ item.item.vid }}
@@ -16,7 +16,7 @@
 		.ic(v-if="item.item.file")
 			i.icon-doc
 			.qua {{ item.item.num }}
-		.files(v-if="item.item.file")
+		.files(v-if="item.item.file" @click="$emit('preview')")
 			img(src="@/assets/img/filetype/doc.svg" width="12")
 			TextHighlight(:queries="queries").zg {{ item.item.file }}
 		.more(v-if="item.item.file") Еще...
@@ -53,9 +53,9 @@ export default {
 		TextHighlight,
 	},
 	methods: {
-		ttt () {
-			console.log(this.queries)
-		}
+		// ttt () {
+		// 	console.log(this.queries)
+		// }
 	}
 }
 

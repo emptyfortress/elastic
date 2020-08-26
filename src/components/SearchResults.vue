@@ -40,7 +40,7 @@
 		div
 			Filters
 		div(v-if="total && !grid")
-			listItem1(v-for="item in filterResults" :item="item" :key="item.id" :zapros="query")
+			listItem1(v-for="item in filterResults" :item="item" :key="item.id" :zapros="query" @preview="preview = true")
 		div(v-if="total && grid").boxcont
 			.box(v-for="item in filterResults")
 				.preview
@@ -53,17 +53,20 @@
 				img(src="@/assets/img/nothing.svg")
 				.big Ничего не найдено
 				.small Проверьте, нет ли опечаток. Попробуйте изменить запрос.
-
+	Preview(:preview="preview" @preview="preview = false")
 </template>
 
 <script>
 import Filters from '@/components/Filters'
 import listItem1 from '@/components/listItem1'
+import Preview from '@/components/Preview'
+// import items from '@/store/data.js'
 
 export default {
 	data () {
 		return {
 			grid: false,
+			preview: false,
 			bread: [
 				{text: 'Docsvison', href: '/'},
 				{text: 'Мои папки', href: '/'},
@@ -118,9 +121,13 @@ export default {
 	},
 	components: {
 		Filters,
-		listItem1
+		listItem1,
+		Preview,
 	},
 	methods: {
+		// searchAll () {
+		// 	this.$store.commit('setFilterResults', this.items)
+		// }
 	}
 }
 
