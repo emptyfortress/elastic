@@ -1,6 +1,5 @@
 <template lang="pug">
 .filters
-	//- p {{ checked1 }}
 	.zg
 		.z Фильтры
 		.lin(@click="reset") Сбросить все
@@ -21,7 +20,7 @@
 			v-menu( v-model="menu2" :nudge-right="40" ref="menu" :close-on-content-click="false" transition="scale-transition" offset-y min-width="290px" )
 				template( v-slot:activator="{ on, attrs }" )
 					v-text-field( v-model="dateRangeText" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" clearable).sm
-				v-date-picker( v-model="dates" show-current range )
+				v-date-picker(v-model="dates" color="purple" show-current range )
 					v-spacer
 					v-btn(text color="primary" @click="menu2 = false") Cancel
 					v-btn(text color="primary" @click="$refs.menu.save(dates)") OK

@@ -38,7 +38,7 @@
 					v-icon mdi-view-grid
 			
 		div
-			Filters
+			Filters(v-if="searchItemsResults.length")
 		div(v-if="total && !grid")
 			listItem1(v-for="item in filterResults" :item="item" :key="item.id" :zapros="query" @preview="preview = true")
 		div(v-if="total && grid").boxcont
@@ -207,19 +207,15 @@ export default {
 	}
 }
 .nothing {
-	text-align: center;
+	padding-left: 100px;
 	img {
 		width: 200px;
-		display: block;
-		margin: 0 auto;
 	}
 	.big {
-		text-align: center;
 		font-size: 1.3rem;
 	}
 	.small {
 		font-size: 0.9rem;
-		margin-top: 1rem;
 	}
 }
 .boxcont {
