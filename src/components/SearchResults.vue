@@ -43,10 +43,7 @@
 			listItem1(v-for="item in filterResults" :item="item" :key="item.id" :zapros="query" @preview="preview = true")
 		div(v-if="total && grid").boxcont
 			.box(v-for="item in filterResults")
-				.preview
-					div
-						i.icon-hourglass
-						p превью
+				CardInfo(:item="item")
  
 		div(v-if="!total")
 			.nothing
@@ -61,6 +58,7 @@ import Filters from '@/components/Filters'
 import listItem1 from '@/components/listItem1'
 import Preview from '@/components/Preview'
 import Loader from '@/components/Loader'
+import CardInfo from '@/components/CardInfo'
 // import items from '@/store/data.js'
 
 export default {
@@ -125,6 +123,7 @@ export default {
 		listItem1,
 		Preview,
 		Loader,
+		CardInfo,
 	},
 	methods: {
 		setCheck (e) {
@@ -224,30 +223,9 @@ export default {
 	flex-wrap: wrap;
 }
 .box {
-	/* background: #cecece; */
 	flex-basis: 203px;
 	flex-grow: 1;
 	flex-shrink: 1;
-	.preview {
-		width: 200px;
-		height: 260px;
-		background: #fff;
-		margin: auto;
-		border-radius: 4px;
-		border: 1px solid #dedede;
-		cursor: pointer;
-		display: flex;
-		justify-content: center;
-		color: #ccc;
-		align-items: center;
-		text-align: center;
-		i {
-			font-size: 1.3rem;
-		}
-		&:hover {
-			border-color: $link;
-		}
-	}
 }
 
 </style>
