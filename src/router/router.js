@@ -6,6 +6,7 @@ import Folder from '@/components/Folder'
 import Doc from '@/components/Doc'
 import Task from '@/components/Task'
 import Test from '@/components/Test'
+import Advanced from '@/components/Advanced'
 
 
 Vue.use(VueRouter)
@@ -20,6 +21,12 @@ const routes = [
 		path: '/test',
 		name: 'test',
 		component: Test,
+		props: true,
+	},
+	{
+		path: '/advanced',
+		name: 'advanced',
+		component: Advanced,
 		props: true,
 	},
 	{

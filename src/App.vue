@@ -57,6 +57,8 @@ export default {
 			switch (name) {
 			case 'results':
 				return 'purple'
+			case 'advanced':
+				return 'purple'
 			case 'doc':
 				return 'docolor'
 			case 'task':

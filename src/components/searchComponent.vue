@@ -88,7 +88,7 @@ export default {
 	},
 	computed: {
 		searchMode() { return this.$store.getters.searchMode },
-		searchItemsResults() { return this.$store.getters.searchItemsResults}
+		searchItemsResults() { return this.$store.getters.searchItemsResults},
 	},
 	methods: {
 		reset () {
@@ -147,7 +147,12 @@ export default {
 			this.searchResultsVisible = false
 			this.$store.commit('setMini', true)
 			let tot = '/results/' + this.query
-			if (e === null) {
+			if (this.query === "!!") {
+				this.$store.commit('setLoading', false)
+				this.$store.commit('toggleSearchMode')
+				this.$router.push('/advanced')
+				this.query = ''
+			} else if (e === null) {
 				this.$router.push(tot)
 				this.$search(this.query, this.items, this.options1)
 					.then(results => {
@@ -167,18 +172,22 @@ export default {
 			}, 2000)
 		},
 		find () {
-			console.log(this.query)
+			let query = this.query.trim()
 			let that = this
 			this.$store.commit('setLoading', true)
 			this.searchResultsVisible = false
 			this.$store.commit('setMini', true)
-			if (this.query === this.$route.params.id) {
+			if (query === '!!') {
+				this.$store.commit('setLoading', false)
+				this.$router.push('/advanced')
+				this.query = ''
+			} else if (query === this.$route.params.id) {
 				this.$store.commit('setLoading', false)
 				return
 			} else {
-				let tot = '/results/' + this.query
+				let tot = '/results/' + query
 				this.$router.push(tot)
-				this.$search(this.query, this.items, this.options1)
+				this.$search(query, this.items, this.options1)
 					.then(results => {
 						this.$store.commit('setSearchItemsResults', results)
 					})
