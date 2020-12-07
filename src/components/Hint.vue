@@ -1,6 +1,6 @@
 <template lang="pug">
 v-slide-y-transition(mode="out-in")
-	.hint(v-show="searchMode")
+	.hint(v-show="searchMode && !($route.name === 'catalog')")
 		div.one
 			v-checkbox(dense :color="col" label="Документы" v-model="doc" )
 		div.two
