@@ -6,6 +6,7 @@ import Folder from '@/components/Folder'
 import Doc from '@/components/Doc'
 import Task from '@/components/Task'
 import Test from '@/components/Test'
+import Catalog from '@/components/Catalog'
 import Advanced from '@/components/Advanced'
 
 
@@ -21,6 +22,12 @@ const routes = [
 		path: '/test',
 		name: 'test',
 		component: Test,
+		props: true,
+	},
+	{
+		path: '/catalog',
+		name: 'catalog',
+		component: Catalog,
 		props: true,
 	},
 	{
