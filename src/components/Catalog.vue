@@ -9,7 +9,7 @@
 					v-tab(v-for="tab in tabs" :key="tab") {{ tab }}
 				v-tabs-items(v-model="leftTab")
 					v-tab-item
-						tree(:data="treeData")
+						tree(:data="treeData" :options="treeOptions" @node:dragging:finish="dragFinish")
 							span.tree-text(slot-scope="{ node }")
 								i(:class="node.data.icon")
 								span {{ node.text }}
@@ -25,18 +25,25 @@
 				v-tabs
 					v-tab Сотрудники
 
+	dragDialog(:drag="drag" @close="drag = false")
 </template>
 
 <script>
 import { dragZone, dragHandle, dragContent } from 'vue-drag-zone'
 import LiquorTree from 'liquor-tree'
 import {departments} from '@/treedata.js'
+import dragDialog from '@/components/dragDialog'
+
 
 export default {
 	data() {
 		return {
 			leftTab: null,
+			drag: false,
 			treeData: [],
+			treeOptions: {
+				dnd: true
+			},
 			tabs: ['Подразделения', 'Группы', 'Роли', 'Должности'],
 		}
 	},
@@ -45,9 +52,15 @@ export default {
 		dragHandle,
 		dragContent,
 		tree: LiquorTree,
+		dragDialog,
 	},
 	mounted() {
 		this.treeData = departments
+	},
+	methods: {
+		dragFinish() {
+			this.drag = true
+		}
 	}
 }
 
@@ -88,6 +101,10 @@ export default {
 .zone .item {
 	width: 100%;
 	user-select: none;
+}
+.tree-text i {
+	margin-right: 6px;
+	margin-left: -4px;
 }
 
 </style>

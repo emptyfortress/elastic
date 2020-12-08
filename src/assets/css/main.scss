@@ -21,3 +21,7 @@
 .theme--light.v-tabs > .v-tabs-bar {
 	background-color: transparent;
 }
+
+.v-application ul.tree-children {
+	padding-left: 0 !important;
+}
