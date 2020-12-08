@@ -1,13 +1,15 @@
 <template lang="pug">
 .all
 	.top
-		.zag Справочник сотрудников
+		.zag 
+			v-icon.mr-3 mdi-book-open-page-variant-outline
+			span Справочник сотрудников
 	.bottom
 		drag-zone.zone
 			drag-content.content.c1
 				v-tabs(v-model="leftTab")
 					v-tab(v-for="tab in tabs" :key="tab") {{ tab }}
-				v-tabs-items(v-model="leftTab")
+				v-tabs-items(v-model="leftTab").ful
 					v-tab-item
 						tree(:data="treeData" :options="treeOptions" @node:dragging:finish="dragFinish" ref="tree")
 							.node-container(slot-scope="{ node }" @contextmenu.prevent="rightClick(node)")
@@ -23,8 +25,11 @@
 			drag-handle.hand
 				div
 			drag-content.content.c1
-				v-tabs
+				v-tabs(v-model="rightTab")
 					v-tab Сотрудники
+				v-tabs-items(v-model="rightTab").ful
+					v-tab-item.pa-3
+						v-data-table
 
 	dragDialog(:drag="drag" @close="drag = false")
 	context-menu(ref="ctxMenu" :node="node")
@@ -43,14 +48,13 @@ import dragDialog from '@/components/dragDialog'
 import contextMenu from 'vue-context-menu'
 import MyMenu from '@/components/MyMenu'
 
-
-
 export default {
 	data() {
 		return {
 			snackbar: false,
 			addednode: false,
 			leftTab: null,
+			rightTab: null,
 			drag: false,
 			treeData: [],
 			node: null,
@@ -116,12 +120,11 @@ export default {
 	margin: 0 auto;
 	position: relative;
 	display: flex;
-	/* height: 300px; */
 	.hand {
 		width: 20px;
 		div {
 			width:10px;
-			height: 100%;
+			height: calc(100vh - 170px);
 			transform: translateX(8px);
 		}
 		&:hover {
@@ -131,10 +134,7 @@ export default {
 }
 .zone .content {
 	width: calc((100% - 20px) / 2);
-}
-.zone .item {
-	width: 100%;
-	user-select: none;
+	height: calc(100vh - 220px);
 }
 .tree-text i {
 	margin-right: 6px;
@@ -143,6 +143,14 @@ export default {
 
 .node-container {
 	width: 100%;
-	/* background: #ccc; */
+}
+.tree {
+	height: calc(100vh - 220px);
+	overflow-x: auto;
+	overflow-y: auto;
+}
+.ful .v-window-item {
+	height: calc(100vh - 220px);
+	overflow-y: auto;
 }
 </style>

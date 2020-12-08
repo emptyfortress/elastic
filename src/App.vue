@@ -15,7 +15,7 @@ v-app
 		v-avatar(color="blue lighten-4" size="35" v-show="offsetTop" v-ripple @click="pri")
 			img(src="@/assets/img/user0.svg")
 	v-main(v-scroll="handleScroll")
-		v-container.cont
+		v-container().cont
 			transition(name="slide-fade" mode="out-in")
 				div
 					Hint(:searchMode="searchMode")
