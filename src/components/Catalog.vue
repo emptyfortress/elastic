@@ -10,6 +10,9 @@
 				v-tabs-items(v-model="leftTab")
 					v-tab-item
 						tree(:data="treeData")
+							span.tree-text(slot-scope="{ node }")
+								i(:class="node.data.icon")
+								span {{ node.text }}
 					v-tab-item
 						tree(:data="treeData")
 					v-tab-item()
