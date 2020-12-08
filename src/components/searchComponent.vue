@@ -88,7 +88,7 @@ export default {
 		searchMode() { return this.$store.getters.searchMode },
 		searchItemsResults() { return this.$store.getters.searchItemsResults},
 		holder() {
-			return this.$route.name === 'catalog' ? 'Название, ИНН, ФИО' : 'Номер, содержание, ФИО участников, текст документов и др.'
+			return this.$route.name === 'catalog' ? 'Название, ИНН, ФИО сотрудника' : 'Номер, содержание, ФИО участников, текст документов и др.'
 		},
 		scope() {
 			if(this.$route.name === 'catalog') {

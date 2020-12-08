@@ -1,6 +1,7 @@
 <template lang="pug">
 .all
 	.top
+		.zag Справочник сотрудников
 	.bottom
 		drag-zone.zone
 			drag-content.content.c1
@@ -53,19 +54,19 @@ export default {
 @import '@/assets/css/colors.scss';
 
 .top {
-	height: 200px;
-	background: pink;
+	.zag {
+		margin-top: 2rem;
+	}
 }
 .bottom {
 	margin-top: 1rem;
 }
 .zone {
 	width: 100%;
-	/* height: 100%; */
 	margin: 0 auto;
 	position: relative;
 	display: flex;
-	height: 300px;
+	/* height: 300px; */
 	.hand {
 		width: 20px;
 		div {
@@ -80,9 +81,6 @@ export default {
 }
 .zone .content {
 	width: calc((100% - 20px) / 2);
-	height: 300px;
-	overflow: hidden;
-	/* background: #fff; */
 }
 .zone .item {
 	width: 100%;
