@@ -9,10 +9,11 @@
 					v-tab(v-for="tab in tabs" :key="tab") {{ tab }}
 				v-tabs-items(v-model="leftTab")
 					v-tab-item
-						tree(:data="treeData" :options="treeOptions" @node:dragging:finish="dragFinish")
-							span.tree-text(slot-scope="{ node }")
-								i(:class="node.data.icon")
-								span {{ node.text }}
+						tree(:data="treeData" :options="treeOptions" @node:dragging:finish="dragFinish" ref="tree")
+							.node-container(slot-scope="{ node }" @contextmenu.prevent="rightClick(node)")
+								.tree-text
+									i(:class="node.data.icon")
+									span {{ node.text }}
 					v-tab-item
 						tree(:data="treeData")
 					v-tab-item()
@@ -26,6 +27,9 @@
 					v-tab Сотрудники
 
 	dragDialog(:drag="drag" @close="drag = false")
+	context-menu(ref="ctxMenu" :node="node")
+		MyMenu(@editNode = "editNode(node)" @deleteNode="removeNode(node)")
+
 </template>
 
 <script>
@@ -33,6 +37,9 @@ import { dragZone, dragHandle, dragContent } from 'vue-drag-zone'
 import LiquorTree from 'liquor-tree'
 import {departments} from '@/treedata.js'
 import dragDialog from '@/components/dragDialog'
+import contextMenu from 'vue-context-menu'
+import MyMenu from '@/components/MyMenu'
+
 
 
 export default {
@@ -41,8 +48,9 @@ export default {
 			leftTab: null,
 			drag: false,
 			treeData: [],
+			node: null,
 			treeOptions: {
-				dnd: true
+				dnd: true,
 			},
 			tabs: ['Подразделения', 'Группы', 'Роли', 'Должности'],
 		}
@@ -53,14 +61,29 @@ export default {
 		dragContent,
 		tree: LiquorTree,
 		dragDialog,
+		contextMenu,
+		MyMenu,
 	},
 	mounted() {
 		this.treeData = departments
 	},
 	methods: {
+		removeNode(node) {
+			if (confirm('Are you sure?')) {
+				node.remove()
+			}
+		},
+		editNode(node, e) {
+			node.startEditing()
+			console.log(e)
+		},
 		dragFinish() {
 			this.drag = true
-		}
+		},
+		rightClick(e) {
+			this.$refs.ctxMenu.open()
+			this.node = e
+		},
 	}
 }
 
@@ -107,4 +130,8 @@ export default {
 	margin-left: -4px;
 }
 
+.node-container {
+	width: 100%;
+	/* background: #ccc; */
+}
 </style>

@@ -25,3 +25,35 @@
 .v-application ul.tree-children {
 	padding-left: 0 !important;
 }
+
+.v-application ul.ctx-menu {
+	list-style: none;
+	padding-left: 0;
+	width: 180px;
+	li {
+		padding: .5rem 1rem;
+		cursor: pointer;
+		&:hover {
+			background: #eee;
+		}
+		&.first {
+			border-top: 1px dotted #666;
+		}
+		.v-icon {
+			margin-top: -3px;
+		}
+		i {
+			font-size: 1.2rem;
+			margin-right: .5rem;
+			&.next {
+				font-size: .9rem;
+				float: right;
+				margin-right: -.5rem;
+				margin-top: .2rem;
+			}
+		}
+	}
+	.disabled {
+		opacity: .5;
+	}
+}
