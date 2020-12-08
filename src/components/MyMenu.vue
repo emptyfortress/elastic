@@ -6,7 +6,7 @@ div
 	li(@click.stop="$emit('editNode')")
 		v-icon mdi-pencil
 		span Редактировать
-	li
+	li(@click="$emit('snack')")
 		v-icon mdi-content-copy
 		span Копировать
 	li.disabled

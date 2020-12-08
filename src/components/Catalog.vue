@@ -15,7 +15,7 @@
 									i(:class="node.data.icon")
 									span {{ node.text }}
 					v-tab-item
-						tree(:data="treeData")
+						h3 Groups
 					v-tab-item()
 						h3 Роли
 					v-tab-item()
@@ -28,7 +28,10 @@
 
 	dragDialog(:drag="drag" @close="drag = false")
 	context-menu(ref="ctxMenu" :node="node")
-		MyMenu(@editNode = "editNode(node)" @deleteNode="removeNode(node)")
+		MyMenu(@editNode = "editNode(node)" @deleteNode="removeNode(node)" @snack="snackbar = true" @addNode = "addChildNode(node)")
+	v-snackbar(v-model="snackbar" timeout="1300" absolute top right color="teal") Узел скопирован
+	v-snackbar(v-model="addednode" timeout="1300" absolute top right light color="amber") Узел добавлен
+
 
 </template>
 
@@ -45,6 +48,8 @@ import MyMenu from '@/components/MyMenu'
 export default {
 	data() {
 		return {
+			snackbar: false,
+			addednode: false,
 			leftTab: null,
 			drag: false,
 			treeData: [],
@@ -68,6 +73,12 @@ export default {
 		this.treeData = departments
 	},
 	methods: {
+		addChildNode(node) {
+			if (node.enabled()) {
+				node.append('Новое подразделение')
+				this.addednode = true
+			}
+		},
 		removeNode(node) {
 			if (confirm('Are you sure?')) {
 				node.remove()
