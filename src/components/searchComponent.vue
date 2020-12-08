@@ -2,7 +2,7 @@
 v-scale-transition(origin="center right" mode="out-in")
 	v-card(v-show="searchMode" tile).searchbox
 		.where
-			v-select(:items="scope" dark dense value="Везде" hide-detail)
+			v-select(:items="scope" dark dense :value="scope[0]" hide-detail)
 		.place
 			input(:placeholder="holder"
 				v-model="query"
@@ -43,9 +43,7 @@ export default {
 	props: ['active'],
 	data () {
 		return {
-			scope: [  'Везде', 'В текущей папке', 'В моих папках' ],
 			history: 1,
-			holder: 'Номер, содержание, ФИО участников, текст документов и др.',
 			query: '',
 			searchResultsVisible: false,
 			posts: [],
@@ -89,6 +87,14 @@ export default {
 	computed: {
 		searchMode() { return this.$store.getters.searchMode },
 		searchItemsResults() { return this.$store.getters.searchItemsResults},
+		holder() {
+			return this.$route.name === 'catalog' ? 'Название, ИНН, ФИО' : 'Номер, содержание, ФИО участников, текст документов и др.'
+		},
+		scope() {
+			if(this.$route.name === 'catalog') {
+				return [  'Организация', 'Сотрудник' ]
+			} else return [  'Везде', 'В текущей папке', 'В моих папках' ]
+		}
 	},
 	methods: {
 		reset () {

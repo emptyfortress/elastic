@@ -4,29 +4,36 @@
 	.bottom
 		drag-zone.zone
 			drag-content.content.c1
-				tree(:data="treeData")
+				v-tabs(v-model="leftTab")
+					v-tab(v-for="tab in tabs" :key="tab") {{ tab }}
+				v-tabs-items(v-model="leftTab")
+					v-tab-item
+						tree(:data="treeData")
+					v-tab-item
+						tree(:data="treeData")
+					v-tab-item()
+						h3 Роли
+					v-tab-item()
+						h3 Должности
 			drag-handle.hand
 				div
 			drag-content.content.c1
-				.item item 1
+				v-tabs
+					v-tab Сотрудники
+
 </template>
 
 <script>
 import { dragZone, dragHandle, dragContent } from 'vue-drag-zone'
 import LiquorTree from 'liquor-tree'
+import {departments} from '@/treedata.js'
 
 export default {
 	data() {
 		return {
-			treeData: [
-				{ text: 'Item 1' },
-				{ text: 'Item 2' },
-				{ text: 'Item 3', state: { selected: true } },
-				{ text: 'Item 4', children: [
-					{ text: 'Item 5.1', state: { disabled: true } },
-					{ text: 'Item 5.2', state: { selectable: false } }
-				] }
-			]
+			leftTab: null,
+			treeData: [],
+			tabs: ['Подразделения', 'Группы', 'Роли', 'Должности'],
 		}
 	},
 	components: {
@@ -35,6 +42,9 @@ export default {
 		dragContent,
 		tree: LiquorTree,
 	},
+	mounted() {
+		this.treeData = departments
+	}
 }
 
 </script>
@@ -72,7 +82,7 @@ export default {
 	width: calc((100% - 20px) / 2);
 	height: 300px;
 	overflow: hidden;
-	background: #fff;
+	/* background: #fff; */
 }
 .zone .item {
 	width: 100%;
