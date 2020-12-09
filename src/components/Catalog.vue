@@ -1,10 +1,10 @@
 <template lang="pug">
-.all
-	.top
-		.zag 
+.cat
+	.top(:class="ifSearch")
+		.zagg(v-if="!search")
 			v-icon.mr-3 mdi-book-open-page-variant-outline
 			span Справочник сотрудников
-	.bottom
+	.bottom(:class="ifSearch")
 		drag-zone.zone
 			drag-content.content.c1
 				v-tabs(v-model="leftTab")
@@ -51,6 +51,7 @@ import MyMenu from '@/components/MyMenu'
 export default {
 	data() {
 		return {
+			// search: false,
 			snackbar: false,
 			addednode: false,
 			leftTab: null,
@@ -62,6 +63,16 @@ export default {
 				dnd: true,
 			},
 			tabs: ['Подразделения', 'Группы', 'Роли', 'Должности'],
+		}
+	},
+	computed: {
+		search() {
+			return this.$store.getters.searchMode
+		},
+		ifSearch() {
+			if(this.search) {
+				return 'big'
+			} else return ''
 		}
 	},
 	components: {
@@ -108,33 +119,38 @@ export default {
 @import '@/assets/css/colors.scss';
 
 .top {
-	.zag {
-		margin-top: 2rem;
+	height: 60px;
+	transition: .2s ease all;
+	&.big {
+		height: 200px;
+		background: #fff;
 	}
 }
-.bottom {
-	margin-top: 1rem;
+.zagg {
+	padding-top: 20px;
+	font-size: 1.5rem;
+	color: #666;
 }
 .zone {
 	width: 100%;
 	margin: 0 auto;
 	position: relative;
 	display: flex;
-	.hand {
-		width: 20px;
-		div {
-			width:10px;
-			height: calc(100vh - 170px);
-			transform: translateX(8px);
-		}
-		&:hover {
-			div { border-left: 3px dotted #333; }
-		}
+}
+.hand {
+	width: 20px;
+	div {
+		width:10px;
+		height: calc(100vh - 145px);
+		transform: translateX(8px);
+	}
+	&:hover {
+		div { border-left: 3px dotted #333; }
 	}
 }
 .zone .content {
 	width: calc((100% - 20px) / 2);
-	height: calc(100vh - 220px);
+	height: calc(100vh - 145px);
 }
 .tree-text i {
 	margin-right: 6px;
@@ -145,12 +161,22 @@ export default {
 	width: 100%;
 }
 .tree {
-	height: calc(100vh - 220px);
+	height: calc(100vh - 194px);
 	overflow-x: auto;
 	overflow-y: auto;
 }
+.big {
+	transition: .2s ease all;
+}
+.big .hand div {
+	height: calc(100vh - 330px);
+}
+.big .tree, .big .ful .v-window-item, .big.bottom, .big .zone .content {
+	height: calc(100vh - 330px);
+	
+}
 .ful .v-window-item {
-	height: calc(100vh - 220px);
-	overflow-y: auto;
+	height: calc(100% - 185px);
+	background: #fff;
 }
 </style>

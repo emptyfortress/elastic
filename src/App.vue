@@ -128,6 +128,7 @@ export default {
 .cont {
 	padding: 0 1rem;
 	transition: .2s all ease;
+	/* margin-top: -32px; */
 }
 
 .logo {
