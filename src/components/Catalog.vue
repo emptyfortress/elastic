@@ -18,9 +18,9 @@
 									span {{ node.text }}
 					v-tab-item
 						h3 Groups
-					v-tab-item()
+					v-tab-item
 						h3 Роли
-					v-tab-item()
+					v-tab-item
 						h3 Должности
 			drag-handle.hand
 				div
@@ -175,8 +175,12 @@ export default {
 	height: calc(100vh - 330px);
 	
 }
-.ful .v-window-item {
-	height: calc(100% - 185px);
+.ful .v-window-item.v-window-item--active {
 	background: #fff;
+	height: calc(100vh - 185px);
+}
+.big .ful .v-window-item.v-window-item--active {
+	background: #fff;
+	height: calc(100vh - 330px);
 }
 </style>
