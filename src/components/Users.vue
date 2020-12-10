@@ -1,14 +1,39 @@
 <template lang="pug">
-v-data-table(:headers="headers" :items="users" :search="filt" disable-pagination hide-default-footer fixed-header :height="calcHeight").usertable
+v-data-table(
+	:headers="headers" 
+	:items="users" 
+	:search="filter" 
+	:expanded.sync="expanded"
+	single-expand
+	show-expand
+	disable-pagination hide-default-footer fixed-header 
+	:no-results-text="notext"
+	:height="calcHeight").usertable
+	template(v-slot:expanded-item="{ headers, item }")
+		td(:colspan="headers.length")
+			UserInfo(:user="item")
+	template(v-slot:no-results)
+		.nothing
+			img(src="@/assets/img/nothing.svg")
+			.big Ничего не найдено
+			.small Проверьте, нет ли опечаток. Попробуйте изменить запрос.
+
 </template>
 
 <script>
 import { users } from '@/users'
+import UserInfo from '@/components/UserInfo'
 
 export default {
+	props: ['filter'],
+	components: {
+		UserInfo,
+	},
 	data() {
 		return {
+			expanded: [],
 			windowHeight: window.innerHeight,
+			notext: 'Ничего не найдено.',
 			users,
 			headers: [
 				{
@@ -17,8 +42,7 @@ export default {
 					filterable: true,
 					value: 'lastname',
 				},
-				{ text: 'Имя', value: 'name'},
-				{ text: 'Отчество', value: 'middle'},
+				{ text: 'Инициалы', value: 'short'},
 				{ text: 'Должность', value: 'title' },
 			],
 		}
@@ -28,7 +52,7 @@ export default {
 			window.addEventListener('resize', this.onResize);
 		})
 	},
-	beforeDestroy() { 
+	beforeDestroy() {
 		window.removeEventListener('resize', this.onResize); 
 	},
 	computed: {
@@ -52,4 +76,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.nothing {
+	padding-top: 2rem;
+	img {
+		width: 100px;
+	}
+	.big {
+		font-size: 1.3rem;
+	}
+	.small {
+		font-size: 0.9rem;
+	}
+}
 </style>

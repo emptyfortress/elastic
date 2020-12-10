@@ -4,9 +4,10 @@
 		.zagg(v-if="!search")
 			v-icon.mr-3 mdi-book-open-page-variant-outline
 			span Справочник сотрудников
+		div(v-else)
 	.bottom(:class="ifSearch")
 		drag-zone.zone
-			drag-content.content.c1
+			drag-content.content
 				v-tabs(v-model="leftTab")
 					v-tab(v-for="tab in tabs" :key="tab") {{ tab }}
 				v-tabs-items(v-model="leftTab").ful
@@ -24,12 +25,14 @@
 						h3 Должности
 			drag-handle.hand
 				div
-			drag-content.content.c1
+			drag-content.content.rel
 				v-tabs(v-model="rightTab")
 					v-tab Сотрудники
-				v-tabs-items(v-model="rightTab").ful.over
+				v-tabs-items(v-model="rightTab").ful
 					v-tab-item
-						Users
+						Users(:filter="filterTable")
+				.filt
+					v-text-field(v-model="filterTable" placeholder="Фильтр" prepend-icon="mdi-filter-outline" clearable)
 
 	dragDialog(:drag="drag" @close="drag = false")
 	context-menu(ref="ctxMenu" :node="node")
@@ -53,6 +56,7 @@ import Users from '@/components/Users'
 export default {
 	data() {
 		return {
+			filterTable: '',
 			snackbar: false,
 			addednode: false,
 			leftTab: null,
@@ -153,7 +157,6 @@ export default {
 }
 .zone .content {
 	width: calc((100% - 20px) / 2);
-	/* height: calc(100vh - 145px); */
 }
 .tree-text i {
 	margin-right: 6px;
@@ -176,17 +179,19 @@ export default {
 }
 .big .tree, .big .ful .v-window-item, .big.bottom, .big .zone .content {
 	height: calc(100vh - 330px);
-	
 }
 .ful .v-window-item.v-window-item--active {
 	background: #fff;
-	/* overflow-y: none; */
-}
-.over {
-	/* overflow: auto; */
 }
 .big .ful .v-window-item.v-window-item--active {
 	background: #fff;
 	height: calc(100vh - 330px);
+}
+.filt {
+	width: 200px;
+	height: 36px;
+	position: absolute;
+	top: -6px;
+	right: 0;
 }
 </style>
