@@ -52,6 +52,4 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.usertable {
-}
 </style>
