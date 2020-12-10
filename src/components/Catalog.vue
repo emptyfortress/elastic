@@ -27,8 +27,8 @@
 			drag-content.content.c1
 				v-tabs(v-model="rightTab")
 					v-tab Сотрудники
-				v-tabs-items(v-model="rightTab").ful
-					v-tab-item.pa-3
+				v-tabs-items(v-model="rightTab").ful.over
+					v-tab-item
 						Users
 
 	dragDialog(:drag="drag" @close="drag = false")
@@ -153,7 +153,7 @@ export default {
 }
 .zone .content {
 	width: calc((100% - 20px) / 2);
-	height: calc(100vh - 145px);
+	/* height: calc(100vh - 145px); */
 }
 .tree-text i {
 	margin-right: 6px;
@@ -180,7 +180,10 @@ export default {
 }
 .ful .v-window-item.v-window-item--active {
 	background: #fff;
-	height: calc(100vh - 185px);
+	/* overflow-y: none; */
+}
+.over {
+	/* overflow: auto; */
 }
 .big .ful .v-window-item.v-window-item--active {
 	background: #fff;
