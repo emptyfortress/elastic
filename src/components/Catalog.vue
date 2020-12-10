@@ -29,7 +29,7 @@
 					v-tab Сотрудники
 				v-tabs-items(v-model="rightTab").ful
 					v-tab-item.pa-3
-						v-data-table
+						Users
 
 	dragDialog(:drag="drag" @close="drag = false")
 	context-menu(ref="ctxMenu" :node="node")
@@ -47,11 +47,12 @@ import {departments} from '@/treedata.js'
 import dragDialog from '@/components/dragDialog'
 import contextMenu from 'vue-context-menu'
 import MyMenu from '@/components/MyMenu'
+import Users from '@/components/Users'
+
 
 export default {
 	data() {
 		return {
-			// search: false,
 			snackbar: false,
 			addednode: false,
 			leftTab: null,
@@ -83,6 +84,7 @@ export default {
 		dragDialog,
 		contextMenu,
 		MyMenu,
+		Users,
 	},
 	mounted() {
 		this.treeData = departments
@@ -124,6 +126,7 @@ export default {
 	&.big {
 		height: 200px;
 		background: #fff;
+		border-bottom: 1px solid #ccc;
 	}
 }
 .zagg {
