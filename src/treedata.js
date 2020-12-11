@@ -31,7 +31,6 @@ const departments = [
 			{ text: 'Предприятие «Коммерал»', data: {icon: 'icon-firm'}},
 			{ text: 'Филиал «Якутское предприятие по торговле алмазами» (ЯПТА)', data: {icon: 'icon-firm'}},
 			{ text: 'Центр сортировки алмазов', data: {icon: 'icon-firm'}},
-			{ text: 'Центр сортировки алмазов', data: {icon: 'icon-firm'}},
 
 		]},
 		{ text: 'Сбыт бриллиантов', data: {icon: 'icon-folder-outline'}, children: [

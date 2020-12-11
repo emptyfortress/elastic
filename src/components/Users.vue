@@ -1,7 +1,7 @@
 <template lang="pug">
 v-data-table(
 	:headers="headers" 
-	:items="nodeUsers" 
+	:items="users" 
 	:search="filter" 
 	:expanded.sync="expanded"
 	single-expand
