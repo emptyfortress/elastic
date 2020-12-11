@@ -1,7 +1,7 @@
 <template lang="pug">
 v-data-table(
 	:headers="headers" 
-	:items="users" 
+	:items="nodeUsers" 
 	:search="filter" 
 	:expanded.sync="expanded"
 	single-expand
@@ -56,6 +56,9 @@ export default {
 		window.removeEventListener('resize', this.onResize); 
 	},
 	computed: {
+		nodeUsers() {
+			return this.users.filter(user => user.lastname === 'Кузнецов')
+		},
 		filt() {
 			return ''
 		},
