@@ -4,7 +4,7 @@
 		.zagg(v-if="!search")
 			v-icon.mr-3 mdi-book-open-page-variant-outline
 			span Справочник сотрудников
-		div(v-else)
+		Subbar(v-else @close="toggleSearch")
 	.bottom(:class="ifSearch")
 		drag-zone.zone
 			drag-content.content
@@ -51,6 +51,8 @@ import dragDialog from '@/components/dragDialog'
 import contextMenu from 'vue-context-menu'
 import MyMenu from '@/components/MyMenu'
 import Users from '@/components/Users'
+import Subbar from '@/components/Subbar'
+
 
 
 export default {
@@ -89,11 +91,15 @@ export default {
 		contextMenu,
 		MyMenu,
 		Users,
+		Subbar,
 	},
 	mounted() {
 		this.treeData = departments
 	},
 	methods: {
+		toggleSearch() {
+			this.$store.commit('toggleSearchMode')
+		},
 		addChildNode(node) {
 			if (node.enabled()) {
 				node.append('Новое подразделение')
