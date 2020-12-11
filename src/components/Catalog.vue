@@ -12,7 +12,7 @@
 					v-tab(v-for="tab in tabs" :key="tab") {{ tab }}
 				v-tabs-items(v-model="leftTab").ful
 					v-tab-item
-						tree(:data="treeData" :options="treeOptions" @node:dragging:finish="dragFinish" ref="tree")
+						tree(:data="treeData" :options="treeOptions" @node:dragging:finish="dragFinish" ref="tree" @node:selected="onSelectNode")
 							.node-container(slot-scope="{ node }" @contextmenu.prevent="rightClick(node)")
 								.tree-text
 									i(:class="node.data.icon")
@@ -62,6 +62,7 @@ import Subbar from '@/components/Subbar'
 export default {
 	data() {
 		return {
+			selectedNode: null,
 			filterTable: '',
 			snackbar: false,
 			addednode: false,
@@ -101,6 +102,11 @@ export default {
 		this.treeData = departments
 	},
 	methods: {
+		onSelectNode (e) {
+			console.log(e.children.length)
+			this.selectedNode = e
+			console.log(this.selectedNode.text)
+		},
 		toggleSearch() {
 			this.$store.commit('toggleSearchMode')
 		},
