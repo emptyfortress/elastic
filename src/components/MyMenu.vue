@@ -9,6 +9,9 @@ div
 	li(@click="$emit('snack')")
 		v-icon mdi-content-copy
 		span Копировать
+	li(@click="$emit('snack')")
+		v-icon mdi-content-cut
+		span Вырезать
 	li.disabled
 		v-icon mdi-content-paste
 		span Вставить
