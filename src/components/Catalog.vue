@@ -17,6 +17,8 @@
 								.tree-text
 									i(:class="node.data.icon")
 									span {{ node.text }}
+						v-btn(fab color="primary" small).plus
+							v-icon mdi-plus
 					v-tab-item
 						h3 Groups
 					v-tab-item
@@ -25,12 +27,14 @@
 						h3 Должности
 			drag-handle.hand
 				div
-			drag-content.content.rel
+			drag-content.content
 				v-tabs(v-model="rightTab")
 					v-tab Сотрудники
 				v-tabs-items(v-model="rightTab").ful
 					v-tab-item
 						Users(:filter="filterTable")
+						v-btn(fab color="primary" small).plus
+							v-icon mdi-plus
 				.filt
 					v-text-field(v-model="filterTable" placeholder="Фильтр" prepend-icon="mdi-filter-outline" clearable)
 
@@ -163,6 +167,7 @@ export default {
 }
 .zone .content {
 	width: calc((100% - 20px) / 2);
+	position: relative;
 }
 .tree-text i {
 	margin-right: 6px;
@@ -181,7 +186,7 @@ export default {
 	transition: .2s ease all;
 }
 .big .hand div {
-	height: calc(100vh - 330px);
+	height: calc(100vh - 283px);
 }
 .big .tree, .big .ful .v-window-item, .big.bottom, .big .zone .content {
 	height: calc(100vh - 330px);
@@ -199,5 +204,10 @@ export default {
 	position: absolute;
 	top: -6px;
 	right: 0;
+}
+.plus {
+	position: absolute;
+	bottom: 1rem;
+	right: 1rem;
 }
 </style>
