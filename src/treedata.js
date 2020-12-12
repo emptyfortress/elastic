@@ -1,42 +1,42 @@
 const departments = [
 	{ text: 'АК "Алроса" ПАО', data: {icon: 'icon-firm'}, children: [
-		{ text: 'Горно-обогатительные комбинаты', data: {icon: 'icon-folder-outline'}, children: [
+		{ text: 'Горно-обогатительные комбинаты', data: {icon: 'icon-folder-outline', dep: 0}, children: [
 			{ text: 'Мирнинский ГОК', data: {icon: 'icon-firm'}},
 			{ text: 'Айхальский ГОК', data: {icon: 'icon-firm'}},
 			{ text: 'Нюрнбинский ГОК', data: {icon: 'icon-firm'}},
 			{ text: 'Удачнинский ГОК', data: {icon: 'icon-firm'}},
 		]},
-		{ text: 'Производственная инфраструктура', data: {icon: 'icon-folder-outline'}, children: [
+		{ text: 'Производственная инфраструктура', data: {icon: 'icon-folder-outline', dep: 1}, children: [
 			{ text: 'Авиационное предприятие МУАД', data: {icon: 'icon-firm'}},
 			{ text: 'Управление капитального строительства', data: {icon: 'icon-firm'}},
 			{ text: 'СТ "Алмазавтоматика"', data: {icon: 'icon-firm'}},
 			{ text: 'Управление материально-технического снабжения', data: {icon: 'icon-firm'}},
 			{ text: 'Институт "Якутнипроалмаз"', data: {icon: 'icon-firm'}},
 		]},
-		{ text: 'Геологоразведочные подразделения', data: {icon: 'icon-folder-outline'}, children: [
+		{ text: 'Геологоразведочные подразделения', data: {icon: 'icon-folder-outline', dep: 2}, children: [
 			{ text: 'Научно-исследовательское геологическое предприятие', data: {icon: 'icon-firm'}},
 			{ text: 'Вилюйская геологоразведочная экспедиция', data: {icon: 'icon-firm'}},
 		]},
-		{ text: 'Социальный комплекс', data: {icon: 'icon-folder-outline'}, children: [
+		{ text: 'Социальный комплекс', data: {icon: 'icon-folder-outline', dep: 3}, children: [
 			{ text: 'Медицинский центр', data: {icon: 'icon-firm'}},
 			{ text: 'Культурно-спортивный комплекс', data: {icon: 'icon-firm'}},
 			{ text: 'Центр подготовки кадров', data: {icon: 'icon-firm'}},
 		]},
-		{ text: 'Представительства и филиалы', data: {icon: 'icon-folder-outline'}, children: [
+		{ text: 'Представительства и филиалы', data: {icon: 'icon-folder-outline', dep: 4}, children: [
 			{ text: 'Филиал АК «АЛРОСА» в Республике Ангола', data: {icon: 'icon-firm'}},
 			{ text: 'ALROSA Mumbai (г. Мумбай, Индия)', data: {icon: 'icon-firm'}},
 			{ text: 'Филиал во Владивостоке', data: {icon: 'icon-firm'}},
 		]},
-		{ text: 'Сбыт алмазов', data: {icon: 'icon-folder-outline'}, children: [
+		{ text: 'Сбыт алмазов', data: {icon: 'icon-folder-outline', dep: 5}, children: [
 			{ text: 'Предприятие «Коммерал»', data: {icon: 'icon-firm'}},
 			{ text: 'Филиал «Якутское предприятие по торговле алмазами» (ЯПТА)', data: {icon: 'icon-firm'}},
 			{ text: 'Центр сортировки алмазов', data: {icon: 'icon-firm'}},
 
 		]},
-		{ text: 'Сбыт бриллиантов', data: {icon: 'icon-folder-outline'}, children: [
+		{ text: 'Сбыт бриллиантов', data: {icon: 'icon-folder-outline', dep: 6}, children: [
 			{ text: 'Филиал "Бриллианты Алроса"', data: {icon: 'icon-firm'}},
 		]},
-		{ text: 'Дочерние организации', data: {icon: 'icon-folder-outline'}, children: [
+		{ text: 'Дочерние организации', data: {icon: 'icon-folder-outline', dep: 7}, children: [
 			{ text: 'ООО «Бриллианты АЛРОСА»', data: {icon: 'icon-firm'}},
 			{ text: 'Горнорудное общество «Катока Лтд.»', data: {icon: 'icon-firm'}},
 			{ text: 'АО «Алмазы Анабара»', data: {icon: 'icon-firm'}},

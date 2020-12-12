@@ -32,7 +32,7 @@
 					v-tab Сотрудники
 				v-tabs-items(v-model="rightTab").ful
 					v-tab-item
-						Users(:filter="filterTable")
+						Users(:filter="filterTable" :dep="dep")
 						v-btn(fab color="primary" small).plus
 							v-icon mdi-plus
 				.filt
@@ -78,6 +78,11 @@ export default {
 		}
 	},
 	computed: {
+		dep() {
+			if(this.selectedNode) {
+				return this.selectedNode.data.dep
+			} else return 0
+		},
 		search() {
 			return this.$store.getters.searchMode
 		},
@@ -103,9 +108,7 @@ export default {
 	},
 	methods: {
 		onSelectNode (e) {
-			console.log(e.children.length)
 			this.selectedNode = e
-			console.log(this.selectedNode.text)
 		},
 		toggleSearch() {
 			this.$store.commit('toggleSearchMode')

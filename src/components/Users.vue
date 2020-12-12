@@ -1,12 +1,12 @@
 <template lang="pug">
 v-data-table(
-	:headers="headers" 
-	:items="nodeUsers" 
-	:search="filter" 
+	:headers="headers"
+	:items="nodeUsers"
+	:search="filter"
 	:expanded.sync="expanded"
 	single-expand
 	show-expand
-	disable-pagination hide-default-footer fixed-header 
+	disable-pagination hide-default-footer fixed-header
 	:no-results-text="notext"
 	:height="calcHeight").usertable
 	template(v-slot:expanded-item="{ headers, item }")
@@ -25,7 +25,7 @@ import { users } from '@/users'
 import UserInfo from '@/components/UserInfo'
 
 export default {
-	props: ['filter'],
+	props: ['filter', 'dep'],
 	components: {
 		UserInfo,
 	},
@@ -57,8 +57,8 @@ export default {
 	},
 	computed: {
 		nodeUsers() {
-			return this.users
-			// return this.users.filter(user => user.lastname === 'Кузнецов')
+			// return this.users
+			return this.users.filter(user => user.dep === this.dep)
 		},
 		filt() {
 			return ''
