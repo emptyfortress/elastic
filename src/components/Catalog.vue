@@ -149,7 +149,7 @@ export default {
 	&.big {
 		height: 200px;
 		background: #fff;
-		border-bottom: 1px solid #ccc;
+		border-bottom: 1px solid #aaa;
 	}
 }
 .zagg {

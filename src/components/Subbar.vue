@@ -1,8 +1,5 @@
 <template lang="pug">
 .subbar
-	.left
-		.digit 23
-		.res результата
 	.result
 		ul
 			li(v-for="n in 23")
@@ -22,8 +19,13 @@
 				v-btn(icon).go
 					v-icon mdi-bullseye-arrow
 	.right
-		v-btn(depressed block) Очистить
-		v-btn(depressed color="primary" block @click="$emit('close')") Закрыть
+		.digit 23
+		.mb-6 результата
+		//- v-btn(depressed color="primary" block @click="$emit('close')").mt-6 Закрыть
+		v-btn(icon large)
+			v-icon mdi-chevron-double-down
+		v-btn(icon large @click="$emit('close')")
+			v-icon mdi-chevron-double-up
 </template>
 
 <script>
@@ -89,28 +91,17 @@ export default {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	gap: 1rem;
 	height: 100%;
-	div {
-	}
 }
-.left {
+.right {
 	text-align: center;
-	/* padding: .3rem; */
-	margin-left: 1rem;
+	margin: 1rem;
 	.digit {
 		font-size: 1.8rem;
 	}
-}
-.right {
-	width: 130px;
-	/* padding: .4rem; */
-	margin-right: 1rem;
 	.v-btn {
-		display: block;
-		margin-bottom: .3rem;
+		margin-right: 4px;
 	}
 }
-
 
 </style>

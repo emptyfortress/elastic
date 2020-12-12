@@ -17,6 +17,10 @@ v-data-table(
 			img(src="@/assets/img/nothing.svg")
 			.big Ничего не найдено
 			.small Проверьте, нет ли опечаток. Попробуйте изменить запрос.
+	template(v-slot:no-data)
+		.nothing
+			.big Выберите организацию
+			.small Для просмотра консолидированных данных, включите чекбокс вверху.
 
 </template>
 
@@ -58,7 +62,8 @@ export default {
 	computed: {
 		nodeUsers() {
 			// return this.users
-			return this.users.filter(user => user.dep === this.dep)
+			// return this.users.filter(user => user.dep === this.dep)
+			return []
 		},
 		filt() {
 			return ''
