@@ -28,15 +28,9 @@
 			drag-handle.hand
 				div
 			drag-content.content
-				v-tabs(v-model="rightTab")
-					v-tab Сотрудники
-				v-tabs-items(v-model="rightTab").ful
-					v-tab-item
-						Users(:filter="filterTable" :dep="dep")
-						v-btn(fab color="primary" small).plus
-							v-icon mdi-plus
-				.filt
-					v-text-field(v-model="filterTable" placeholder="Фильтр" prepend-icon="mdi-filter-outline" clearable)
+				Users(:dep="dep")
+				v-btn(fab color="primary" small).plus
+					v-icon mdi-plus
 
 	dragDialog(:drag="drag" @close="drag = false")
 	context-menu(ref="ctxMenu" :node="node")
@@ -63,7 +57,6 @@ export default {
 	data() {
 		return {
 			selectedNode: null,
-			filterTable: '',
 			snackbar: false,
 			addednode: false,
 			leftTab: null,
@@ -81,7 +74,7 @@ export default {
 		dep() {
 			if(this.selectedNode) {
 				return this.selectedNode.data.dep
-			} else return 0
+			} else return null
 		},
 		search() {
 			return this.$store.getters.searchMode
@@ -207,12 +200,14 @@ export default {
 	background: #fff;
 	height: calc(100vh - 330px);
 }
+.mytab {
+	height: 50px;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+}
 .filt {
 	width: 200px;
-	height: 36px;
-	position: absolute;
-	top: -6px;
-	right: 0;
 }
 .plus {
 	position: absolute;

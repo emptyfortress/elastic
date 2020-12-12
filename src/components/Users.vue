@@ -1,26 +1,34 @@
 <template lang="pug">
-v-data-table(
-	:headers="headers"
-	:items="nodeUsers"
-	:search="filter"
-	:expanded.sync="expanded"
-	single-expand
-	show-expand
-	disable-pagination hide-default-footer fixed-header
-	:no-results-text="notext"
-	:height="calcHeight").usertable
-	template(v-slot:expanded-item="{ headers, item }")
-		td(:colspan="headers.length")
-			UserInfo(:user="item")
-	template(v-slot:no-results)
-		.nothing
-			img(src="@/assets/img/nothing.svg")
-			.big Ничего не найдено
-			.small Проверьте, нет ли опечаток. Попробуйте изменить запрос.
-	template(v-slot:no-data)
-		.nothing
-			.big Выберите организацию
-			.small Для просмотра консолидированных данных, включите чекбокс вверху.
+div
+	.mytab
+		v-checkbox(v-model="flatlist" label="Плоский список")
+		.filt
+			v-text-field(v-model="filter" placeholder="Фильтр" prepend-icon="mdi-filter-outline" clearable)
+	v-data-table(
+		:headers="headers"
+		:items="nodeUsers"
+		:search="filter"
+		:expanded.sync="expanded"
+		:loading="loading"
+		loading-text="------ Щаc все будет -------"
+		single-expand
+		show-expand
+		disable-pagination hide-default-footer fixed-header
+		:no-results-text="notext"
+		:height="calcHeight").usertable
+		template(v-slot:expanded-item="{ headers, item }")
+			td(:colspan="headers.length")
+				UserInfo(:user="item")
+		template(v-slot:no-results)
+			.nothing
+				img(src="@/assets/img/nothing.svg")
+				.big Ничего не найдено
+				.small Проверьте, нет ли опечаток. Попробуйте изменить запрос.
+		template(v-slot:no-data)
+			.nothing
+				img(src="@/assets/img/firm.svg")
+				.big Выберите организацию
+				.small Для просмотра плоским списком, включите чекбокс вверху.
 
 </template>
 
@@ -29,16 +37,20 @@ import { users } from '@/users'
 import UserInfo from '@/components/UserInfo'
 
 export default {
-	props: ['filter', 'dep'],
+	props: ['dep'],
 	components: {
 		UserInfo,
 	},
 	data() {
 		return {
+			flatlist: false,
+			loading: false,
+			filter: '',
 			expanded: [],
 			windowHeight: window.innerHeight,
 			notext: 'Ничего не найдено.',
 			users,
+			nodeUsers: [],
 			headers: [
 				{
 					text: 'Фамилия',
@@ -60,11 +72,6 @@ export default {
 		window.removeEventListener('resize', this.onResize); 
 	},
 	computed: {
-		nodeUsers() {
-			// return this.users
-			// return this.users.filter(user => user.dep === this.dep)
-			return []
-		},
 		filt() {
 			return ''
 		},
@@ -78,6 +85,20 @@ export default {
 	methods: {
 		onResize() {
 			this.windowHeight = window.innerHeight
+		},
+		setUsers(val) {
+			this.nodeUsers = this.users.filter(user => user.dep === val)
+		}
+	},
+	watch: {
+		dep: function(val) {
+			this.loading = true
+			if(val !== null) {
+				setTimeout(() => {
+					this.loading = false
+					this.setUsers(val)
+				},1000)
+			} else return []
 		}
 	}
 }
@@ -96,5 +117,15 @@ export default {
 	.small {
 		font-size: 0.9rem;
 	}
+}
+.mytab {
+	height: 48px;
+	display: flex;
+	justify-content: space-between;
+	/* align-items: flex-start; */
+}
+.filt {
+	width: 200px;
+	transform: translateY(-4px);
 }
 </style>
