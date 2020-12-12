@@ -87,7 +87,9 @@ export default {
 			this.windowHeight = window.innerHeight
 		},
 		setUsers(val) {
-			this.nodeUsers = this.users.filter(user => user.dep === val)
+			if(val.dep === -1 && this.flatlist) {
+				this.nodeUsers = this.users
+			} else this.nodeUsers = this.users.filter(user => user.dep === val.dep && user.firm === val.firm)
 		}
 	},
 	watch: {
@@ -99,7 +101,13 @@ export default {
 					this.setUsers(val)
 				},1000)
 			} else return []
+		},
+		flatlist: function (val) {
+			if(val) {
+				this.setUsers(this.dep)
+			}
 		}
+
 	}
 }
 

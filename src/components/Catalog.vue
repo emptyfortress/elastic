@@ -72,8 +72,11 @@ export default {
 	},
 	computed: {
 		dep() {
+			let t = {}
 			if(this.selectedNode) {
-				return this.selectedNode.data.dep
+				t.dep = this.selectedNode.data.dep
+				t.firm = this.selectedNode.data.firm
+				return t
 			} else return null
 		},
 		search() {
@@ -102,6 +105,7 @@ export default {
 	methods: {
 		onSelectNode (e) {
 			this.selectedNode = e
+			console.log(this.dep)
 		},
 		toggleSearch() {
 			this.$store.commit('toggleSearchMode')

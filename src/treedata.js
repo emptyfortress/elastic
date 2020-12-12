@@ -1,17 +1,17 @@
 const departments = [
-	{ text: 'АК "Алроса" ПАО', data: {icon: 'icon-firm'}, children: [
+	{ text: 'АК "Алроса" ПАО', data: {icon: 'icon-firm', dep: -1}, children: [
 		{ text: 'Горно-обогатительные комбинаты', data: {icon: 'icon-folder-outline', dep: 0}, children: [
-			{ text: 'Мирнинский ГОК', data: {icon: 'icon-firm'}},
-			{ text: 'Айхальский ГОК', data: {icon: 'icon-firm'}},
-			{ text: 'Нюрнбинский ГОК', data: {icon: 'icon-firm'}},
-			{ text: 'Удачнинский ГОК', data: {icon: 'icon-firm'}},
+			{ text: 'Мирнинский ГОК', data: {icon: 'icon-firm', dep: 0, firm: 0}},
+			{ text: 'Айхальский ГОК', data: {icon: 'icon-firm', dep: 0, firm: 1}},
+			{ text: 'Нюрнбинский ГОК', data: {icon: 'icon-firm', dep: 0, firm: 2}},
+			{ text: 'Удачнинский ГОК', data: {icon: 'icon-firm', dep: 0, firm: 3}},
 		]},
 		{ text: 'Производственная инфраструктура', data: {icon: 'icon-folder-outline', dep: 1}, children: [
-			{ text: 'Авиационное предприятие МУАД', data: {icon: 'icon-firm'}},
-			{ text: 'Управление капитального строительства', data: {icon: 'icon-firm'}},
-			{ text: 'СТ "Алмазавтоматика"', data: {icon: 'icon-firm'}},
-			{ text: 'Управление материально-технического снабжения', data: {icon: 'icon-firm'}},
-			{ text: 'Институт "Якутнипроалмаз"', data: {icon: 'icon-firm'}},
+			{ text: 'Авиационное предприятие МУАД', data: {icon: 'icon-firm', dep: 1, firm: 0}},
+			{ text: 'Управление капитального строительства', data: {icon: 'icon-firm', dep: 1, firm: 1}},
+			{ text: 'СТ "Алмазавтоматика"', data: {icon: 'icon-firm', dep: 1, firm: 2}},
+			{ text: 'Управление материально-технического снабжения', data: {icon: 'icon-firm', dep: 1, firm: 3}},
+			{ text: 'Институт "Якутнипроалмаз"', data: {icon: 'icon-firm', dep: 1, firm: 4}},
 		]},
 		{ text: 'Геологоразведочные подразделения', data: {icon: 'icon-folder-outline', dep: 2}, children: [
 			{ text: 'Научно-исследовательское геологическое предприятие', data: {icon: 'icon-firm'}},
