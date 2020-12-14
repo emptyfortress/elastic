@@ -194,7 +194,7 @@ export default {
 .big .hand div {
 	height: calc(100vh - 283px);
 }
-.big .tree, .big .ful .v-window-item, .big.bottom, .big .zone .content {
+.big .tree, .big .ful .v-window-item, .big.bottom {
 	height: calc(100vh - 330px);
 }
 .ful .v-window-item.v-window-item--active {
@@ -215,7 +215,7 @@ export default {
 }
 .plus {
 	position: absolute;
-	bottom: 1rem;
 	right: 1rem;
+	bottom: 1rem;
 }
 </style>
