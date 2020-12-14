@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-	li
+	li(@click.stop="$emit('infoNode')")
 		v-icon mdi-information-outline
 		span Информация
 	li(@click.stop="$emit('editNode')")

@@ -28,16 +28,21 @@
 			drag-handle.hand
 				div
 			drag-content.content
-				Users(:dep="dep")
-				v-btn(fab color="primary" small).plus
-					v-icon mdi-plus
+				v-tabs(v-model="rightTab")
+					v-tab(v-for="tab in tabs1" :key="tab") {{ tab }}
+				v-tabs-items(v-model="rightTab").ful
+					v-tab-item
+						p info
+					v-tab-item
+						Users(:dep="dep")
+						v-btn(fab color="primary" small).plus
+							v-icon mdi-plus
 
 	dragDialog(:drag="drag" @close="drag = false")
 	context-menu(ref="ctxMenu" :node="node")
-		MyMenu(@editNode = "editNode(node)" @deleteNode="removeNode(node)" @snack="snackbar = true" @addNode = "addChildNode(node)")
+		MyMenu(@editNode = "editNode(node)" @deleteNode="removeNode(node)" @snack="snackbar = true" @addNode = "addChildNode(node)" @infoNode = "infoNode(node)")
 	v-snackbar(v-model="snackbar" timeout="1300" absolute top right color="teal") Узел скопирован
 	v-snackbar(v-model="addednode" timeout="1300" absolute top right light color="amber") Узел добавлен
-
 
 </template>
 
@@ -51,8 +56,6 @@ import MyMenu from '@/components/MyMenu'
 import Users from '@/components/Users'
 import Subbar from '@/components/Subbar'
 
-
-
 export default {
 	data() {
 		return {
@@ -62,12 +65,14 @@ export default {
 			leftTab: null,
 			rightTab: null,
 			drag: false,
+			info: false,
 			treeData: [],
 			node: null,
 			treeOptions: {
 				dnd: true,
 			},
 			tabs: ['Подразделения', 'Группы', 'Роли', 'Должности'],
+			tabs1: ['Информация', 'Сотрудники'],
 		}
 	},
 	computed: {
@@ -103,6 +108,9 @@ export default {
 		this.treeData = departments
 	},
 	methods: {
+		infoNode (e) {
+			console.log(e)
+		},
 		onSelectNode (e) {
 			this.selectedNode = e
 			console.log(this.dep)

@@ -79,7 +79,7 @@ export default {
 			return this.$store.getters.searchMode
 		},
 		calcHeight() {
-			return this.search ? (this.windowHeight - 330) : (this.windowHeight - 195)
+			return this.search ? (this.windowHeight - 380) : (this.windowHeight - 240)
 		}
 	},
 	methods: {
