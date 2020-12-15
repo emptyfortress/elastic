@@ -35,6 +35,9 @@ export default {
 	align-items: center;
 	justify-content: center;
 }
+.big .noUse {
+	height: calc(100vh - 380px);
+}
 .nothing {
 	color: #999;
 	text-align: center;

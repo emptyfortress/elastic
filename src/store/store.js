@@ -12,7 +12,7 @@ export default new Vuex.Store({
 		searchItemsResults: [],
 		filterResults: [],
 		checked: [],
-		selectedUsers: null
+		selectedUsers: []
 	},
 	getters: {
 		drawer: state => { return state.drawer },

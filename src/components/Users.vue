@@ -111,7 +111,7 @@ export default {
 		},
 		selected: function (val) {
 			if (val) {
-				this.$store.commit('setUsers', val.length)
+				this.$store.commit('setUsers', val)
 			}
 		}
 

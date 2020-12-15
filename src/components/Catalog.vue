@@ -31,8 +31,8 @@
 				v-tabs(v-model="rightTab")
 					v-tab(v-for="tab in tabs1" :key="tab") {{ tab }}
 					v-spacer
-					v-tab(v-show="selectedUsers")
-						v-badge(color="green" :content="selectedUsers") Выбрано
+					v-tab(v-show="selectedUsers.length")
+						v-badge(color="red" inline :content="selectedUsers.length") Выбрано
 				v-tabs-items(v-model="rightTab").ful
 					v-tab-item
 						depInfo(:dep="dep" v-if="selectedNode" @copy="snackbar = true")
@@ -41,13 +41,14 @@
 						noUser(v-else scope="firm")
 						v-btn(fab color="primary" small v-if="selectedNode").plus
 							v-icon mdi-pencil
-					v-tab-item.scr
+					v-tab-item
 						Users(:dep="dep" v-if="selectedNode")
 						noUser(v-else scope="user")
 						v-btn(fab color="primary" small v-if="selectedNode").plus
 							v-icon mdi-plus
-					v-tab-item
-						noUser(scope="selected")
+					v-tab-item.item
+						Selection
+						//- noUser(scope="selected")
 
 	dragDialog(:drag="drag" @close="drag = false")
 	context-menu(ref="ctxMenu" :node="node")
@@ -68,6 +69,7 @@ import Users from '@/components/Users'
 import Subbar from '@/components/Subbar'
 import depInfo from '@/components/depInfo'
 import noUser from '@/components/noUser'
+import Selection from '@/components/Selection'
 
 export default {
 	data() {
@@ -124,6 +126,7 @@ export default {
 		Subbar,
 		depInfo,
 		noUser,
+		Selection,
 	},
 	mounted() {
 		this.treeData = departments
@@ -233,12 +236,7 @@ export default {
 	background: #fff;
 	height: calc(100vh - 330px);
 }
-.mytab {
-	height: 50px;
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
-}
+
 .filt {
 	width: 200px;
 }
