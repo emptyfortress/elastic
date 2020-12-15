@@ -1,42 +1,42 @@
 const departments = [
-	{ text: 'АК "Алроса" ПАО', data: {icon: 'icon-firm', dep: -1}, children: [
-		{ text: 'Горно-обогатительные комбинаты', data: {icon: 'icon-folder-outline', dep: 0}, children: [
+	{ text: 'АК "Алроса" ПАО', data: {icon: 'icon-firm', logo: 'img/alrosa.svg', dep: -1}, children: [
+		{ text: 'Горно-обогатительные комбинаты', data: {icon: 'icon-folder-outline', dep: 0, logo: 'img/alrosa.svg'}, children: [
 			{ text: 'Мирнинский ГОК', data: {icon: 'icon-firm', dep: 0, firm: 0}},
 			{ text: 'Айхальский ГОК', data: {icon: 'icon-firm', dep: 0, firm: 1}},
 			{ text: 'Нюрнбинский ГОК', data: {icon: 'icon-firm', dep: 0, firm: 2}},
 			{ text: 'Удачнинский ГОК', data: {icon: 'icon-firm', dep: 0, firm: 3}},
 		]},
-		{ text: 'Производственная инфраструктура', data: {icon: 'icon-folder-outline', dep: 1}, children: [
+		{ text: 'Производственная инфраструктура', data: {icon: 'icon-folder-outline', dep: 1, logo: 'img/alrosa.svg'}, children: [
 			{ text: 'Авиационное предприятие МУАД', data: {icon: 'icon-firm', dep: 1, firm: 0}},
 			{ text: 'Управление капитального строительства', data: {icon: 'icon-firm', dep: 1, firm: 1}},
 			{ text: 'СТ "Алмазавтоматика"', data: {icon: 'icon-firm', dep: 1, firm: 2}},
 			{ text: 'Управление материально-технического снабжения', data: {icon: 'icon-firm', dep: 1, firm: 3}},
 			{ text: 'Институт "Якутнипроалмаз"', data: {icon: 'icon-firm', dep: 1, firm: 4}},
 		]},
-		{ text: 'Геологоразведочные подразделения', data: {icon: 'icon-folder-outline', dep: 2}, children: [
+		{ text: 'Геологоразведочные подразделения', data: {icon: 'icon-folder-outline', dep: 2, logo: 'img/alrosa.svg'}, children: [
 			{ text: 'Научно-исследовательское геологическое предприятие', data: {icon: 'icon-firm', dep: 2, firm: 0}},
 			{ text: 'Вилюйская геологоразведочная экспедиция', data: {icon: 'icon-firm', dep: 2, firm: 1}},
 		]},
-		{ text: 'Социальный комплекс', data: {icon: 'icon-folder-outline', dep: 3}, children: [
+		{ text: 'Социальный комплекс', data: {icon: 'icon-folder-outline', dep: 3, logo: 'img/alrosa.svg'}, children: [
 			{ text: 'Медицинский центр', data: {icon: 'icon-firm', dep: 3, firm: 0}},
 			{ text: 'Культурно-спортивный комплекс', data: {icon: 'icon-firm', dep: 3, firm: 1}},
 			{ text: 'Центр подготовки кадров', data: {icon: 'icon-firm', dep: 3, firm: 2}},
 		]},
-		{ text: 'Представительства и филиалы', data: {icon: 'icon-folder-outline', dep: 4}, children: [
+		{ text: 'Представительства и филиалы', data: {icon: 'icon-folder-outline', dep: 4, logo: 'img/alrosa.svg'}, children: [
 			{ text: 'Филиал АК «АЛРОСА» в Республике Ангола', data: {icon: 'icon-firm', dep: 4, firm: 0}},
 			{ text: 'ALROSA Mumbai (г. Мумбай, Индия)', data: {icon: 'icon-firm', dep: 4, firm: 1}},
 			{ text: 'Филиал во Владивостоке', data: {icon: 'icon-firm', dep: 4, firm: 2}},
 		]},
-		{ text: 'Сбыт алмазов', data: {icon: 'icon-folder-outline', dep: 5}, children: [
+		{ text: 'Сбыт алмазов', data: {icon: 'icon-folder-outline', dep: 5, logo: 'img/alrosa.svg'}, children: [
 			{ text: 'Предприятие «Коммерал»', data: {icon: 'icon-firm', dep: 5, firm: 0}},
 			{ text: 'Филиал «Якутское предприятие по торговле алмазами» (ЯПТА)', data: {icon: 'icon-firm', dep: 5, firm: 1}},
 			{ text: 'Центр сортировки алмазов', data: {icon: 'icon-firm', dep: 5, firm: 2}},
 
 		]},
-		{ text: 'Сбыт бриллиантов', data: {icon: 'icon-folder-outline', dep: 6}, children: [
+		{ text: 'Сбыт бриллиантов', data: {icon: 'icon-folder-outline', dep: 6, logo: 'img/alrosa.svg'}, children: [
 			{ text: 'Филиал "Бриллианты Алроса"', data: {icon: 'icon-firm', dep: 6, firm: 0}},
 		]},
-		{ text: 'Дочерние организации', data: {icon: 'icon-folder-outline', dep: 7}, children: [
+		{ text: 'Дочерние организации', data: {icon: 'icon-folder-outline', dep: 7, logo: 'img/alrosa.svg'}, children: [
 			{ text: 'ООО «Бриллианты АЛРОСА»', data: {icon: 'icon-firm', dep: 7, firm: 0}},
 			{ text: 'Горнорудное общество «Катока Лтд.»', data: {icon: 'icon-firm', dep: 7, firm: 1}},
 			{ text: 'АО «Алмазы Анабара»', data: {icon: 'icon-firm', dep: 7, firm: 2}},
@@ -44,7 +44,7 @@ const departments = [
 			{ text: 'ПАО «АЛРОСА-Нюрба»', data: {icon: 'icon-firm', dep: 7, firm: 4}},
 		]},
 	]},
-	{ text: 'АО "Гознак"', data: {icon: 'icon-firm'}, children: [
+	{ text: 'АО "Гознак"', data: {icon: 'icon-firm', logo: 'img/goznak.svg' }, children: [
 		{ text: 'Московский монетный двор', data: {icon: 'icon-firm'}},
 		{ text: 'Московская печатная фабрика', data: {icon: 'icon-firm'}},
 		{ text: 'Московская типография Гознака', data: {icon: 'icon-firm'}},
@@ -55,8 +55,8 @@ const departments = [
 		{ text: 'Научно-исследовательский институт', data: {icon: 'icon-firm'}},
 		
 	]},
-	{ text: 'Интер РАО ЕЭС', data: {icon: 'icon-firm'}, children: [
-		{ text: 'Электрогенерация', data: {icon: 'icon-folder-outline'}, children: [
+	{ text: 'Интер РАО ЕЭС', data: {icon: 'icon-firm', logo: 'img/ees.png' }, children: [
+		{ text: 'Электрогенерация', data: {icon: 'icon-folder-outline', logo: 'img/ees.png'}, children: [
 			{ text: 'Верхнетагильская ГРЭС', data: {icon: 'icon-firm'}},
 			{ text: 'Гусиноозёрская ГРЭС', data: {icon: 'icon-firm'}},
 			{ text: 'Джубгинская ТЭС', data: {icon: 'icon-firm'}},
@@ -76,27 +76,27 @@ const departments = [
 			{ text: 'Южноуральская ГРЭС', data: {icon: 'icon-firm'}},
 			{ text: 'Южноуральская ГРЭС-2', data: {icon: 'icon-firm'}},
 		], },
-		{ text: 'Зарубежная генерация', data: {icon: 'icon-folder-outline'}, children: [
+		{ text: 'Зарубежная генерация', data: {icon: 'icon-folder-outline', logo: 'img/ees.png'}, children: [
 			{ text: 'Молдавская ГРЭС', data: {icon: 'icon-firm'}},
 			{ text: 'Храми ГЭС-1', data: {icon: 'icon-firm'}},
 			{ text: 'Храми ГЭС-2' , data: {icon: 'icon-firm'}},
 			{ text: 'Trakya Elektrik A.S.', data: {icon: 'icon-firm'}},
 			{ text: 'Ветропарк «Видмантай»', data: {icon: 'icon-firm'}},
 		],},
-		{ text: 'Теплогенерация', data: {icon: 'icon-folder-outline'}, children: [
+		{ text: 'Теплогенерация', data: {icon: 'icon-folder-outline', logo: 'img/ees.png'}, children: [
 			{ text: 'Томская Генерация', data: {icon: 'icon-firm'}},
 			{ text: 'ТГК-11', data: {icon: 'icon-firm'}},
 			{ text: 'Башкирская генерирующая компания', data: {icon: 'icon-firm'}},
 		], },
-		{ text: 'Теплосети', data: {icon: 'icon-folder-outline'}, children: [
+		{ text: 'Теплосети', data: {icon: 'icon-folder-outline', logo: 'img/ees.png'}, children: [
 			{ text: 'ОмскРТС', data: {icon: 'icon-firm'}},
 			{ text: 'ТомскРТС', data: {icon: 'icon-firm'}},
 			{ text: 'БашРТС', data: {icon: 'icon-firm'}},
 		], },
-		{ text: 'Зарубежные сетевые активы', data: {icon: 'icon-folder-outline'}, children: [
+		{ text: 'Зарубежные сетевые активы', data: {icon: 'icon-folder-outline', logo: 'img/ees.png'}, children: [
 			{ text: 'Теласи', data: {icon: 'icon-firm'}}
 		], },
-		{ text: 'Сбыт', data: {icon: 'icon-folder-outline'}, children: [
+		{ text: 'Сбыт', data: {icon: 'icon-folder-outline', logo: 'img/ees.png'}, children: [
 			{ text: 'Мосэнергосбыт', data: {icon: 'icon-firm'}},
 			{ text: 'Петербургская сбытовая', data: {icon: 'icon-firm'}},
 			{ text: 'Саратовэнерго', data: {icon: 'icon-firm'}},
@@ -109,7 +109,7 @@ const departments = [
 			{ text: 'Северная сбытовая компания', data: {icon: 'icon-firm'}},
 			{ text: 'Энергосбыт Волга', data: {icon: 'icon-firm'}},
 		], },
-		{ text: 'Трейдинг', data: {icon: 'icon-folder-outline'}, children: [
+		{ text: 'Трейдинг', data: {icon: 'icon-folder-outline', logo: 'img/ees.png'}, children: [
 			{ text: 'RAO Nordic', data: {icon: 'icon-firm'}},
 			{ text: 'Восточная энергетическая компания', data: {icon: 'icon-firm'}},
 			{ text: 'IRL Polska', data: {icon: 'icon-firm'}},
@@ -117,16 +117,16 @@ const departments = [
 			{ text: 'Inter RAO Lietuva', data: {icon: 'icon-firm'}},
 			{ text: 'Inter RAO Eesti', data: {icon: 'icon-firm'}},
 		], },
-		{ text: 'Инжиниринг', data: {icon: 'icon-folder-outline'}, children: [
+		{ text: 'Инжиниринг', data: {icon: 'icon-folder-outline', logo: 'img/ees.png'}, children: [
 			{ text: 'Интер РАО – Инжиниринг', data: {icon: 'icon-firm'}},
 			{ text: 'Русские газовые турбины', data: {icon: 'icon-firm'}},
 			{ text: 'Интер РАО – Экспорт', data: {icon: 'icon-firm'}},
 		], },
-		{ text: 'Инновации и энергоэффективность', data: {icon: 'icon-folder-outline'}, children: [
+		{ text: 'Инновации и энергоэффективность', data: {icon: 'icon-folder-outline', logo: 'img/ees.png'}, children: [
 			{ text: 'Центр энергоэффективности Интер РАО ЕЭС', data: {icon: 'icon-firm'}},
 			{ text: 'Фонд «Энергия без границ', data: {icon: 'icon-firm'}},
 		], },
-		{ text: 'Ремонт и сервис', data: {icon: 'icon-folder-outline'}, children: [
+		{ text: 'Ремонт и сервис', data: {icon: 'icon-folder-outline', logo: 'img/ees.png'}, children: [
 			{ text: 'КВАРЦ Групп', data: {icon: 'icon-firm'}},
 		], },
 	] },

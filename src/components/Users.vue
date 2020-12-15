@@ -5,16 +5,19 @@ div
 		.filt
 			v-text-field(v-model="filter" placeholder="Фильтр" prepend-icon="mdi-filter-outline" clearable)
 	v-data-table(
+		v-model="selected"
 		:headers="headers"
 		:items="nodeUsers"
 		:search="filter"
 		:expanded.sync="expanded"
 		:loading="loading"
-		loading-text="------ Щаc все будет -------"
+		loading-text="------ Секундочку -------"
 		single-expand
 		show-expand
+		show-select
 		disable-pagination hide-default-footer fixed-header
 		:no-results-text="notext"
+		no-data-text="Выберите организацию"
 		:height="calcHeight").usertable
 		template(v-slot:expanded-item="{ headers, item }")
 			td(:colspan="headers.length")
@@ -24,11 +27,6 @@ div
 				img(src="@/assets/img/nothing.svg")
 				.big Ничего не найдено
 				.small Проверьте, нет ли опечаток. Попробуйте изменить запрос.
-		template(v-slot:no-data)
-			.nothing
-				img(src="@/assets/img/firm.svg")
-				.big Выберите организацию
-				.small Для просмотра плоским списком, включите чекбокс вверху.
 
 </template>
 
@@ -47,6 +45,7 @@ export default {
 			loading: false,
 			filter: '',
 			expanded: [],
+			selected: [],
 			windowHeight: window.innerHeight,
 			notext: 'Ничего не найдено.',
 			users,
@@ -93,18 +92,26 @@ export default {
 		}
 	},
 	watch: {
-		dep: function(val) {
-			this.loading = true
-			if(val !== null) {
-				setTimeout(() => {
-					this.loading = false
-					this.setUsers(val)
-				},1000)
-			} else return []
+		dep: {
+			immediate: true,
+			handler (val) {
+				this.loading = true
+				if(val !== null) {
+					setTimeout(() => {
+						this.loading = false
+						this.setUsers(val)
+					},1000)
+				} else return []
+			}
 		},
 		flatlist: function (val) {
 			if(val) {
 				this.setUsers(this.dep)
+			}
+		},
+		selected: function (val) {
+			if (val) {
+				this.$store.commit('setUsers', val.length)
 			}
 		}
 

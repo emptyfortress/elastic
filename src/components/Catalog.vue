@@ -30,18 +30,29 @@
 			drag-content.content
 				v-tabs(v-model="rightTab")
 					v-tab(v-for="tab in tabs1" :key="tab") {{ tab }}
+					v-spacer
+					v-tab(v-show="selectedUsers")
+						v-badge(color="green" :content="selectedUsers") Выбрано
 				v-tabs-items(v-model="rightTab").ful
 					v-tab-item
-						p info
-					v-tab-item
-						Users(:dep="dep")
-						v-btn(fab color="primary" small).plus
+						depInfo(:dep="dep" v-if="selectedNode" @copy="snackbar = true")
+						.logo(v-if="selectedNode")
+							img(:src="logo")
+						noUser(v-else scope="firm")
+						v-btn(fab color="primary" small v-if="selectedNode").plus
+							v-icon mdi-pencil
+					v-tab-item.scr
+						Users(:dep="dep" v-if="selectedNode")
+						noUser(v-else scope="user")
+						v-btn(fab color="primary" small v-if="selectedNode").plus
 							v-icon mdi-plus
+					v-tab-item
+						noUser(scope="selected")
 
 	dragDialog(:drag="drag" @close="drag = false")
 	context-menu(ref="ctxMenu" :node="node")
 		MyMenu(@editNode = "editNode(node)" @deleteNode="removeNode(node)" @snack="snackbar = true" @addNode = "addChildNode(node)" @infoNode = "infoNode(node)")
-	v-snackbar(v-model="snackbar" timeout="1300" absolute top right color="teal") Узел скопирован
+	v-snackbar(v-model="snackbar" timeout="1300" absolute top right color="teal") Скопировано
 	v-snackbar(v-model="addednode" timeout="1300" absolute top right light color="amber") Узел добавлен
 
 </template>
@@ -55,6 +66,8 @@ import contextMenu from 'vue-context-menu'
 import MyMenu from '@/components/MyMenu'
 import Users from '@/components/Users'
 import Subbar from '@/components/Subbar'
+import depInfo from '@/components/depInfo'
+import noUser from '@/components/noUser'
 
 export default {
 	data() {
@@ -76,6 +89,9 @@ export default {
 		}
 	},
 	computed: {
+		selectedUsers () {
+			return this.$store.getters.selectedUsers
+		},
 		dep() {
 			let t = {}
 			if(this.selectedNode) {
@@ -83,6 +99,9 @@ export default {
 				t.firm = this.selectedNode.data.firm
 				return t
 			} else return null
+		},
+		logo () {
+			return this.selectedNode.data.logo || this.selectedNode.parent.data.logo
 		},
 		search() {
 			return this.$store.getters.searchMode
@@ -103,6 +122,8 @@ export default {
 		MyMenu,
 		Users,
 		Subbar,
+		depInfo,
+		noUser,
 	},
 	mounted() {
 		this.treeData = departments
@@ -225,5 +246,10 @@ export default {
 	position: absolute;
 	right: 1rem;
 	bottom: 1rem;
+}
+.logo {
+	position: absolute;
+	bottom: .3rem;
+	left: 1rem;
 }
 </style>
