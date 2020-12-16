@@ -3,17 +3,11 @@ div
 	v-data-table(
 		v-model="selected"
 		:headers="headers"
-		:items="selectedUsers"
-		:expanded.sync="expanded"
+		:items="selectedItems"
 		loading-text="------ Секундочку -------"
-		single-expand
-		show-expand
 		show-select
 		disable-pagination hide-default-footer fixed-header
 		:height="calcHeight").usertable
-			template(v-slot:expanded-item="{ headers, item }")
-				td(:colspan="headers.length")
-					UserInfo(:user="item")
 	.action
 		v-btn(depressed color="primary" small) Добавить в раздел
 		v-btn(depressed color="deep-orange" dark small) Удалить из раздела
@@ -37,23 +31,21 @@ export default {
 	data() {
 		return {
 			selected: [],
-			expanded: [],
 			help: false,
 			windowHeight: window.innerHeight,
 			headers: [
 				{
-					text: 'Фамилия',
+					text: 'Название / ФИО',
 					align: 'start',
 					filterable: true,
-					value: 'lastname',
+					value: 'fio',
 				},
-				{ text: 'Инициалы', value: 'short'},
-				{ text: 'Должность', value: 'title' },
+				{ text: 'Подразделение/организация', value: ''},
 			],
 		}
 	},
 	mounted () {
-		this.selected = this.selectedUsers
+		// this.selected = this.selectedItems
 		this.$nextTick(() => {
 			window.addEventListener('resize', this.onResize);
 		})
@@ -68,14 +60,14 @@ export default {
 		calcHeight() {
 			return this.search ? (this.windowHeight - 380) : (this.windowHeight - 246)
 		},
-		selectedUsers () {
-			return this.$store.getters.selectedUsers
+		selectedItems () {
+			return this.$store.getters.selectedItems
 		}
 	},
 	watch: {
 		selected: function (val) {
 			if (val) {
-				this.$store.commit('setUsers', val)
+				this.$store.commit('setItems', val)
 			}
 		}
 	},

@@ -12,7 +12,11 @@
 					v-tab(v-for="tab in tabs" :key="tab") {{ tab }}
 				v-tabs-items(v-model="leftTab").ful
 					v-tab-item
-						tree(:data="treeData" :options="treeOptions" @node:dragging:finish="dragFinish" ref="tree" @node:selected="onSelectNode")
+						tree(:data="treeItems" :options="treeOptions" 
+							@node:dragging:finish="dragFinish" ref="tree" 
+							@node:checked="onCheckNode"
+							@node:unchecked="onUnCheckNode"
+							@node:selected="onSelectNode")
 							.node-container(slot-scope="{ node }" @contextmenu.prevent="rightClick(node)")
 								.tree-text
 									i(:class="node.data.icon")
@@ -31,8 +35,8 @@
 				v-tabs(v-model="rightTab")
 					v-tab(v-for="tab in tabs1" :key="tab") {{ tab }}
 					v-spacer
-					v-tab(v-show="selectedUsers.length")
-						v-badge(color="red" inline :content="selectedUsers.length") Выбрано
+					v-tab(v-show="selectedItems.length")
+						v-badge(color="red" inline :content="selectedItems.length") Выбрано
 				v-tabs-items(v-model="rightTab").ful
 					v-tab-item
 						depInfo(:dep="dep" v-if="selectedNode" @copy="snackbar = true")
@@ -83,6 +87,7 @@ export default {
 			info: false,
 			treeData: [],
 			node: null,
+			checkedNodes: [],
 			treeOptions: {
 				dnd: true,
 				checkbox: true,
@@ -92,8 +97,11 @@ export default {
 		}
 	},
 	computed: {
-		selectedUsers () {
-			return this.$store.getters.selectedUsers
+		treeItems () {
+			return this.$store.getters.treeItems
+		},
+		selectedItems () {
+			return this.$store.getters.selectedItems
 		},
 		dep() {
 			let t = {}
@@ -129,16 +137,31 @@ export default {
 		noUser,
 		Selection,
 	},
-	mounted() {
-		this.treeData = departments
+	created() {
+		this.$store.commit('setTreeItems', departments)
 	},
+	// mounted() {
+	// 	this.treeData = departments
+	// },
 	methods: {
 		infoNode (e) {
 			console.log(e)
 		},
+		onUnCheckNode (e) {
+			let node = this.selectedItems.filter(item => item.text === e.text)
+			let nodeIndex = this.selectedItems.indexOf(node)
+			this.selectedItems.splice(nodeIndex,1)
+			this.$store.commit('setItems', this.selectedItems)
+		},
+		onCheckNode (e) {
+			let obj = {}
+			obj.fio = e.text
+			let selected = this.selectedItems
+			selected.push(obj)
+			this.$store.commit('setItems', selected)
+		},
 		onSelectNode (e) {
 			this.selectedNode = e
-			console.log(this.dep)
 		},
 		toggleSearch() {
 			this.$store.commit('toggleSearchMode')

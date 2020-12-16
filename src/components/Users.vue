@@ -85,7 +85,7 @@ export default {
 		onResize() {
 			this.windowHeight = window.innerHeight
 		},
-		setUsers(val) {
+		setItems(val) {
 			if(val.dep === -1 && this.flatlist) {
 				this.nodeUsers = this.users
 			} else this.nodeUsers = this.users.filter(user => user.dep === val.dep && user.firm === val.firm)
@@ -99,22 +99,24 @@ export default {
 				if(val !== null) {
 					setTimeout(() => {
 						this.loading = false
-						this.setUsers(val)
+						this.setItems(val)
 					},1000)
 				} else return []
 			}
 		},
 		flatlist: function (val) {
 			if(val) {
-				this.setUsers(this.dep)
+				this.setItems(this.dep)
 			}
 		},
 		selected: function (val) {
+			// console.log(val)
 			if (val) {
-				this.$store.commit('setUsers', val)
+				// let item = val[0].fio
+				// console.log(item)
+				this.$store.commit('setItems', val)
 			}
 		}
-
 	}
 }
 
