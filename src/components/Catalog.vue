@@ -85,6 +85,7 @@ export default {
 			node: null,
 			treeOptions: {
 				dnd: true,
+				checkbox: true,
 			},
 			tabs: ['Подразделения', 'Группы', 'Роли', 'Должности'],
 			tabs1: ['Информация', 'Сотрудники'],
