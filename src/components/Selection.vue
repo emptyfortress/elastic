@@ -1,13 +1,15 @@
 <template lang="pug">
 div
 	v-data-table(
-		v-model="selected"
+		v-model="selectedItems"
 		:headers="headers"
 		:items="selectedItems"
 		loading-text="------ Секундочку -------"
 		show-select
 		disable-pagination hide-default-footer fixed-header
 		:height="calcHeight").usertable
+		template(v-slot:item.data-table-select="{ isSelected, select }")
+			v-simple-checkbox(color="green" v-ripple :value="isSelected" @input="select($event)")
 	.action
 		v-btn(depressed color="primary" small) Добавить в раздел
 		v-btn(depressed color="deep-orange" dark small) Удалить из раздела
@@ -30,7 +32,6 @@ export default {
 	},
 	data() {
 		return {
-			selected: [],
 			help: false,
 			windowHeight: window.innerHeight,
 			headers: [
@@ -45,10 +46,10 @@ export default {
 		}
 	},
 	mounted () {
-		// this.selected = this.selectedItems
 		this.$nextTick(() => {
 			window.addEventListener('resize', this.onResize);
 		})
+		console.log(this.selectedItems)
 	},
 	beforeDestroy() {
 		window.removeEventListener('resize', this.onResize); 
@@ -62,14 +63,27 @@ export default {
 		},
 		selectedItems () {
 			return this.$store.getters.selectedItems
-		}
+		},
 	},
 	watch: {
-		selected: function (val) {
-			if (val) {
-				this.$store.commit('setItems', val)
-			}
-		}
+		// selectedItems: function (val) {
+		// 	if (val) {
+		// 		this.selected = [...this.checked, ...val]
+		// 		// this.$nextTick(() => {
+		// 		// 	this.selected = [ ...this.checked, ...this.selectedItems ]
+		// 		// })
+		// 		this.$store.commit('setItems', val)
+		// 	}
+		// },
+		// checked: function (val) {
+		// 	if (val) {
+		// 		this.selected = []
+		// 		// this.$nextTick(() => {
+		// 		// 	this.selected = [ ...this.checked, ...this.selectedItems ]
+		// 		// })
+		// 		this.$store.commit('setChecked', val)
+		// 	}
+		// }
 	},
 	methods: {
 		onResize() {

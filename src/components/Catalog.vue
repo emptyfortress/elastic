@@ -39,17 +39,17 @@
 						v-badge(color="red" inline :content="selectedItems.length") Выбрано
 				v-tabs-items(v-model="rightTab").ful
 					v-tab-item
+						Users(:dep="dep" v-if="selectedNode")
+						noUser(v-else scope="user")
+						v-btn(fab color="primary" small v-if="selectedNode").plus
+							v-icon mdi-plus
+					v-tab-item
 						depInfo(:dep="dep" v-if="selectedNode" @copy="snackbar = true")
 						.logo(v-if="selectedNode")
 							img(:src="logo")
 						noUser(v-else scope="firm")
 						v-btn(fab color="primary" small v-if="selectedNode").plus
 							v-icon mdi-pencil
-					v-tab-item
-						Users(:dep="dep" v-if="selectedNode")
-						noUser(v-else scope="user")
-						v-btn(fab color="primary" small v-if="selectedNode").plus
-							v-icon mdi-plus
 					v-tab-item.item
 						Selection
 						//- noUser(scope="selected")
@@ -93,7 +93,7 @@ export default {
 				checkbox: true,
 			},
 			tabs: ['Подразделения', 'Группы', 'Роли', 'Должности'],
-			tabs1: ['Информация', 'Сотрудники'],
+			tabs1: ['Сотрудники', 'Информация'],
 		}
 	},
 	computed: {

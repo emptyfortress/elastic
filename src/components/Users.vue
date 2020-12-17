@@ -71,6 +71,9 @@ export default {
 		window.removeEventListener('resize', this.onResize); 
 	},
 	computed: {
+		selectedItems () {
+			return this.$store.getters.selectedItems
+		},
 		filt() {
 			return ''
 		},
@@ -110,10 +113,7 @@ export default {
 			}
 		},
 		selected: function (val) {
-			// console.log(val)
 			if (val) {
-				// let item = val[0].fio
-				// console.log(item)
 				this.$store.commit('setItems', val)
 			}
 		}
