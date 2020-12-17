@@ -94,8 +94,8 @@ export default {
 			this.windowHeight = window.innerHeight
 		},
 		setItems(val) {
-			if(val.dep === -1 && this.flatlist) {
-				this.nodeUsers = this.users
+			if(val && this.flatlist) {
+				this.nodeUsers = this.users.filter( user => user.dep === val.dep )
 			} else this.nodeUsers = this.users.filter(user => user.dep === val.dep && user.firm === val.firm)
 		}
 	},
@@ -103,6 +103,7 @@ export default {
 		dep: {
 			immediate: true,
 			handler (val) {
+				this.flatlist = false
 				this.loading = true
 				if(val !== null) {
 					setTimeout(() => {
@@ -114,7 +115,11 @@ export default {
 		},
 		flatlist: function (val) {
 			if(val) {
-				this.setItems(this.dep)
+				this.loading = true
+				setTimeout(() => {
+					this.loading = false
+					this.setItems(this.dep)
+				},1000)
 			}
 		},
 	}
