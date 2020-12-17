@@ -1,7 +1,7 @@
 <template lang="pug">
 div
 	.mytab
-		v-checkbox(v-model="flatlist" label="Плоский список")
+		v-spacer
 		.filt
 			v-text-field(v-model="filter" placeholder="Фильтр" prepend-icon="mdi-filter-outline" clearable)
 	v-data-table(
@@ -16,8 +16,11 @@ div
 		show-select
 		disable-pagination hide-default-footer fixed-header
 		:no-results-text="notext"
-		no-data-text="Выберите организацию"
 		:height="calcHeight").usertable
+		template( v-slot:no-data )
+			.pa-10.text-center
+				.overline Показать вложенные подразделения
+				v-switch(v-model="flatlist").centr
 		template(v-slot:item.data-table-select="{ item }")
 			v-simple-checkbox(color="primary" v-ripple :value="item.isSelected" @input="select(item)")
 		template(v-slot:expanded-item="{ headers, item }")
@@ -141,5 +144,9 @@ export default {
 .filt {
 	width: 200px;
 	transform: translateY(-4px);
+}
+.centr {
+	width: 50px;
+	margin: 0 auto;
 }
 </style>

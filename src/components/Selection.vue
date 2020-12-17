@@ -49,7 +49,7 @@ export default {
 					filterable: true,
 					value: 'fio',
 				},
-				{ text: 'Подразделение/организация', value: ''},
+				{ text: 'Подразделение', value: ''},
 			],
 		}
 	},
