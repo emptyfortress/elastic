@@ -21,14 +21,14 @@
 								.tree-text
 									i(:class="node.data.icon")
 									span {{ node.text }}
-						v-btn(fab color="primary" small).plus
-							v-icon mdi-plus
 					v-tab-item
-						h3 Groups
+						Groups
 					v-tab-item
 						h3 Роли
 					v-tab-item
 						h3 Должности
+				v-btn(fab color="primary" small).plus
+					v-icon mdi-plus
 			drag-handle.hand
 				div
 			drag-content.content
@@ -74,6 +74,7 @@ import Subbar from '@/components/Subbar'
 import depInfo from '@/components/depInfo'
 import noUser from '@/components/noUser'
 import Selection from '@/components/Selection'
+import Groups from '@/components/Groups'
 
 export default {
 	data() {
@@ -139,6 +140,7 @@ export default {
 		depInfo,
 		noUser,
 		Selection,
+		Groups,
 	},
 	created() {
 		this.treeData = departments
@@ -257,8 +259,10 @@ export default {
 .big .tree, .big .ful .v-window-item, .big.bottom {
 	height: calc(100vh - 330px);
 }
+
 .ful .v-window-item.v-window-item--active {
 	background: #fff;
+	height: calc(100vh - 195px);
 }
 .big .ful .v-window-item.v-window-item--active {
 	background: #fff;
