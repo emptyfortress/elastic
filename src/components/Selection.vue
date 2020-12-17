@@ -1,18 +1,26 @@
 <template lang="pug">
 div
 	v-data-table(
-		v-model="selectedItems"
+		:value="selectedItems"
 		:headers="headers"
 		:items="selectedItems"
 		loading-text="------ Секундочку -------"
 		show-select
 		disable-pagination hide-default-footer fixed-header
 		:height="calcHeight").usertable
-		template(v-slot:item.data-table-select="{ isSelected, select }")
-			v-simple-checkbox(color="green" v-ripple :value="isSelected" @input="select($event)")
+		template( v-slot:body="{ items }" )
+			tbody
+				tr(v-for="item in selectedItems" :key="item.fio")
+					td
+						v-simple-checkbox(:value="item.checked || item.isSelected" v-ripple @input="uncheck(item)" color="primary")
+					td
+						i(:class="item.icon" v-if="item.icon").mr-1
+						i( v-else).icon-user-1.mr-1
+						span {{ item.fio }}
+					td
 	.action
 		v-btn(depressed color="primary" small) Добавить в раздел
-		v-btn(depressed color="deep-orange" dark small) Удалить из раздела
+		//- v-btn(depressed color="deep-orange" dark small) Удалить из раздела
 		v-btn(icon @click="help = true")
 			v-icon(color="primary") mdi-help-circle-outline
 
@@ -49,12 +57,14 @@ export default {
 		this.$nextTick(() => {
 			window.addEventListener('resize', this.onResize);
 		})
-		console.log(this.selectedItems)
 	},
 	beforeDestroy() {
 		window.removeEventListener('resize', this.onResize); 
 	},
 	computed: {
+		users () {
+			return this.$store.getters.users
+		},
 		search() {
 			return this.$store.getters.searchMode
 		},
@@ -62,30 +72,18 @@ export default {
 			return this.search ? (this.windowHeight - 380) : (this.windowHeight - 246)
 		},
 		selectedItems () {
-			return this.$store.getters.selectedItems
+			let selectedUser = this.users.filter( item => item.isSelected)
+			return [ ...this.$store.getters.checked, ...selectedUser ]
 		},
 	},
-	watch: {
-		// selectedItems: function (val) {
-		// 	if (val) {
-		// 		this.selected = [...this.checked, ...val]
-		// 		// this.$nextTick(() => {
-		// 		// 	this.selected = [ ...this.checked, ...this.selectedItems ]
-		// 		// })
-		// 		this.$store.commit('setItems', val)
-		// 	}
-		// },
-		// checked: function (val) {
-		// 	if (val) {
-		// 		this.selected = []
-		// 		// this.$nextTick(() => {
-		// 		// 	this.selected = [ ...this.checked, ...this.selectedItems ]
-		// 		// })
-		// 		this.$store.commit('setChecked', val)
-		// 	}
-		// }
-	},
 	methods: {
+		uncheck (e) {
+			if (e.isSelected === true) {
+				e.isSelected = false
+			} else {
+				this.$emit('uncheck', e.fio)
+			}
+		},
 		onResize() {
 			this.windowHeight = window.innerHeight
 		},

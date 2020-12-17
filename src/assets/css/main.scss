@@ -67,6 +67,13 @@
 	width: 16px !important;
 	height: 16px !important;
 }
+.tree-checkbox.checked {
+	background: #1976d2 !important;
+}
+.tree-checkbox.indeterminate {
+	background: #1976d2 !important;
+	// background: #4CAF50 !important;
+}
 .tree-checkbox.checked:after {
 	height: 7px !important;
 	width: 3px !important;

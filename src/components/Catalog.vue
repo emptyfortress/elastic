@@ -12,8 +12,8 @@
 					v-tab(v-for="tab in tabs" :key="tab") {{ tab }}
 				v-tabs-items(v-model="leftTab").ful
 					v-tab-item
-						tree(:data="treeItems" :options="treeOptions" 
-							@node:dragging:finish="dragFinish" ref="tree" 
+						tree(:data="treeItems" :options="treeOptions"
+							@node:dragging:finish="dragFinish" ref="tree"
 							@node:checked="onCheckNode"
 							@node:unchecked="onUnCheckNode"
 							@node:selected="onSelectNode")
@@ -35,8 +35,8 @@
 				v-tabs(v-model="rightTab")
 					v-tab(v-for="tab in tabs1" :key="tab") {{ tab }}
 					v-spacer
-					v-tab(v-show="selectedItems.length")
-						v-badge(color="red" inline :content="selectedItems.length") Выбрано
+					v-tab(v-show="selected.length")
+						v-badge(color="red" inline :content="selected.length") Выбрано
 				v-tabs-items(v-model="rightTab").ful
 					v-tab-item
 						Users(:dep="dep" v-if="selectedNode")
@@ -51,7 +51,7 @@
 						v-btn(fab color="primary" small v-if="selectedNode").plus
 							v-icon mdi-pencil
 					v-tab-item.item
-						Selection
+						Selection(@uncheck="uncheck")
 						//- noUser(scope="selected")
 
 	dragDialog(:drag="drag" @close="drag = false")
@@ -84,10 +84,9 @@ export default {
 			leftTab: null,
 			rightTab: null,
 			drag: false,
-			info: false,
 			treeData: [],
 			node: null,
-			checkedNodes: [],
+			nodes: [],
 			treeOptions: {
 				dnd: true,
 				checkbox: true,
@@ -97,11 +96,15 @@ export default {
 		}
 	},
 	computed: {
+		checkedItems () {
+			return this.$refs.tree.findAll({state: {checked: true}})
+		},
 		treeItems () {
 			return this.$store.getters.treeItems
 		},
-		selectedItems () {
-			return this.$store.getters.selectedItems
+		selected () {
+			let users = this.$store.getters.users.filter( item => item.isSelected)
+			return [...users, ...this.nodes]
 		},
 		dep() {
 			let t = {}
@@ -138,27 +141,28 @@ export default {
 		Selection,
 	},
 	created() {
+		this.treeData = departments
 		this.$store.commit('setTreeItems', departments)
 	},
-	// mounted() {
-	// 	this.treeData = departments
-	// },
 	methods: {
-		infoNode (e) {
+		uncheck (e) {
 			console.log(e)
+			let node = this.$refs.tree.find(e)
+			node.uncheck()
 		},
-		onUnCheckNode (e) {
-			let node = this.selectedItems.filter(item => item.text === e.text)
-			let nodeIndex = this.selectedItems.indexOf(node)
-			this.selectedItems.splice(nodeIndex,1)
-			this.$store.commit('setItems', this.selectedItems)
+		onUnCheckNode () {
+			let allChecked = this.checkedItems.map( item => {
+				return {fio: item.data.text, icon: item.data.icon}
+			})
+			this.$store.commit('setChecked', allChecked)
 		},
 		onCheckNode (e) {
-			let obj = {}
-			obj.fio = e.text
-			let selected = this.selectedItems
-			selected.push(obj)
-			this.$store.commit('setItems', selected)
+			console.log(e)
+			this.nodes.push({})
+			let allChecked = this.checkedItems.map( item => {
+				return {fio: item.data.text, icon: item.data.icon, checked: item.states.checked}
+			})
+			this.$store.commit('setChecked', allChecked)
 		},
 		onSelectNode (e) {
 			this.selectedNode = e

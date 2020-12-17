@@ -5,7 +5,6 @@ div
 		.filt
 			v-text-field(v-model="filter" placeholder="Фильтр" prepend-icon="mdi-filter-outline" clearable)
 	v-data-table(
-		v-model="selected"
 		:headers="headers"
 		:items="nodeUsers"
 		:search="filter"
@@ -19,6 +18,8 @@ div
 		:no-results-text="notext"
 		no-data-text="Выберите организацию"
 		:height="calcHeight").usertable
+		template(v-slot:item.data-table-select="{ item }")
+			v-simple-checkbox(color="primary" v-ripple :value="item.isSelected" @input="select(item)")
 		template(v-slot:expanded-item="{ headers, item }")
 			td(:colspan="headers.length")
 				UserInfo(:user="item")
@@ -31,7 +32,7 @@ div
 </template>
 
 <script>
-import { users } from '@/users'
+import { users as raw } from '@/users'
 import UserInfo from '@/components/UserInfo'
 
 export default {
@@ -45,10 +46,9 @@ export default {
 			loading: false,
 			filter: '',
 			expanded: [],
-			selected: [],
 			windowHeight: window.innerHeight,
 			notext: 'Ничего не найдено.',
-			users,
+			users: [],
 			nodeUsers: [],
 			headers: [
 				{
@@ -66,14 +66,12 @@ export default {
 		this.$nextTick(() => {
 			window.addEventListener('resize', this.onResize);
 		})
+		this.users = raw
 	},
 	beforeDestroy() {
 		window.removeEventListener('resize', this.onResize); 
 	},
 	computed: {
-		selectedItems () {
-			return this.$store.getters.selectedItems
-		},
 		filt() {
 			return ''
 		},
@@ -85,6 +83,10 @@ export default {
 		}
 	},
 	methods: {
+		select (e) {
+			e.isSelected ? e.isSelected = false : e.isSelected = true
+			this.$store.commit('setUsers', this.users)
+		},
 		onResize() {
 			this.windowHeight = window.innerHeight
 		},
@@ -112,11 +114,6 @@ export default {
 				this.setItems(this.dep)
 			}
 		},
-		selected: function (val) {
-			if (val) {
-				this.$store.commit('setItems', val)
-			}
-		}
 	}
 }
 
