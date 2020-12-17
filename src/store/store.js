@@ -35,7 +35,7 @@ export default new Vuex.Store({
 		setSearchMode (state, payload) { state.searchMode = payload },
 		setLoading (state, payload) { state.loading = payload },
 		setItems (state, payload) { state.selectedItems = payload },
-		addItemToSelection (state, payload) { state.selectedItems.push(payload) },
+		addItemToSelection (state, payload) { state.users.push(payload) },
 		setSearchItemsResults (state, payload) { state.searchItemsResults = payload },
 		setFilterResults (state, payload) { state.filterResults = payload },
 		setChecked (state, payload) { state.checked = payload },

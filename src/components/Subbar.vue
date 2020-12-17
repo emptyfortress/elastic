@@ -14,14 +14,15 @@
 					span.space >
 					span Отдел кадров
 				.user
-					i.icon-user-1
-					span Шпаков Аркадий Ильич
+					v-simple-checkbox(v-ripple color="primary" v-model="check[n]" :key="n" @input="setuser")
+					.name
+						i.icon-user-1
+						span Шпаков Аркадий Ильич
 				v-btn(icon).go
 					v-icon mdi-bullseye-arrow
 	.right
 		.digit 23
 		.mb-6 результата
-		//- v-btn(depressed color="primary" block @click="$emit('close')").mt-6 Закрыть
 		v-btn(icon large)
 			v-icon mdi-chevron-double-down
 		v-btn(icon large @click="$emit('close')")
@@ -33,9 +34,19 @@
 export default {
 	data() {
 		return {
-			list: []
+			list: [],
+			check: [],
 		}
 	},
+	methods: {
+		setuser () {
+			let user = {}
+			user.fio = 'Шпаков А.И.'
+			user.isSelected = true
+			user.icon = 'icon-user-1'
+			this.$store.commit('addItemToSelection', user)
+		}
+	}
 }
 
 </script>
@@ -84,7 +95,6 @@ export default {
 			}
 		}
 	}
-	
 }
 
 .subbar {
@@ -101,6 +111,12 @@ export default {
 	}
 	.v-btn {
 		margin-right: 4px;
+	}
+}
+.user {
+	display: flex;
+	.name {
+		margin-left: .5rem;
 	}
 }
 
