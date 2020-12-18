@@ -9,7 +9,7 @@
 		drag-zone.zone
 			drag-content.content
 				v-tabs(v-model="leftTab")
-					v-tab(v-for="tab in tabs" :key="tab") {{ tab }}
+					v-tab(v-for="tab in tabs" :key="tab" @click="selectedNode = null") {{ tab }}
 				v-tabs-items(v-model="leftTab").ful
 					v-tab-item
 						tree(:data="treeItems" :options="treeOptions"
@@ -48,13 +48,12 @@
 						noUser(v-else scope="firm")
 					v-tab-item.item
 						Selection(@uncheck="uncheck")
-						//- noUser(scope="selected")
 				v-btn(fab color="primary" small v-if="selectedNode").plus
 					v-icon(v-if="rightTab === 0") mdi-plus
 					v-icon(v-else) mdi-pencil
 
 	dragDialog(:drag="drag" @close="drag = false")
-	addDialog(:add="add" @close="add = false" :node="selectedNode")
+	addDialog(:add="add" @close="add = false" :node="selectedNode" @add="addFromDialog" :tab="leftTab")
 	context-menu(ref="ctxMenu" :node="node")
 		MyMenu(@editNode = "editNode(node)" @deleteNode="removeNode(node)" @snack="snackbar = true" @addNode = "addChildNode(node)" @infoNode = "infoNode(node)")
 	v-snackbar(v-model="snackbar" timeout="1300" absolute top right color="teal") Скопировано
@@ -155,7 +154,6 @@ export default {
 	},
 	methods: {
 		uncheck (e) {
-			console.log(e)
 			let node = this.$refs.tree.find(e)
 			node.uncheck()
 		},
@@ -183,6 +181,15 @@ export default {
 			if (node.enabled()) {
 				node.append('Новое подразделение')
 				this.addednode = true
+			}
+		},
+		addFromDialog(val) {
+			if (this.selectedNode.enabled()) {
+				this.selectedNode.append(val)
+				this.addednode = true
+				this.selectedNode.expand()
+				let that = this.$refs.tree.find(val)
+				that.select()
 			}
 		},
 		removeNode(node) {
