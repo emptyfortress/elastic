@@ -27,7 +27,7 @@
 						Roles(@selectNode="onSelectNode" @checkNode="onCheckNode")
 					v-tab-item.ful
 						Titles
-				v-btn(fab color="primary" small :disabled="!selectedNode").plus
+				v-btn(fab color="primary" @click="add = true" small :disabled="!selectedNode").plus
 					v-icon mdi-plus
 			drag-handle.hand
 				div
@@ -54,6 +54,7 @@
 					v-icon(v-else) mdi-pencil
 
 	dragDialog(:drag="drag" @close="drag = false")
+	addDialog(:add="add" @close="add = false" :node="selectedNode")
 	context-menu(ref="ctxMenu" :node="node")
 		MyMenu(@editNode = "editNode(node)" @deleteNode="removeNode(node)" @snack="snackbar = true" @addNode = "addChildNode(node)" @infoNode = "infoNode(node)")
 	v-snackbar(v-model="snackbar" timeout="1300" absolute top right color="teal") Скопировано
@@ -76,6 +77,7 @@ import Selection from '@/components/Selection'
 import Groups from '@/components/Groups'
 import Roles from '@/components/Roles'
 import Titles from '@/components/Titles'
+import addDialog from '@/components/addDialog'
 
 export default {
 	data() {
@@ -86,6 +88,7 @@ export default {
 			leftTab: null,
 			rightTab: null,
 			drag: false,
+			add: false,
 			treeData: [],
 			node: null,
 			nodes: [],
@@ -144,6 +147,7 @@ export default {
 		Groups,
 		Roles,
 		Titles,
+		addDialog,
 	},
 	created() {
 		this.treeData = departments
