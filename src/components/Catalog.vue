@@ -26,8 +26,7 @@
 					v-tab-item.ful
 						Roles(@selectNode="onSelectNode" @checkNode="onCheckNode")
 					v-tab-item.ful
-						.cen
-							i.icon-lookma
+						Titles
 				v-btn(fab color="primary" small).plus
 					v-icon mdi-plus
 			drag-handle.hand
@@ -42,18 +41,17 @@
 					v-tab-item
 						Users(:dep="dep" v-if="selectedNode")
 						noUser(v-else scope="user")
-						v-btn(fab color="primary" small v-if="selectedNode").plus
-							v-icon mdi-plus
 					v-tab-item
 						depInfo(:dep="dep" v-if="selectedNode" @copy="snackbar = true")
 						.logo(v-if="selectedNode")
 							img(:src="logo")
 						noUser(v-else scope="firm")
-						v-btn(fab color="primary" small v-if="selectedNode").plus
-							v-icon mdi-pencil
 					v-tab-item.item
 						Selection(@uncheck="uncheck")
 						//- noUser(scope="selected")
+				v-btn(fab color="primary" small v-if="selectedNode").plus
+					v-icon(v-if="rightTab === 0") mdi-plus
+					v-icon(v-else) mdi-pencil
 
 	dragDialog(:drag="drag" @close="drag = false")
 	context-menu(ref="ctxMenu" :node="node")
@@ -77,6 +75,7 @@ import noUser from '@/components/noUser'
 import Selection from '@/components/Selection'
 import Groups from '@/components/Groups'
 import Roles from '@/components/Roles'
+import Titles from '@/components/Titles'
 
 export default {
 	data() {
@@ -144,6 +143,7 @@ export default {
 		Selection,
 		Groups,
 		Roles,
+		Titles,
 	},
 	created() {
 		this.treeData = departments

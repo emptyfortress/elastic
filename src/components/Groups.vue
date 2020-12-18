@@ -9,13 +9,15 @@
 			.tree-text
 				i(:class="node.data.icon")
 				span {{ node.text }}
-	//- v-btn(fab color="primary" small).plus
-	//- 	v-icon mdi-plus
+	context-menu(ref="ctxMenu" :node="node")
+		MyMenu(@editNode = "editNode(node)" @deleteNode="removeNode(node)" @snack="snackbar = true" @addNode = "addChildNode(node)" @infoNode = "infoNode(node)")
 </template>
 
 <script>
 import LiquorTree from 'liquor-tree'
 import { groups } from '@/groups.js'
+import contextMenu from 'vue-context-menu'
+import MyMenu from '@/components/MyMenu'
 
 export default {
 	data() {
@@ -43,6 +45,8 @@ export default {
 	},
 	components: {
 		tree: LiquorTree,
+		MyMenu,
+		contextMenu,
 	},
 	methods: {
 		onSelectNode (e) {
@@ -53,7 +57,26 @@ export default {
 		},
 		onCheckNode (e) {
 			this.$emit('checkNode', e)
-		}
+		},
+		rightClick(e) {
+			this.$refs.ctxMenu.open()
+			this.node = e
+		},
+		addChildNode(node) {
+			if (node.enabled()) {
+				node.append('Новое подразделение')
+				this.addednode = true
+			}
+		},
+		removeNode(node) {
+			if (confirm('Are you sure?')) {
+				node.remove()
+			}
+		},
+		editNode(node, e) {
+			node.startEditing()
+			console.log(e)
+		},
 	}
 }
 
@@ -68,5 +91,8 @@ export default {
 	span {
 		margin-left: 4px;
 	}
+}
+.node-container {
+	width: 100%;
 }
 </style>

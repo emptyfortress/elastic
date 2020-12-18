@@ -1,7 +1,7 @@
 <template lang="pug">
-.roles
+div
 	tree(:data="treeData" :options="treeOptions"
-		ref="roletree"
+		ref="titleree"
 		@node:checked="onCheckNode"
 		@node:unchecked="onUnCheckNode"
 		@node:selected="onSelectNode")
@@ -15,7 +15,7 @@
 
 <script>
 import LiquorTree from 'liquor-tree'
-import { roles } from '@/roles.js'
+import { titles } from '@/titles.js'
 import contextMenu from 'vue-context-menu'
 import MyMenu from '@/components/MyMenu'
 
@@ -30,18 +30,18 @@ export default {
 			node: null,
 			nodes: [],
 			treeOptions: {
-				dnd: true,
-				checkbox: true,
+				dnd: false,
+				checkbox: false,
 			},
 		}
 	},
 	computed: {
 		checkedItems () {
-			return this.$refs.roletree.findAll({state: {checked: true}})
+			return this.$refs.titletree.findAll({state: {checked: true}})
 		},
 	},
 	created() {
-		this.treeData = roles
+		this.treeData = titles
 	},
 	components: {
 		tree: LiquorTree,
@@ -84,15 +84,12 @@ export default {
 
 <style scoped lang="scss">
 
-.node-container {
-	width: 100%;
-}
-.roles {
-	height: 100%;
-}
 .tree-text {
 	span {
-		margin-left: 4px;
+		margin-left: 5px;
 	}
+}
+.node-container {
+	width: 100%;
 }
 </style>
