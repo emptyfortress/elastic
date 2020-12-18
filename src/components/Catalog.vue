@@ -27,7 +27,7 @@
 						Roles(@selectNode="onSelectNode" @checkNode="onCheckNode")
 					v-tab-item.ful
 						Titles
-				v-btn(fab color="primary" small).plus
+				v-btn(fab color="primary" small :disabled="!selectedNode").plus
 					v-icon mdi-plus
 			drag-handle.hand
 				div
