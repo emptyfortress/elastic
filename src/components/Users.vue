@@ -19,7 +19,7 @@ div
 		:height="calcHeight").usertable
 		template( v-slot:no-data )
 			.pa-10.text-center
-				.overline Показать вложенные подразделения
+				.overline Показать вложенные разделы
 				v-switch(v-model="flatlist").centr
 		template(v-slot:item.data-table-select="{ item }")
 			v-simple-checkbox(color="primary" v-ripple :value="item.isSelected" @input="select(item)")

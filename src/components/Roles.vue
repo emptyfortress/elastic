@@ -1,5 +1,5 @@
 <template lang="pug">
-.groups
+.roles
 	tree(:data="treeData" :options="treeOptions"
 		@node:dragging:finish="dragFinish" ref="tree"
 		@node:checked="onCheckNode"
@@ -9,13 +9,11 @@
 			.tree-text
 				i(:class="node.data.icon")
 				span {{ node.text }}
-	//- v-btn(fab color="primary" small).plus
-	//- 	v-icon mdi-plus
 </template>
 
 <script>
 import LiquorTree from 'liquor-tree'
-import { groups } from '@/groups.js'
+import { roles } from '@/roles.js'
 
 export default {
 	data() {
@@ -33,16 +31,10 @@ export default {
 		}
 	},
 	created() {
-		this.treeData = groups
+		this.treeData = roles
 	},
 	components: {
 		tree: LiquorTree,
-	},
-	methods: {
-		onSelectNode (e) {
-			this.$emit('groupSelect', e)
-		},
-		
 	}
 }
 
@@ -50,7 +42,8 @@ export default {
 
 <style scoped lang="scss">
 @import '@/assets/css/colors.scss';
-.groups {
+
+.roles {
 	height: 100%;
 }
 .tree-text {

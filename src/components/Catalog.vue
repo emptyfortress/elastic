@@ -21,12 +21,13 @@
 								.tree-text
 									i(:class="node.data.icon")
 									span {{ node.text }}
-					v-tab-item
-						Groups
-					v-tab-item
-						h3 Роли
-					v-tab-item
-						h3 Должности
+					v-tab-item.ful
+						Groups(@groupSelect="onSelectNode")
+					v-tab-item.ful
+						Roles
+					v-tab-item.ful
+						.cen
+							i.icon-lookma
 				v-btn(fab color="primary" small).plus
 					v-icon mdi-plus
 			drag-handle.hand
@@ -75,6 +76,7 @@ import depInfo from '@/components/depInfo'
 import noUser from '@/components/noUser'
 import Selection from '@/components/Selection'
 import Groups from '@/components/Groups'
+import Roles from '@/components/Roles'
 
 export default {
 	data() {
@@ -141,6 +143,7 @@ export default {
 		noUser,
 		Selection,
 		Groups,
+		Roles,
 	},
 	created() {
 		this.treeData = departments
@@ -281,5 +284,16 @@ export default {
 	position: absolute;
 	bottom: .3rem;
 	left: 1rem;
+}
+.cen {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	aling-items: center;
+	i {
+		margin-top: 4rem;
+		font-size: 8rem;
+	}
 }
 </style>
