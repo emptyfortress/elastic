@@ -1,7 +1,7 @@
 <template lang="pug">
 .groups
 	tree(:data="treeData" :options="treeOptions"
-		@node:dragging:finish="dragFinish" ref="tree"
+		ref="grouptree"
 		@node:checked="onCheckNode"
 		@node:unchecked="onUnCheckNode"
 		@node:selected="onSelectNode")
@@ -26,11 +26,17 @@ export default {
 			drag: false,
 			treeData: [],
 			node: null,
+			nodes: [],
 			treeOptions: {
 				dnd: true,
 				checkbox: true,
 			},
 		}
+	},
+	computed: {
+		checkedItems () {
+			return this.$refs.grouptree.findAll({state: {checked: true}})
+		},
 	},
 	created() {
 		this.treeData = groups
@@ -40,9 +46,14 @@ export default {
 	},
 	methods: {
 		onSelectNode (e) {
-			this.$emit('groupSelect', e)
+			this.$emit('selectNode', e)
 		},
-		
+		onUnCheckNode (e) {
+			this.$emit('uncheckNode', e)
+		},
+		onCheckNode (e) {
+			this.$emit('checkNode', e)
+		}
 	}
 }
 

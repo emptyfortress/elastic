@@ -22,9 +22,9 @@
 									i(:class="node.data.icon")
 									span {{ node.text }}
 					v-tab-item.ful
-						Groups(@groupSelect="onSelectNode")
+						Groups(@selectNode="onSelectNode" @checkNode="onCheckNode")
 					v-tab-item.ful
-						Roles
+						Roles(@selectNode="onSelectNode" @checkNode="onCheckNode")
 					v-tab-item.ful
 						.cen
 							i.icon-lookma
@@ -161,8 +161,8 @@ export default {
 			})
 			this.$store.commit('setChecked', allChecked)
 		},
-		onCheckNode (e) {
-			console.log(e)
+		onCheckNode () {
+			// console.log(e)
 			this.nodes.push({})
 			let allChecked = this.checkedItems.map( item => {
 				return {fio: item.data.text, icon: item.data.icon, checked: item.states.checked}

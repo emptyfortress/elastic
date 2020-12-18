@@ -1,7 +1,7 @@
 <template lang="pug">
 .roles
 	tree(:data="treeData" :options="treeOptions"
-		@node:dragging:finish="dragFinish" ref="tree"
+		ref="roletree"
 		@node:checked="onCheckNode"
 		@node:unchecked="onUnCheckNode"
 		@node:selected="onSelectNode")
@@ -24,17 +24,34 @@ export default {
 			drag: false,
 			treeData: [],
 			node: null,
+			nodes: [],
 			treeOptions: {
 				dnd: true,
 				checkbox: true,
 			},
 		}
 	},
+	computed: {
+		checkedItems () {
+			return this.$refs.roletree.findAll({state: {checked: true}})
+		},
+	},
 	created() {
 		this.treeData = roles
 	},
 	components: {
 		tree: LiquorTree,
+	},
+	methods: {
+		onSelectNode (e) {
+			this.$emit('selectNode', e)
+		},
+		onUnCheckNode (e) {
+			this.$emit('uncheckNode', e)
+		},
+		onCheckNode (e) {
+			this.$emit('checkNode', e)
+		}
 	}
 }
 
