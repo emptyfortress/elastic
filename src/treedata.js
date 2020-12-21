@@ -1,5 +1,5 @@
 const departments = [
-	{ text: 'Организации', state: {expanded: true, checked: false, selected: false}, data: {icon: 'icon-folder-outline'}, children: [
+	{ text: 'Организации', state: {expanded: true, checked: false, selected: false}, data: {icon: 'icon-folder-outline', dep: 0}, children: [
 		{ text: 'АК "Алроса" ПАО', state: {expanded: true, checked: false, selected: false}, data: {icon: 'icon-firm', logo: 'img/alrosa.svg', dep: -1}, children: [
 			{ text: 'Горно-обогатительные комбинаты', states: {expanded: true, checked: false, selected: false}, data: {icon: 'icon-folder-outline', dep: 0, logo: 'img/alrosa.svg'}, children: [
 				{ text: 'Мирнинский ГОК', states: {expanded: false, checked: false, selected: false}, data: {icon: 'icon-firm', dep: 0, firm: 0}},

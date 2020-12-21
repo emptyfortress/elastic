@@ -164,7 +164,6 @@ export default {
 			this.$store.commit('setChecked', allChecked)
 		},
 		onCheckNode () {
-			// console.log(e)
 			this.nodes.push({})
 			let allChecked = this.checkedItems.map( item => {
 				return {fio: item.data.text, icon: item.data.icon, checked: item.states.checked}
@@ -173,6 +172,7 @@ export default {
 		},
 		onSelectNode (e) {
 			this.selectedNode = e
+			console.log(e)
 		},
 		toggleSearch() {
 			this.$store.commit('toggleSearchMode')
