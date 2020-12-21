@@ -3,7 +3,7 @@ div
 	.mytab
 		transition(name="slideYfade" mode="out-in")
 			.spr(v-show="addUserMode")
-				v-text-field(label="Добавить" solo dense clearable)
+				v-text-field(label="Добавить" solo flat dense clearable)
 				v-btn(icon dark @click="book = true")
 					v-icon mdi-book-open-page-variant-outline
 		transition(name="slideYfade" mode="out-in")
@@ -152,7 +152,7 @@ export default {
 	}
 }
 .mytab {
-	margin-top: 1px;
+	/* margin-top: 1px; */
 	height: 47px;
 	display: flex;
 	justify-content: flex-end;
@@ -172,7 +172,8 @@ export default {
 	transition: .2s ease all;
 	width: 100%;
 	padding: 4px 10px;
-	background: #1976d2;
+	/* background: #1976d2; */
+	background: #999;
 	display: flex;
 	align-items: flex-start;
 	gap: 1rem;
