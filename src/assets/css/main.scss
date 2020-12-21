@@ -57,8 +57,6 @@
 		opacity: .5;
 	}
 }
-.usertable {
-}
 .usertable thead th {
 	font-size: 11px !important;
 	box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4) !important;
@@ -72,7 +70,6 @@
 }
 .tree-checkbox.indeterminate {
 	background: #1976d2 !important;
-	// background: #4CAF50 !important;
 }
 .tree-checkbox.checked:after {
 	height: 7px !important;
@@ -81,4 +78,18 @@
 	top: 1px !important;
 	border-right-width: 2px !important;
 	border-bottom-width: 2px !important;
+}
+
+// animation
+.slideYfade-enter, .slideYfade-leave-to {
+	transform: translateY(-30px);
+	opacity: 0;
+}
+.slideYfade-enter-active, .slideYfade-leave-active {
+	transition: all .3s ease;
+	position: absolute;
+}
+.myheadline {
+	border-bottom: 1px solid $link;
+	border-top: 5px solid $link;
 }

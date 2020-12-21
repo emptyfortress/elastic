@@ -1,7 +1,7 @@
 <template lang="pug">
 v-dialog(v-model="help" width="500")
 	v-card
-		v-card-title.headline.grey.lighten-2 
+		v-card-title.myheadline
 			span Добавить / Удалить
 			v-spacer
 			img(src="@/assets/img/structure.svg" width="40")

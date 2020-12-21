@@ -1,9 +1,14 @@
 <template lang="pug">
 div
 	.mytab
-		v-spacer
-		.filt
-			v-text-field(v-model="filter" placeholder="Фильтр" prepend-icon="mdi-filter-outline" clearable v-if="!addMode")
+		transition(name="slideYfade" mode="out-in")
+			.spr(v-show="addUserMode")
+				v-text-field(label="Поиск" prepend-inner-icon="mdi-magnify" solo dense clearable)
+				v-btn(icon dark @click="book = true")
+					v-icon mdi-book-open-page-variant-outline
+		transition(name="slideYfade" mode="out-in")
+			.filt(v-show="!addUserMode")
+				v-text-field(v-model="filter" placeholder="Фильтр" prepend-icon="mdi-filter-outline" clearable dense)
 	v-data-table(
 		:headers="headers"
 		:items="nodeUsers"
@@ -17,8 +22,6 @@ div
 		disable-pagination hide-default-footer fixed-header
 		:no-results-text="notext"
 		:height="calcHeight").usertable
-		template(v-slot:top v-if="addMode")
-			.top This is content above the actual table
 		template( v-slot:no-data )
 			.pa-10.text-center
 				.overline Показать вложенные разделы
@@ -34,16 +37,19 @@ div
 				.big Ничего не найдено
 				.small Проверьте, нет ли опечаток. Попробуйте изменить запрос.
 
+	bookDialog(:book="book" @close="book = false")
 </template>
 
 <script>
 import { users as raw } from '@/users'
 import UserInfo from '@/components/UserInfo'
+import bookDialog from '@/components/bookDialog'
 
 export default {
-	props: ['dep'],
+	props: ['dep', 'addUserMode'],
 	components: {
 		UserInfo,
+		bookDialog,
 	},
 	data() {
 		return {
@@ -55,6 +61,7 @@ export default {
 			notext: 'Ничего не найдено.',
 			users: [],
 			nodeUsers: [],
+			book: false,
 			headers: [
 				{
 					text: 'Фамилия',
@@ -130,6 +137,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '@/assets/css/colors.scss';
+
 .nothing {
 	padding-top: 2rem;
 	img {
@@ -145,22 +154,26 @@ export default {
 .mytab {
 	height: 48px;
 	display: flex;
-	justify-content: space-between;
-	/* align-items: flex-start; */
+	justify-content: flex-end;
+	align-items: flex-start;
 }
 .filt {
 	width: 200px;
-	transform: translateY(-4px);
+	margin-right: 1rem;
+	margin-top: 5px;
 }
 .centr {
 	width: 50px;
 	margin: 0 auto;
 }
-.usertable {
-	position: relative;
-}
-.top {
-	height: 50px;
-	background: red;
+.spr {
+	height: 48px;
+	transition: .2s ease all;
+	width: 100%;
+	padding: 4px 10px;
+	background: #1976d2;
+	display: flex;
+	align-items: flex-start;
+	gap: 1rem;
 }
 </style>

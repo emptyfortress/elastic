@@ -39,7 +39,7 @@
 						v-badge(color="red" inline :content="selected.length") Выбрано
 				v-tabs-items(v-model="rightTab").ful
 					v-tab-item
-						Users(:dep="dep" v-if="selectedNode")
+						Users(:dep="dep" v-if="selectedNode" :addUserMode="addUserMode")
 						noUser(v-else scope="user")
 					v-tab-item
 						depInfo(:dep="dep" v-if="selectedNode" @copy="snackbar = true")
@@ -49,8 +49,8 @@
 					v-tab-item.item
 						Selection(@uncheck="uncheck")
 				v-btn(fab color="primary" small v-if="selectedNode" @click="toggleAddUser" ).plus
-					v-icon(v-if="rightTab === 0" :class="{'active' : addUserMode}" ) mdi-plus
-					v-icon(v-else) mdi-pencil
+					v-icon(v-if="rightTab === 1") mdi-pencil
+					v-icon(v-else :class="{'active' : addUserMode}" ) mdi-plus
 
 	dragDialog(:drag="drag" @close="drag = false")
 	addDialog(:add="add" @close="add = false" :node="selectedNode" @add="addFromDialog" :tab="leftTab")

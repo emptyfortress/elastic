@@ -1,7 +1,7 @@
 <template lang="pug">
 v-dialog(v-model="add" max-width="600")
 	v-card
-		v-card-title.headline.grey.lighten-2 
+		v-card-title.myheadline
 			span {{ title }}
 			v-spacer
 			v-icon(large) mdi-folder-plus-outline
