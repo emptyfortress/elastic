@@ -280,7 +280,7 @@ export default {
 
 .ful .v-window-item.v-window-item--active {
 	background: #fff;
-	height: calc(100vh - 195px);
+	height: calc(100vh - 192px);
 }
 .big .ful .v-window-item.v-window-item--active {
 	background: #fff;

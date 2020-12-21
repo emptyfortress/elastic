@@ -3,7 +3,7 @@ div
 	.mytab
 		transition(name="slideYfade" mode="out-in")
 			.spr(v-show="addUserMode")
-				v-text-field(label="Поиск" prepend-inner-icon="mdi-magnify" solo dense clearable)
+				v-text-field(label="Добавить" solo dense clearable)
 				v-btn(icon dark @click="book = true")
 					v-icon mdi-book-open-page-variant-outline
 		transition(name="slideYfade" mode="out-in")
@@ -152,7 +152,8 @@ export default {
 	}
 }
 .mytab {
-	height: 48px;
+	margin-top: 1px;
+	height: 47px;
 	display: flex;
 	justify-content: flex-end;
 	align-items: flex-start;
