@@ -48,8 +48,8 @@
 						noUser(v-else scope="firm")
 					v-tab-item.item
 						Selection(@uncheck="uncheck")
-				v-btn(fab color="primary" small v-if="selectedNode").plus
-					v-icon(v-if="rightTab === 0") mdi-plus
+				v-btn(fab color="primary" small v-if="selectedNode" @click="toggleAddUser" ).plus
+					v-icon(v-if="rightTab === 0" :class="{'active' : addUserMode}" ) mdi-plus
 					v-icon(v-else) mdi-pencil
 
 	dragDialog(:drag="drag" @close="drag = false")
@@ -88,6 +88,7 @@ export default {
 			rightTab: null,
 			drag: false,
 			add: false,
+			addUserMode: false,
 			treeData: [],
 			node: null,
 			nodes: [],
@@ -153,6 +154,9 @@ export default {
 		this.$store.commit('setTreeItems', departments)
 	},
 	methods: {
+		toggleAddUser () {
+			this.addUserMode = !this.addUserMode
+		},
 		uncheck (e) {
 			let node = this.$refs.tree.find(e)
 			node.uncheck()
@@ -290,6 +294,9 @@ export default {
 	position: absolute;
 	right: 1rem;
 	bottom: 1rem;
+	.active {
+		transform: rotate(45deg);
+	}
 }
 .logo {
 	position: absolute;

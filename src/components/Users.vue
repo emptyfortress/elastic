@@ -3,7 +3,7 @@ div
 	.mytab
 		v-spacer
 		.filt
-			v-text-field(v-model="filter" placeholder="Фильтр" prepend-icon="mdi-filter-outline" clearable)
+			v-text-field(v-model="filter" placeholder="Фильтр" prepend-icon="mdi-filter-outline" clearable v-if="!addMode")
 	v-data-table(
 		:headers="headers"
 		:items="nodeUsers"
@@ -17,6 +17,8 @@ div
 		disable-pagination hide-default-footer fixed-header
 		:no-results-text="notext"
 		:height="calcHeight").usertable
+		template(v-slot:top v-if="addMode")
+			.top This is content above the actual table
 		template( v-slot:no-data )
 			.pa-10.text-center
 				.overline Показать вложенные разделы
@@ -153,5 +155,12 @@ export default {
 .centr {
 	width: 50px;
 	margin: 0 auto;
+}
+.usertable {
+	position: relative;
+}
+.top {
+	height: 50px;
+	background: red;
 }
 </style>
