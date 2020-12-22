@@ -1,5 +1,5 @@
-<template>
-	<svg width="0" height="0" style="display: none;" v-html="$options.svgSprite" />
+<template lang="pug">
+svg(width="0" height="0" style="display: none;" v-html="$options.svgSprite")
 </template>
 
 <script>

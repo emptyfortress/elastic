@@ -63,8 +63,6 @@
 </template>
 
 <script>
-import SvgSprite from '@/components/SvgSprite'
-import SvgIcon from '@/components/SvgIcon'
 import { dragZone, dragHandle, dragContent } from 'vue-drag-zone'
 import LiquorTree from 'liquor-tree'
 import {departments} from '@/treedata.js'
@@ -151,8 +149,6 @@ export default {
 		Roles,
 		Titles,
 		addDialog,
-		SvgSprite,
-		SvgIcon,
 	},
 	created() {
 		this.treeData = departments

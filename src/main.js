@@ -6,6 +6,8 @@ import '@/assets/css/support.css'
 import '@/assets/css/main.scss'
 import VueFuse from 'vue-fuse'
 import App from './App.vue'
+import SvgIcon from '@/components/SvgIcon.vue'
+Vue.component('svg-icon', SvgIcon)
 
 Vue.use(VueFuse)
 

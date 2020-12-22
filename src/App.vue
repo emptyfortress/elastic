@@ -1,5 +1,5 @@
 <template lang="pug">
-v-app 
+v-app
 	svg-sprite
 	Drawer(:maincolor="maincolor")
 	v-app-bar(app :color="maincolor" flat collapse-on-scroll clipped-left :class="calcWidth()" elevation="2" ).pr-2
@@ -31,8 +31,8 @@ import Hint from '@/components/Hint'
 import SvgSprite from '@/components/SvgSprite.vue'
 
 export default {
-	name: 'App', 
-	components: { 
+	name: 'App',
+	components: {
 		Drawer,
 		searchComponent,
 		Hint,
@@ -113,7 +113,7 @@ export default {
 				this.logo = true
 			}
 		},
-		
+
 	}
 }
 </script>
