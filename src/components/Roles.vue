@@ -7,7 +7,7 @@
 		@node:selected="onSelectNode")
 		.node-container(slot-scope="{ node }" @contextmenu.prevent="rightClick(node)")
 			.tree-text
-				i(:class="node.data.icon")
+				svg-icon(:icon="node.data.icon")
 				span {{ node.text }}
 	context-menu(ref="ctxMenu" :node="node")
 		MyMenu(@editNode = "editNode(node)" @deleteNode="removeNode(node)" @snack="snackbar = true" @addNode = "addChildNode(node)" @infoNode = "infoNode(node)")

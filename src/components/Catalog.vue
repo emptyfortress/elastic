@@ -2,7 +2,6 @@
 .cat
 	.top(:class="ifSearch")
 		.zagg(v-if="!search")
-			svg-icon(icon="card" color="red")
 			v-icon.mr-3 mdi-book-open-page-variant-outline
 			span Справочник сотрудников
 		Subbar(v-else @close="toggleSearch")
@@ -20,7 +19,7 @@
 							@node:selected="onSelectNode")
 							.node-container(slot-scope="{ node }" @contextmenu.prevent="rightClick(node)")
 								.tree-text
-									i(:class="node.data.icon")
+									svg-icon(:icon="node.data.icon")
 									span {{ node.text }}
 					v-tab-item.ful
 						Groups(@selectNode="onSelectNode" @checkNode="onCheckNode")
@@ -256,9 +255,8 @@ export default {
 	width: calc((100% - 20px) / 2);
 	position: relative;
 }
-.tree-text i {
+.tree-text .icon {
 	margin-right: 6px;
-	margin-left: -4px;
 }
 
 .node-container {

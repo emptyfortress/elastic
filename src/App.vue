@@ -1,6 +1,6 @@
 <template lang="pug">
 v-app
-	svg-sprite
+	SvgSprite
 	Drawer(:maincolor="maincolor")
 	v-app-bar(app :color="maincolor" flat collapse-on-scroll clipped-left :class="calcWidth()" elevation="2" ).pr-2
 		v-app-bar-nav-icon(color="#fff" @click="$store.commit('toggleDrawer')")
