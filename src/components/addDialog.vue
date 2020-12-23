@@ -11,14 +11,14 @@ v-dialog(v-model="add" max-width="600")
 			.myflex
 				div(v-if="tab !== 2") Тип:
 				v-radio-group( v-model="type" row v-if="tab === 0")
-					v-radio(label="Папка" value="icon-folder-outline")
-					v-radio(label="Организация" value="icon-firm")
-					v-radio(label="Подразделение" value="icon-dep")
+					v-radio(label="Папка" value="folder-outline")
+					v-radio(label="Организация" value="firm")
+					v-radio(label="Подразделение" value="department")
 				v-radio-group( v-model="type1" row v-if="tab === 1")
-					v-radio(label="Организация" value="icon-firm")
-					v-radio(label="Подразделение" value="icon-dep")
-					v-radio(label="Группа" value="icon-group")
-					v-radio(label="Роль" value="icon-role")
+					v-radio(label="Организация" value="firm")
+					v-radio(label="Подразделение" value="department")
+					v-radio(label="Группа" value="group")
+					v-radio(label="Роль" value="role")
 		v-divider
 		v-card-actions.pa-5
 			v-spacer
@@ -34,8 +34,8 @@ export default {
 	data() {
 		return {
 			text: '',
-			type: 'icon-dep',
-			type1: 'icon-group',
+			type: 'department',
+			type1: 'group',
 		}
 	},
 	computed: {
@@ -45,7 +45,7 @@ export default {
 			} else return ''
 		},
 		item() {
-			let tip = 'icon-role'
+			let tip = 'role'
 			switch(this.tab) {
 			case 0: 
 				tip = this.type
@@ -54,7 +54,7 @@ export default {
 				tip = this.type1
 				break
 			default:
-				tip = 'icon-role'
+				tip = 'role'
 			}
 			return {
 				text: this.text,
