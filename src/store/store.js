@@ -15,6 +15,7 @@ export default new Vuex.Store({
 		selectedItems: [],
 		treeItems: [],
 		users: [],
+		userSearch: false,
 	},
 	getters: {
 		drawer: state => { return state.drawer },
@@ -27,6 +28,7 @@ export default new Vuex.Store({
 		selectedItems: state => { return state.selectedItems },
 		treeItems: state => { return state.treeItems },
 		users: state => { return state.users },
+		userSearch: state => { return state.userSearch },
 	},
 	mutations: {
 		toggleDrawer (state) { state.drawer = !state.drawer },
@@ -41,6 +43,7 @@ export default new Vuex.Store({
 		setChecked (state, payload) { state.checked = payload },
 		setTreeItems (state, payload) { state.treeItems = payload },
 		setUsers (state, payload) { state.users = payload },
+		setUserSearch (state, payload) { state.userSearch = payload },
 	},
 	actions: {
 	},

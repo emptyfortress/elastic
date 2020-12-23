@@ -38,6 +38,8 @@ v-scale-transition(origin="center right" mode="out-in")
 import searchFocus from '@/components/searchFocus'
 import axios from 'axios'
 import items from '@/store/data.js'
+import {users} from '@/users.js'
+
 
 export default {
 	props: ['active'],
@@ -48,6 +50,7 @@ export default {
 			searchResultsVisible: false,
 			posts: [],
 			items,
+			users,
 			searchResults: [],
 			highlightedIndex: null,
 			options: {
@@ -70,8 +73,18 @@ export default {
 				maxPatternLength: 32,
 				minMatchCharLength: 1,
 				keys: ['title', 'author', 'digest', 'file'],
+			},
+			options2: {
+				shouldSort: true,
+				includeMatches: true,
+				threshold: 0.1,
+				location: 0,
+				distance: 1000,
+				tokenize: true,
+				maxPatternLength: 32,
+				minMatchCharLength: 1,
+				keys: ['title', 'lastname', 'name', 'middle'],
 			}
-
 		}
 	},
 	created () {
@@ -183,7 +196,17 @@ export default {
 			this.$store.commit('setLoading', true)
 			this.searchResultsVisible = false
 			this.$store.commit('setMini', true)
-			if (query === '!!') {
+
+			if (this.$route.name === 'catalog') {
+				this.$store.commit('setUserSearch', true)
+				this.$store.commit('setLoading', true)
+				this.$search(query, this.users, this.options2)
+					.then(results => {
+						this.$store.commit('setSearchItemsResults', results)
+					})
+			}
+
+			else if (query === '!!') {
 				this.$store.commit('setLoading', false)
 				this.$router.push('/advanced')
 				this.query = ''

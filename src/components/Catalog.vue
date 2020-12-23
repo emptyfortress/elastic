@@ -1,10 +1,12 @@
 <template lang="pug">
 .cat
 	.top(:class="ifSearch")
-		.zagg(v-if="!search")
+		.zagg(v-show="!userSearch")
 			v-icon.mr-3 mdi-book-open-page-variant-outline
 			span Справочник сотрудников
-		Subbar(v-else @close="toggleSearch")
+		.pa-6(v-show="loading")
+			userLoader
+		//- Subbar(v-else @close="toggleSearch")
 	.bottom(:class="ifSearch")
 		drag-zone.zone
 			drag-content.content
@@ -77,6 +79,7 @@ import Groups from '@/components/Groups'
 import Roles from '@/components/Roles'
 import Titles from '@/components/Titles'
 import addDialog from '@/components/addDialog'
+import userLoader from '@/components/userLoader'
 
 export default {
 	data() {
@@ -101,6 +104,9 @@ export default {
 		}
 	},
 	computed: {
+		loading () {
+			return this.$store.getters.loading
+		},
 		checkedItems () {
 			return this.$refs.tree.findAll({state: {checked: true}})
 		},
@@ -125,8 +131,11 @@ export default {
 		search() {
 			return this.$store.getters.searchMode
 		},
+		userSearch () {
+			return this.$store.getters.userSearch
+		},
 		ifSearch() {
-			if(this.search) {
+			if(this.userSearch) {
 				return 'big'
 			} else return ''
 		}
@@ -148,6 +157,7 @@ export default {
 		Roles,
 		Titles,
 		addDialog,
+		userLoader,
 	},
 	created() {
 		this.treeData = departments
