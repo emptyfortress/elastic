@@ -60,6 +60,8 @@
 		MyMenu(@editNode = "editNode(node)" @deleteNode="removeNode(node)" @snack="snackbar = true" @addNode = "addChildNode(node)" @infoNode = "infoNode(node)")
 	v-snackbar(v-model="snackbar" timeout="1300" absolute top right color="teal") Скопировано
 	v-snackbar(v-model="addednode" timeout="1300" absolute top right light color="amber") Узел добавлен
+	.bookmark(@click="toggleUserSearch" v-show="searchItemsResults.length")
+		img(src="@/assets/img/bookmark.svg")
 
 </template>
 
@@ -191,6 +193,10 @@ export default {
 		onSelectNode (e) {
 			this.selectedNode = e
 			console.log(e)
+		},
+		toggleUserSearch () {
+			this.$store.commit('toggleUserSearch')
+			this.$store.commit('toggleSearchMode')
 		},
 		toggleSearch() {
 			this.$store.commit('toggleSearchMode')
@@ -334,5 +340,17 @@ export default {
 }
 .list {
 	border-bottom: 1px solid #ccc;
+}
+.cat {
+	position: relative;
+	.bookmark {
+		position: absolute;
+		top: 0;
+		right: 1.7rem;
+		cursor: pointer;
+		img {
+			height: 24px;
+		}
+	}
 }
 </style>

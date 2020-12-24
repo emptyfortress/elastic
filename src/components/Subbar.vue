@@ -1,28 +1,31 @@
 <template lang="pug">
 .subbar
 	.result
-		ul
-			li(v-for="(item, i) in items" :key="item.item.id")
-				.bread
-					span АК "Алроса" ПАО
-					span.space >
-					span(v-text="calculate(item)")
-					span.space >
-					span(v-text="calculate1(item)")
-				.user
-					v-simple-checkbox(v-ripple color="primary" v-model="check[i]" :key="n" @input="setuser")
-					.name
-						i.icon-user-1
-						span {{ item.item.lastname}} {{ item.item.name}} {{ item.item.middle }}
-				v-btn(icon).go
-					v-icon mdi-bullseye-arrow
+		v-list(two-line)
+			v-list-item-group(v-model="selectedItem" color="primary")
+				v-list-item(v-for="(item, i) in items" :key="item.item.id")
+					v-list-item-avatar(color="blue lighten-4" size="32")
+						.av {{ i + 1}}
+					v-list-item-content
+						v-list-item-subtitle
+							.bread
+								span АК "Алроса" ПАО
+								span.space >
+								span(v-text="calculate(item)")
+								span.space >
+								span(v-text="calculate1(item)")
+						v-list-item-title.mytitle
+							v-simple-checkbox(v-ripple color="primary" v-model="check[i]" :key="i" @input="setuser(item)")
+							svg-icon(icon="user")
+							span {{ item.item.lastname}} {{ item.item.name}} {{ item.item.middle }}
 	.right
 		.digit {{ items.length }}
 		.mb-6 найдено
-		v-btn(outlined fab small color="link")
-			v-icon mdi-arrow-down-bold-outline
-		v-btn(outlined fab small color="link" @click="$emit('close')")
-			v-icon mdi-arrow-up-bold-outline
+		.actions
+			v-btn(outlined fab x-small color="link")
+				v-icon mdi-arrow-down-bold-outline
+			v-btn(outlined fab x-small color="link" @click="$emit('close')")
+				v-icon mdi-arrow-up-bold-outline
 </template>
 
 <script>
@@ -33,6 +36,7 @@ export default {
 		return {
 			list: [],
 			check: [],
+			selectedItem: []
 		}
 	},
 	methods: {
@@ -125,9 +129,9 @@ export default {
 			default: return ''
 			}
 		},
-		setuser () {
+		setuser (e) {
 			let user = {}
-			user.fio = 'Шпаков А.И.'
+			user.fio = e.item.fio
 			user.isSelected = true
 			user.icon = 'icon-user-1'
 			this.$store.commit('addItemToSelection', user)
@@ -196,7 +200,7 @@ export default {
 		font-size: 1.8rem;
 	}
 	.v-btn {
-		margin-right: 4px;
+		/* margin-right: 4px; */
 	}
 }
 .user {
@@ -204,6 +208,24 @@ export default {
 	.name {
 		margin-left: .5rem;
 	}
+}
+.av {
+	font-size: 1.2rem;
+	text-align: center;
+	margin: 0 auto;
+	color: #fff;
+}
+.mytitle {
+	display: flex;
+	align-items: center;
+	.icon {
+		margin-left: 1rem;
+		margin-right: .5rem;
+	}
+}
+.actions {
+	display: flex;
+	gap: .2rem;
 }
 
 </style>
