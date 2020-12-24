@@ -15,6 +15,7 @@ div
 		:search="filter"
 		:expanded.sync="expanded"
 		:loading="loading"
+		item-key="fio"
 		loading-text="------ Секундочку -------"
 		single-expand
 		show-expand
@@ -46,7 +47,7 @@ import UserInfo from '@/components/UserInfo'
 import bookDialog from '@/components/bookDialog'
 
 export default {
-	props: ['dep', 'addUserMode'],
+	props: ['dep', 'addUserMode', 'seluser'],
 	components: {
 		UserInfo,
 		bookDialog,
@@ -106,7 +107,10 @@ export default {
 			if(val && this.flatlist) {
 				this.nodeUsers = this.users.filter( user => user.dep === val.dep )
 			} else this.nodeUsers = this.users.filter(user => user.dep === val.dep && user.firm === val.firm)
-		}
+		},
+		// setExpanded (e) {
+		// 	this.expanded.push(e)
+		// }
 	},
 	watch: {
 		dep: {
@@ -118,7 +122,7 @@ export default {
 					setTimeout(() => {
 						this.loading = false
 						this.setItems(val)
-					},1000)
+					},0)
 				} else return []
 			}
 		},
@@ -129,6 +133,16 @@ export default {
 					this.loading = false
 					this.setItems(this.dep)
 				},1000)
+			}
+		},
+		seluser: {
+			immediate: true,
+			handler (val) {
+				// let user = this.users.filter( item => item.id === val.id)
+				let id = val.id
+				console.log(id)
+				// this.setExpanded(user)
+				// console.log(...user)
 			}
 		},
 	}

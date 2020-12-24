@@ -6,7 +6,7 @@
 			span Справочник сотрудников
 		.pa-6(v-if="loading")
 			userLoader
-		Subbar(v-show="userSearch && !loading" @close="toggleSearch" :items="searchItemsResults")
+		Subbar(v-show="userSearch && !loading" @close="toggleSearch" :items="searchItemsResults" @clickUser="clickUser")
 	.bottom(:class="ifSearch")
 		drag-zone.zone
 			drag-content.content
@@ -41,7 +41,7 @@
 						v-badge(color="red" inline :content="selected.length") Выбрано
 				v-tabs-items(v-model="rightTab").ful
 					v-tab-item
-						Users(:dep="dep" v-if="selectedNode" :addUserMode="addUserMode")
+						Users(:dep="dep" :seluser="seluser" v-if="selectedNode" :addUserMode="addUserMode")
 						noUser(v-else scope="user")
 					v-tab-item
 						depInfo(:dep="dep" v-if="selectedNode" @copy="snackbar = true")
@@ -97,7 +97,7 @@ export default {
 			treeData: [],
 			node: null,
 			nodes: [],
-			seluser: [],
+			seluser: null,
 			zapros: '',
 			treeOptions: {
 				dnd: true,
@@ -171,6 +171,14 @@ export default {
 		this.$store.commit('setTreeItems', departments)
 	},
 	methods: {
+		clickUser (e) {
+			this.seluser = e
+			let node = this.$refs.tree.find({
+				data : { dep: e.dep, firm: e.firm}
+			})
+			node.select()
+			node.tree.selectedNodes[0].parent.expand()
+		},
 		toggleAddUser () {
 			this.addUserMode = !this.addUserMode
 		},
@@ -193,7 +201,6 @@ export default {
 		},
 		onSelectNode (e) {
 			this.selectedNode = e
-			console.log(e)
 		},
 		toggleUserSearch () {
 			this.$store.commit('toggleUserSearch')

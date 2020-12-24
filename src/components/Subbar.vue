@@ -42,7 +42,7 @@ export default {
 		return {
 			list: [],
 			check: [],
-			selectedItem: []
+			selectedItem: '',
 		}
 	},
 	components: {
@@ -53,10 +53,17 @@ export default {
 			return this.$store.getters.query
 		}
 	},
+	watch: {
+		selectedItem (val) {
+			if (val !== undefined) {
+				let user = this.items[val].item
+				this.$emit('clickUser', user)
+			} else return
+		}
+	},
 	methods: {
 		calculate (e) {
 			let dep = e.item.dep
-			// let firm = e.item.firm
 			switch (dep) {
 			case 0: return 'Горно-обогатительные комбинаты'
 			case 1: return 'Производственная инфраструктура'
