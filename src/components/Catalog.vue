@@ -98,6 +98,7 @@ export default {
 			node: null,
 			nodes: [],
 			seluser: [],
+			zapros: '',
 			treeOptions: {
 				dnd: true,
 				checkbox: true,

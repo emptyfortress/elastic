@@ -16,6 +16,7 @@ export default new Vuex.Store({
 		treeItems: [],
 		users: [],
 		userSearch: false,
+		query: '',
 	},
 	getters: {
 		drawer: state => { return state.drawer },
@@ -29,6 +30,7 @@ export default new Vuex.Store({
 		treeItems: state => { return state.treeItems },
 		users: state => { return state.users },
 		userSearch: state => { return state.userSearch },
+		query: state => { return state.query },
 	},
 	mutations: {
 		toggleDrawer (state) { state.drawer = !state.drawer },
@@ -45,6 +47,7 @@ export default new Vuex.Store({
 		setUsers (state, payload) { state.users = payload },
 		setUserSearch (state, payload) { state.userSearch = payload },
 		toggleUserSearch (state) { state.userSearch = !state.userSearch },
+		setQuery (state, payload) { state.query = payload},
 	},
 	actions: {
 	},

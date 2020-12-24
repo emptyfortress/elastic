@@ -17,7 +17,12 @@
 						v-list-item-title.mytitle
 							v-simple-checkbox(v-ripple color="primary" v-model="check[i]" :key="i" @input="setuser(item)")
 							svg-icon(icon="user")
-							span {{ item.item.lastname}} {{ item.item.name}} {{ item.item.middle }}
+							TextHighlight(:queries="queries") {{ item.item.lastname}} {{ item.item.name}} {{ item.item.middle }}
+		div(v-if="items.length === 0")
+			.nothing
+				img(src="@/assets/img/nothing.svg")
+				.big Ничего не найдено
+				.small Проверьте, нет ли опечаток. Попробуйте изменить запрос.
 	.right
 		.digit {{ items.length }}
 		.mb-6 найдено
@@ -29,6 +34,7 @@
 </template>
 
 <script>
+import TextHighlight from 'vue-text-highlight'
 
 export default {
 	props: ['items'],
@@ -37,6 +43,14 @@ export default {
 			list: [],
 			check: [],
 			selectedItem: []
+		}
+	},
+	components: {
+		TextHighlight,
+	},
+	computed: {
+		queries () {
+			return this.$store.getters.query
 		}
 	},
 	methods: {
@@ -199,9 +213,6 @@ export default {
 	.digit {
 		font-size: 1.8rem;
 	}
-	.v-btn {
-		/* margin-right: 4px; */
-	}
 }
 .user {
 	display: flex;
@@ -226,6 +237,18 @@ export default {
 .actions {
 	display: flex;
 	gap: .2rem;
+}
+.nothing {
+	text-align: center;
+	img {
+		width: 100px;
+	}
+	.big {
+		font-size: 1.3rem;
+	}
+	.small {
+		font-size: 0.9rem;
+	}
 }
 
 </style>

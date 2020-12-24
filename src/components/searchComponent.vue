@@ -161,6 +161,7 @@ export default {
 			this.$refs.results[this.highlightedIndex].$el.scrollIntoView({ block: 'nearest' })
 		},
 		goToLink (e) {
+			let query = this.query.trim()
 			let that = this
 			this.$store.commit('setLoading', true)
 			this.searchResultsVisible = false
@@ -171,6 +172,14 @@ export default {
 				this.$store.commit('toggleSearchMode')
 				this.$router.push('/advanced')
 				this.query = ''
+			} else if (this.$route.name === 'catalog') {
+				this.$store.commit('setUserSearch', true)
+				this.$store.commit('setLoading', true)
+				this.$store.commit('setQuery', query)
+				this.$search(query, this.users, this.options2)
+					.then(results => {
+						this.$store.commit('setSearchItemsResults', results)
+					})
 			} else if (e === null) {
 				this.$router.push(tot)
 				this.$search(this.query, this.items, this.options1)
@@ -200,6 +209,7 @@ export default {
 			if (this.$route.name === 'catalog') {
 				this.$store.commit('setUserSearch', true)
 				this.$store.commit('setLoading', true)
+				this.$store.commit('setQuery', query)
 				this.$search(query, this.users, this.options2)
 					.then(results => {
 						this.$store.commit('setSearchItemsResults', results)
