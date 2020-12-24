@@ -2,36 +2,33 @@
 .subbar
 	.result
 		ul
-			li(v-for="n in 23")
+			li(v-for="(item, i) in items" :key="item.item.id")
 				.bread
-					span Интер РАО ЕЭС
+					span АК "Алроса" ПАО
 					span.space >
-					span Электрогенерация
+					span(v-text="calculate(item)")
 					span.space >
-					span Гусиноозерская ГРЭС
-					span.space >
-					span Дирекция
-					span.space >
-					span Отдел кадров
+					span(v-text="calculate1(item)")
 				.user
-					v-simple-checkbox(v-ripple color="primary" v-model="check[n]" :key="n" @input="setuser")
+					v-simple-checkbox(v-ripple color="primary" v-model="check[i]" :key="n" @input="setuser")
 					.name
 						i.icon-user-1
-						span Шпаков Аркадий Ильич
+						span {{ item.item.lastname}} {{ item.item.name}} {{ item.item.middle }}
 				v-btn(icon).go
 					v-icon mdi-bullseye-arrow
 	.right
-		.digit 23
-		.mb-6 результата
-		v-btn(icon large)
-			v-icon mdi-chevron-double-down
-		v-btn(icon large @click="$emit('close')")
-			v-icon mdi-chevron-double-up
+		.digit {{ items.length }}
+		.mb-6 найдено
+		v-btn(outlined fab small color="link")
+			v-icon mdi-arrow-down-bold-outline
+		v-btn(outlined fab small color="link" @click="$emit('close')")
+			v-icon mdi-arrow-up-bold-outline
 </template>
 
 <script>
 
 export default {
+	props: ['items'],
 	data() {
 		return {
 			list: [],
@@ -39,6 +36,95 @@ export default {
 		}
 	},
 	methods: {
+		calculate (e) {
+			let dep = e.item.dep
+			// let firm = e.item.firm
+			switch (dep) {
+			case 0: return 'Горно-обогатительные комбинаты'
+			case 1: return 'Производственная инфраструктура'
+			case 2: return 'Геологоразведочные подразделения'
+			case 3: return 'Социальный комплекс'
+			case 4: return 'Представительства и филиалы'
+			case 5: return 'Сбыт алмазов'
+			case 6: return 'Сбыт бриллиантов'
+			case 7: return 'Дочерние организации'
+			default: return ''
+			}
+		},
+		calculate1 (e) {
+			let dep = e.item.dep
+			let firm = e.item.firm
+			switch (dep) {
+			case 0: {
+				switch (firm) {
+				case 0: return 'Мирнинский ГОК'
+				case 1: return 'Айхальский ГОК'
+				case 2: return 'Нюрнбинский ГОК'
+				case 3: return 'Удачнинский ГОК'
+				default: return ''
+				}
+			}
+			case 1: {
+				switch (firm) {
+				case 0: return 'Авиационное предприятие МУАД'
+				case 1: return 'Управление капитального строительства'
+				case 2: return 'СТ "Алмазавтоматика"'
+				case 3: return 'Управление материально-технического снабжения'
+				case 4: return 'Институт "Якутнипроалмаз"'
+				default: return ''
+				}
+			}
+			case 2: {
+				switch (firm) {
+				case 0: return 'Научно-исследовательское геологическое предприятие'
+				case 1: return 'Вилюйская геологоразведочная экспедиция'
+				default: return ''
+				}
+			}
+			case 3: {
+				switch (firm) {
+				case 0: return 'Медицинский центр'
+				case 1: return 'Культурно-спортивный комплекс'
+				case 2: return 'Центр подготовки кадров'
+				default: return ''
+				}
+			}
+			case 4: {
+				switch (firm) {
+				case 0: return 'Филиал АК «АЛРОСА» в Республике Ангола'
+				case 1: return 'ALROSA Mumbai (г. Мумбай, Индия)'
+				case 2: return 'Филиал во Владивостоке'
+				default: return ''
+				}
+			}
+			case 5: {
+				switch (firm) {
+				case 0: return 'Предприятие «Коммерал»'
+				case 1: return 'Филиал «Якутское предприятие по торговле алмазами» (ЯПТА)(г. Мумбай, Индия)'
+				case 2: return 'Центр сортировки алмазов'
+				default: return ''
+				}
+			}
+			case 6: {
+				switch (firm) {
+				case 0: return 'Филиал "Бриллианты Алроса"'
+				default: return ''
+				}
+			}
+			case 7: {
+				switch (firm) {
+				case 0: return 'ООО «Бриллианты АЛРОСА»'
+				case 1: return 'Горнорудное общество «Катока Лтд.»'
+				case 2: return 'АО «Алмазы Анабара»'
+				case 3: return 'ПАО «Севералмаз»'
+				case 4: return 'ПАО «АЛРОСА-Нюрба»'
+				default: return ''
+				}
+			}
+
+			default: return ''
+			}
+		},
 		setuser () {
 			let user = {}
 			user.fio = 'Шпаков А.И.'

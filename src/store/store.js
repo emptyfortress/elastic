@@ -44,6 +44,7 @@ export default new Vuex.Store({
 		setTreeItems (state, payload) { state.treeItems = payload },
 		setUsers (state, payload) { state.users = payload },
 		setUserSearch (state, payload) { state.userSearch = payload },
+		toggleUserSearch (state) { state.userSearch = !state.userSearch },
 	},
 	actions: {
 	},

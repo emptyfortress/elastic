@@ -4,9 +4,9 @@
 		.zagg(v-show="!userSearch")
 			v-icon.mr-3 mdi-book-open-page-variant-outline
 			span Справочник сотрудников
-		.pa-6(v-show="loading")
+		.pa-6(v-if="loading")
 			userLoader
-		//- Subbar(v-else @close="toggleSearch")
+		Subbar(v-show="userSearch && !loading" @close="toggleSearch" :items="searchItemsResults")
 	.bottom(:class="ifSearch")
 		drag-zone.zone
 			drag-content.content
@@ -95,6 +95,7 @@ export default {
 			treeData: [],
 			node: null,
 			nodes: [],
+			seluser: [],
 			treeOptions: {
 				dnd: true,
 				checkbox: true,
@@ -104,6 +105,9 @@ export default {
 		}
 	},
 	computed: {
+		searchItemsResults () {
+			return this.$store.getters.searchItemsResults
+		},
 		loading () {
 			return this.$store.getters.loading
 		},
@@ -190,6 +194,7 @@ export default {
 		},
 		toggleSearch() {
 			this.$store.commit('toggleSearchMode')
+			this.$store.commit('setUserSearch', false)
 		},
 		addChildNode(node) {
 			if (node.enabled()) {
@@ -231,7 +236,7 @@ export default {
 @import '@/assets/css/colors.scss';
 
 .top {
-	height: 60px;
+	/* height: 60px; */
 	transition: .2s ease all;
 	&.big {
 		height: 200px;
@@ -322,5 +327,12 @@ export default {
 		margin-top: 4rem;
 		font-size: 8rem;
 	}
+}
+.res {
+	height: 100%;
+	overflow: auto;
+}
+.list {
+	border-bottom: 1px solid #ccc;
 }
 </style>
