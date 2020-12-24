@@ -23,7 +23,8 @@ div
 		disable-pagination hide-default-footer fixed-header
 		:no-results-text="notext"
 		:height="calcHeight").usertable
-		template( v-slot:no-data )
+
+		template( v-slot:no-data ).ttt
 			.pa-10.text-center
 				.overline Показать вложенные разделы
 				v-switch(v-model="flatlist").centr
@@ -108,9 +109,9 @@ export default {
 				this.nodeUsers = this.users.filter( user => user.dep === val.dep )
 			} else this.nodeUsers = this.users.filter(user => user.dep === val.dep && user.firm === val.firm)
 		},
-		// setExpanded (e) {
-		// 	this.expanded.push(e)
-		// }
+		setExpanded (e) {
+			this.expanded = e
+		}
 	},
 	watch: {
 		dep: {
@@ -135,15 +136,9 @@ export default {
 				},1000)
 			}
 		},
-		seluser: {
-			immediate: true,
-			handler (val) {
-				// let user = this.users.filter( item => item.id === val.id)
-				let id = val.id
-				console.log(id)
-				// this.setExpanded(user)
-				// console.log(...user)
-			}
+		seluser (val) {
+			let user = this.users.filter( item => item.id === val.id)
+			this.setExpanded(user)
 		},
 	}
 }
@@ -191,5 +186,8 @@ export default {
 	display: flex;
 	align-items: flex-start;
 	gap: 1rem;
+}
+.test {
+	background: red;
 }
 </style>
