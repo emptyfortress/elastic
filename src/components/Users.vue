@@ -7,6 +7,10 @@ div
 				v-btn(icon dark @click="book = true")
 					v-icon mdi-book-open-page-variant-outline
 		transition(name="slideYfade" mode="out-in")
+			.switch(v-show="!addUserMode")
+				v-switch(v-model="flatlist" dense label="Все сотрудники").inp
+		
+		transition(name="slideYfade" mode="out-in")
 			.filt(v-show="!addUserMode")
 				v-text-field(v-model="filter" placeholder="Фильтр" prepend-icon="mdi-filter-outline" clearable dense)
 	v-data-table(
@@ -22,12 +26,9 @@ div
 		show-select
 		disable-pagination hide-default-footer fixed-header
 		:no-results-text="notext"
+		no-data-text="Здесь никого нет"
 		:height="calcHeight").usertable
 
-		template( v-slot:no-data ).ttt
-			.pa-10.text-center
-				.overline Показать вложенные разделы
-				v-switch(v-model="flatlist").centr
 		template(v-slot:item.data-table-select="{ item }")
 			v-simple-checkbox(color="primary" v-ripple :value="item.isSelected" @input="select(item)")
 		template(v-slot:expanded-item="{ headers, item }")
@@ -123,7 +124,7 @@ export default {
 					setTimeout(() => {
 						this.loading = false
 						this.setItems(val)
-					},0)
+					},600)
 				} else return []
 			}
 		},
@@ -134,6 +135,8 @@ export default {
 					this.loading = false
 					this.setItems(this.dep)
 				},1000)
+			} else {
+				this.nodeUsers = this.users.filter(user => user.dep === val.dep && user.firm === val.firm)
 			}
 		},
 		seluser (val) {
@@ -161,10 +164,9 @@ export default {
 	}
 }
 .mytab {
-	/* margin-top: 1px; */
 	height: 47px;
 	display: flex;
-	justify-content: flex-end;
+	justify-content: space-between;
 	align-items: flex-start;
 }
 .filt {
@@ -187,7 +189,10 @@ export default {
 	align-items: flex-start;
 	gap: 1rem;
 }
-.test {
-	background: red;
+.switch {
+	margin-left: 1rem;
+	.inp {
+		margin-top: 8px;
+	}
 }
 </style>

@@ -274,5 +274,10 @@ const users = [
 	{ id: 267,org: 0,dep: 1,firm: 4, isSelected: false, fio: 'Меркушев С.М.',    lastname: 'Меркушев',name: 'Сергей',middle: 'Максимович',short: 'С.М.',title: 'бухгалтер' },
 	{ id: 268,org: 0,dep: 1,firm: 4, isSelected: false, fio: 'Лыткин Н.А.',      lastname: 'Лыткин',name: 'Никита',middle: 'Артёмович',short: 'Н.А.',title: 'уборщик' },
 	{ id: 269,org: 0,dep: 1,firm: 4, isSelected: false, fio: 'Туров А.Я.',       lastname: 'Туров',name: 'Андрей',middle: 'Ярославович',short: 'А.Я.',title: 'аналитик' },
+	{ id: 270,org: 0,dep: 0, isSelected: false, fio: 'Шпак Е.М.', lastname: 'Шпак',name: 'Евсей',middle: 'Маркович',short: 'Е.М.',title: 'председатель' },
+	{ id: 271,org: 0,dep: 0, isSelected: false, fio: 'Шпак Г.Е.', lastname: 'Шпак',name: 'Григорий',middle: 'Евсеевич',short: 'Г.Е.',title: 'зам.председателя' },
+	{ id: 272,org: 0,dep: 1, isSelected: false, fio: 'Шпаков Е.М.', lastname: 'Шпаков',name: 'Евсей',middle: 'Маркович',short: 'Е.М.',title: 'председатель' },
+	{ id: 273,org: 0,dep: 2, isSelected: false, fio: 'Вражков Г.Е.', lastname: 'Вражков',name: 'Григорий',middle: 'Евсеевич',short: 'Г.Е.',title: 'зам.председателя' },
+	{ id: 274,org: 0,dep: -1, isSelected: false, fio: 'Доронин П.П.', lastname: 'Доронин',name: 'Петр',middle: 'Петрович',short: 'П.П.',title: 'председатель совета директоров' },
 ]
 export { users }
