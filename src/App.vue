@@ -58,9 +58,9 @@ export default {
 			let name = this.$route.name
 			switch (name) {
 			case 'results':
-				return 'purple'
+				return 'search'
 			case 'advanced':
-				return 'purple'
+				return 'search'
 			case 'doc':
 				return 'docolor'
 			case 'task':
