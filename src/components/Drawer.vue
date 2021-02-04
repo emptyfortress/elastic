@@ -27,7 +27,8 @@ export default {
 				{ id: 1, url: '/catalog', icon: 'mdi-book-open-page-variant-outline', text: 'Справочник' },
 				{ id: 4, url: '/doc', icon: 'mdi-folder-outline', text: 'Документы' },
 				{ id: 2, url: '/task', icon: 'mdi-folder-outline', text: 'Задания' },
-				{ id: 3, url: '/folder', icon: 'mdi-folder-outline', text: 'Папка' },
+				{ id: 3, url: '/search', icon: 'mdi-magnify', text: 'Поиск' },
+				{ id: 4, url: '/archive', icon: 'mdi-archive-outline', text: 'Архив' },
 			],
 		}
 	},

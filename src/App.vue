@@ -65,6 +65,12 @@ export default {
 				return 'docolor'
 			case 'task':
 				return 'taskcolor'
+			case 'catalog':
+				return 'brown'
+			case 'search':
+				return 'search'
+			case 'archive':
+				return 'archive'
 			case 'folder':
 				return 'dark'
 			case 'Home':

@@ -5,6 +5,8 @@ import SearchResults from '@/components/SearchResults'
 import Folder from '@/components/Folder'
 import Doc from '@/components/Doc'
 import Task from '@/components/Task'
+import Search from '@/components/Search'
+import Archive from '@/components/Archive'
 import Test from '@/components/Test'
 import Catalog from '@/components/Catalog'
 import Advanced from '@/components/Advanced'
@@ -25,9 +27,21 @@ const routes = [
 		props: true,
 	},
 	{
+		path: '/archive',
+		name: 'archive',
+		component: Archive,
+		props: true,
+	},
+	{
 		path: '/catalog',
 		name: 'catalog',
 		component: Catalog,
+		props: true,
+	},
+	{
+		path: '/search',
+		name: 'search',
+		component: Search,
 		props: true,
 	},
 	{
