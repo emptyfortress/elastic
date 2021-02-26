@@ -14,7 +14,7 @@
 					v-tab(v-for="tab in tabs" :key="tab" @click="selectedNode = null") {{ tab }}
 				v-tabs-items(v-model="leftTab").ful
 					v-tab-item
-						tree(:data="treeItems" :options="treeOptions"
+						tree(:data="treeData" :options="treeOptions"
 							@node:dragging:finish="dragFinish" ref="tree"
 							@node:checked="onCheckNode"
 							@node:unchecked="onUnCheckNode"
@@ -23,6 +23,7 @@
 								.tree-text
 									svg-icon(:icon="node.data.icon")
 									span {{ node.text }}
+									v-icon(v-show="node.states.matched").fl-r mdi-cancel
 					v-tab-item.ful
 						Groups(@selectNode="onSelectNode" @checkNode="onCheckNode")
 					v-tab-item.ful
@@ -57,7 +58,7 @@
 	dragDialog(:drag="drag" @close="drag = false")
 	addDialog(:add="add" @close="add = false" :node="selectedNode" @add="addFromDialog" :tab="leftTab")
 	context-menu(ref="ctxMenu" :node="node")
-		MyMenu(@editNode = "editNode(node)" @deleteNode="removeNode(node)" @snack="snackbar = true" @addNode = "addChildNode(node)" @infoNode = "infoNode(node)")
+		MyMenu(@editNode = "editNode(node)" @deleteNode="removeNode(node)" @snack="snackbar = true" @cut="cutNode(node)" @addNode = "addChildNode(node)" @infoNode = "infoNode(node)")
 	v-snackbar(v-model="snackbar" timeout="1300" absolute top right color="teal") Скопировано
 	v-snackbar(v-model="addednode" timeout="1300" absolute top right light color="amber") Узел добавлен
 	.bookmark(@click="toggleUserSearch" v-show="searchItemsResults.length")
@@ -170,7 +171,26 @@ export default {
 		this.treeData = departments
 		this.$store.commit('setTreeItems', departments)
 	},
+	mounted() {
+		console.log(this.$refs.tree.selected)
+	},
 	methods: {
+		// cutNode (e) {
+		// 	this.matchedNode = e
+		// 	// if (node.enabled()) {
+		// 	// 	node.append('Новое подразделение')
+		// 	// 	this.addednode = true
+		// 	// }
+		// 	// this.treeData.map(item => {
+		// 	// 	return item.state.matched = false
+		// 	// })
+		// 	// let nodes = this.treeData.map(item => {return {item.state.matched:  false}})
+		// 	// this.$store.commit('setItems', nodes)
+		// 	// let node = this.$refs.tree.find(e)
+		// 	// node.state.matched = true
+		// 	// console.log(e)
+		// 	// console.log(nodes)
+		// },
 		clickUser (e) {
 			this.seluser = e
 			let node = this.$refs.tree.find({
@@ -360,5 +380,9 @@ export default {
 			height: 24px;
 		}
 	}
+}
+.fl-r {
+	float: right;
+	color: red;
 }
 </style>
