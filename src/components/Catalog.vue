@@ -21,10 +21,9 @@
 							@node:selected="onSelectNode")
 							.node-container(slot-scope="{ node }" @contextmenu.prevent="rightClick(node)")
 								.tree-text
+									v-btn.fl-r(v-show="node.states.matched" color="primary" x-small outlined) Отмена
 									svg-icon(:icon="node.data.icon")
 									span {{ node.text }}
-									v-icon(v-show="node.states.matched").fl-r mdi-content-copy
-									v-icon(v-show="node.states.matched").fl-r mdi-content-cut
 					v-tab-item.ful
 						Groups(@selectNode="onSelectNode" @checkNode="onCheckNode")
 					v-tab-item.ful
@@ -384,9 +383,6 @@ export default {
 }
 .fl-r {
 	float: right;
-	color: #1976d2;
-	font-size: 1.3rem;
-	line-height: 120%;
-
+	margin-top: 2px;
 }
 </style>
