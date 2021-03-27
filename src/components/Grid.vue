@@ -38,15 +38,16 @@ table.full
 								v-icon mdi-plus-circle-outline
 							v-spacer
 							v-btn(text small color="primary" @click="setFilter(column.id)") Применить
-	tbody
-		tr( v-for="(item, i) in items" :key="item.id"  @contextmenu.prevent="$refs.ctxMenu.open").ro
-			td() laskdj
-			td() laskdj
-			td() laskdj
-			td() laskdj
-			td() laskdj
-			//- td(v-ripple).sm
-			//- 	v-simple-checkbox(v-model="item.selected" color="primary").check
+	tbody(is="transition-group" name="list")
+		tr( v-for="(item, i) in items" :key="item.item.id"  @contextmenu.prevent="$refs.ctxMenu.open").ro
+			td(v-ripple).sm
+				v-simple-checkbox(v-model="item.item.selected" color="primary").check
+			td() {{ item.item.typ }}
+			td()
+				v-icon(small color="#dedede").star mdi-star-outline
+				span {{ item.item.title }}
+			td() {{ item.item.author }}
+			td() {{ item.item.status }}
 			//- td.px-3
 			//- 	.line(:contenteditable="editMode ? true : false") Это просто строка
 			//- td.rel
@@ -80,10 +81,10 @@ export default {
 	data() {
 		return {
 			columns: [
-				{ id: 0, name: 'Заголовок 1', filter: false, addF: false },
-				{ id: 1, name: 'Заголовок 2', filter: false, addF: false },
-				{ id: 2, name: 'Заголовок 3', filter: false, addF: false },
-				{ id: 3, name: 'Заголовок 4', filter: false, addF: false },
+				{ id: 0, name: 'Тип', filter: false, addF: false },
+				{ id: 1, name: 'Название', filter: false, addF: false },
+				{ id: 2, name: 'Автор', filter: false, addF: false },
+				{ id: 3, name: 'Статус', filter: false, addF: false },
 			],
 			all: false,
 			showByIndex: null,
@@ -138,6 +139,8 @@ export default {
 	width: 100%;
 	background: #fff;
 	transition: all 0.3s ease;
+	margin-bottom: 100px;
+
 	tr {
 		background: #fff;
 		&.toolbar th {
@@ -169,6 +172,7 @@ export default {
 	.ro {
 		height: 3rem;
 		position: relative;
+		cursor: pointer;
 		&:hover {
 			background: #eee;
 		}
@@ -233,5 +237,8 @@ export default {
 }
 .add {
 	color: #b00;
+}
+.star {
+	margin-right: 7px;
 }
 </style>
