@@ -4,10 +4,7 @@ v-app
 	v-app-bar(app :color="maincolor" flat collapse-on-scroll clipped-left :class="calcWidth()" elevation="2" ).pr-2
 		v-app-bar-nav-icon(color="#fff" @click="$store.commit('toggleDrawer')")
 		.logo(v-show="logo && !$vuetify.breakpoint.mobile")
-			v-btn(icon v-if="$route.name === 'results'" dark large @click="$router.push('/')")
-				v-icon mdi-arrow-left-circle-outline
-			span(v-if="$route.name === 'results'") Поиск
-			span(v-else) Docsvision
+			span Docsvision
 		v-spacer
 		searchComponent(:active="active")
 		v-btn( href="" icon  v-show="offsetTop" @click="toggleSearch").mr-3
@@ -18,7 +15,6 @@ v-app
 		v-container.cont
 			transition(name="slide-fade" mode="out-in")
 				div
-					//- Hint(:searchMode="searchMode")
 					v-slide-x-transition(mode="out-in")
 						router-view
 </template>
@@ -26,17 +22,14 @@ v-app
 <script>
 import Drawer from './components/Drawer'
 import searchComponent from '@/components/searchComponent'
-import Hint from '@/components/Hint'
-
 
 export default {
-	name: 'App', 
-	components: { 
+	name: 'App',
+	components: {
 		Drawer,
 		searchComponent,
-		Hint
-	}, 
-	data () {
+	},
+	data() {
 		return {
 			offsetTop: true,
 			scroll: false,
@@ -44,14 +37,20 @@ export default {
 			doc: true,
 			task: true,
 			sotr: false,
-			scope: [  'Везде', 'В текущей папке', 'В моих папках' ],
+			scope: ['Везде', 'В текущей папке', 'В моих папках'],
 			active: false,
 		}
 	},
 	computed: {
-		drawer() { return this.$store.getters.drawer },
-		mini() { return this.$store.getters.mini },
-		searchMode() { return this.$store.getters.searchMode },
+		drawer() {
+			return this.$store.getters.drawer
+		},
+		mini() {
+			return this.$store.getters.mini
+		},
+		searchMode() {
+			return this.$store.getters.searchMode
+		},
 		maincolor() {
 			let name = this.$route.name
 			switch (name) {
@@ -63,9 +62,10 @@ export default {
 				return 'dark'
 			case 'Home':
 				return 'dark'
-			default: return 'dark'
+			default:
+				return 'dark'
 			}
-		}
+		},
 	},
 	watch: {
 		sotr: function() {
@@ -73,20 +73,24 @@ export default {
 			if (this.sotr) {
 				that.doc = false
 				that.task = false
-			} else { that.doc = true }
-		}
+			} else {
+				that.doc = true
+			}
+		},
 	},
 	methods: {
-		pri () {
+		pri() {
 			console.log(this.$route.name)
 		},
 		calcWidth() {
 			const po = window.pageYOffset
 			if (this.drawer && !this.mini && po > 0) {
 				return 'drawer'
-			} if (this.drawer && this.mini && po > 0) {
+			}
+			if (this.drawer && this.mini && po > 0) {
 				return 'mid'
-			} return 'sm'
+			}
+			return 'sm'
 		},
 		toggleSearch() {
 			this.$store.commit('toggleSearchMode')
@@ -107,8 +111,7 @@ export default {
 				this.logo = true
 			}
 		},
-		
-	}
+	},
 }
 </script>
 
@@ -123,7 +126,7 @@ export default {
 }
 .cont {
 	padding: 0 1rem;
-	transition: .2s all ease;
+	transition: 0.2s all ease;
 }
 
 .logo {
@@ -141,7 +144,9 @@ export default {
 		max-width: 82px;
 	}
 }
-.icon-user, .icon-search, .icon-search-scan {
+.icon-user,
+.icon-search,
+.icon-search-scan {
 	font-size: 1.2rem;
 	margin-left: -4px;
 }
@@ -156,6 +161,4 @@ export default {
 	background: transparent;
 	height: 39px;
 }
-
-
 </style>

@@ -17,7 +17,9 @@
 				v-btn(icon @click="grid = true")
 					v-icon mdi-table
 			
-		div
+		div(v-if="total && grid")
+			Toolbar
+			Grid
 		div(v-if="total && !grid")
 			listItem1(v-for="item in searchItemsResults" :item="item" :key="item.id" :zapros="query" @preview="preview = true")
  
@@ -34,6 +36,8 @@ import listItem1 from '@/components/listItem1'
 import Preview from '@/components/Preview'
 import Loader from '@/components/Loader'
 import CardInfo from '@/components/CardInfo'
+import Grid from '@/components/Grid'
+import Toolbar from '@/components/Toolbar'
 // import items from '@/store/data.js'
 
 export default {
@@ -58,9 +62,6 @@ export default {
 		},
 		searchItemsResults() {
 			return this.$store.getters.searchItemsResults
-		},
-		filterResults() {
-			return this.$store.getters.filterResults
 		},
 		total() {
 			return this.searchItemsResults.length
@@ -104,6 +105,8 @@ export default {
 		Preview,
 		Loader,
 		CardInfo,
+		Grid,
+		Toolbar,
 	},
 	methods: {
 		setCheck(e) {
