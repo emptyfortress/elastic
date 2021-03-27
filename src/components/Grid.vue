@@ -28,16 +28,16 @@ table.full
 								v-icon mdi-eye-off
 						span Скрыть
 
-				v-slide-y-transition
-					v-card.quick.elevation-3(v-show="filterByIndex === column.id")
-						v-text-field(clearable :key="column.id").mx-3
-						v-card-actions
-							v-btn(icon small color="primary" @click="removeFilter(column.id)")
-								v-icon mdi-trash-can-outline
-							v-btn(icon small color="primary" @click="addFilter(column.id)")
-								v-icon mdi-plus-circle-outline
-							v-spacer
-							v-btn(text small color="primary" @click="setFilter(column.id)") Применить
+				//- v-slide-y-transition
+				//- 	v-card.quick.elevation-3(v-show="filterByIndex === column.id")
+				//- 		v-text-field(clearable :key="column.id").mx-3
+				//- 		v-card-actions
+				//- 			v-btn(icon small color="primary" @click="removeFilter(column.id)")
+				//- 				v-icon mdi-trash-can-outline
+				//- 			v-btn(icon small color="primary" @click="addFilter(column.id)")
+				//- 				v-icon mdi-plus-circle-outline
+				//- 			v-spacer
+				//- 			v-btn(text small color="primary" @click="setFilter(column.id)") Применить
 	tbody(is="transition-group" name="list")
 		tr( v-for="(item, i) in items" :key="item.item.id"  @contextmenu.prevent="$refs.ctxMenu.open").ro
 			td(v-ripple).sm
@@ -48,31 +48,6 @@ table.full
 				span {{ item.item.title }}
 			td() {{ item.item.author }}
 			td() {{ item.item.status }}
-			//- td.px-3
-			//- 	.line(:contenteditable="editMode ? true : false") Это просто строка
-			//- td.rel
-			//- 	.block(:class="{edit : editMode}")
-			//- 		.editor(v-show="editMode && showByRow === i" @click="showByRow = i")
-			//- 			v-btn(icon dark v-for="icon in icons" :key="icon.id")
-			//- 				v-icon {{ icon.name }}
-
-			//- 		.edit(v-if="editMode && showByRow === i" contenteditable v-click-outside="hide") {{ item.text }}
-
-			//- 		.view(v-else @click="showByRow = i") {{ item.text }}
-
-			//- td
-			//- 	.fi(v-if="editMode && showByFio === i" v-click-outside="hide")
-			//- 		input(:value="item.fio" ref="test" id="tes")
-			//- 		v-btn(icon)
-			//- 			i.icon-book
-			//- 	.fio(v-else @click="fio(i)") {{ item.fio }}
-			//- td.rel
-			//- 	span данные
-			//- 	span(v-if="editMode").action
-			//- 		v-btn(icon @click="addRow(i)")
-			//- 			v-icon mdi-plus-circle-outline
-			//- 		v-btn(icon @click="deleteRow(i)")
-			//- 			v-icon mdi-trash-can-outline
 
 </template>
 

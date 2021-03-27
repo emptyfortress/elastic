@@ -12,10 +12,10 @@
 				span Сортировать по:
 				v-select(:items="sort" dense value="Релевантность")
 			div
-				v-btn(icon @click="grid = false")
-					v-icon mdi-format-list-bulleted-square
 				v-btn(icon @click="grid = true")
 					v-icon mdi-table
+				v-btn(icon @click="grid = false")
+					v-icon mdi-format-list-bulleted-square
 			
 		div(v-if="total && grid")
 			Toolbar(:total="total")
@@ -46,11 +46,6 @@ export default {
 			grid: true,
 			preview: false,
 			sort: ['Релевантность', 'тип', 'размер', 'автор', 'срок'],
-			bread: [
-				{ text: 'Docsvison', href: '/' },
-				{ text: 'Мои папки', href: '/' },
-				{ text: 'Заявки', href: '/' },
-			],
 		}
 	},
 	computed: {
