@@ -18,7 +18,7 @@
 					v-icon mdi-table
 			
 		div(v-if="total && grid")
-			Toolbar
+			Toolbar(:total="total")
 			Grid
 		div(v-if="total && !grid")
 			listItem1(v-for="item in searchItemsResults" :item="item" :key="item.id" :zapros="query" @preview="preview = true")
@@ -43,7 +43,7 @@ import Toolbar from '@/components/Toolbar'
 export default {
 	data() {
 		return {
-			grid: false,
+			grid: true,
 			preview: false,
 			sort: ['Релевантность', 'тип', 'размер', 'автор', 'срок'],
 			bread: [

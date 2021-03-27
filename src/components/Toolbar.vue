@@ -4,15 +4,9 @@
 	.tool(v-if="!editMode")
 		.d-flex
 			v-slide-x-transition(mode="out-in" hide-on-leave)
-				.total(v-if="selected === 0")
-					v-slide-x-transition(mode="out-in" hide-on-leave)
-						span(v-if="!filtered") Всего:
-					v-slide-x-transition(mode="out-in" hide-on-leave)
-						span(v-if="filtered && !addMode")
-							span Показано:
-							span.font-weight-bold.mx-3 48
-							span(v-if="!filtered") из
-					span(v-if="!filtered").font-weight-bold.ml-3 438
+				.total
+					span Всего:
+					span.font-weight-bold.ml-3 {{ total }}
 					v-slide-x-transition(mode="out-in" hide-on-leave)
 						v-btn(depressed small v-if="filtered && !addMode" @click="$emit('reset')").ml-5 Показать все
 					v-slide-x-transition(mode="out-in" hide-on-leave)
@@ -34,7 +28,7 @@
 				v-tooltip( bottom )
 					template(v-slot:activator="{ on }")
 						v-btn(icon v-on="on" @click="click(item.click)")
-							i(:class="item.icon")
+							img(:src="require(`@/assets/img/${item.icon}.svg`)").ic
 					span {{item.text}}
 	.tool(v-if="editMode").pr-3
 		.total.text-uppercase Редактирование таблицы
@@ -45,18 +39,18 @@
 
 <script>
 export default {
-	props: ['selected', 'filtered', 'addMode'],
+	props: ['selected', 'filtered', 'addMode', 'total'],
 	data() {
 		return {
 			num: 100,
 			buttons: [
-				{ text: 'Прочитать все', icon: 'icon-readall', click: '' },
-				{ text: 'Группировка', icon: 'icon-multi', click: 'groupped' },
-				{ text: 'Обновить', icon: 'icon-refresh', click: '' },
-				{ text: 'Экспорт', icon: 'icon-xls', click: '' },
-				{ text: 'Reset', icon: 'icon-kill-setup', click: '' },
-				{ text: 'Настройки', icon: 'icon-setup', click: '' },
-				{ text: 'Редактировать', icon: 'icon-edit', click: 'edit' },
+				{ text: 'Прочитать все', icon: 'readall', click: '' },
+				{ text: 'Группировка', icon: 'multi', click: 'groupped' },
+				{ text: 'Обновить', icon: 'reload', click: '' },
+				{ text: 'Экспорт', icon: 'xls', click: '' },
+				{ text: 'Reset', icon: 'reset', click: '' },
+				{ text: 'Настройки', icon: 'setup', click: '' },
+				{ text: 'Редактировать', icon: 'edit', click: 'edit' },
 			],
 			views: [
 				'Это представление',
@@ -89,6 +83,8 @@ export default {
 		click(e) {
 			this.$emit(e)
 		},
+		// calcIcon(e) {
+		// }
 	},
 }
 </script>
@@ -141,9 +137,10 @@ export default {
 		.v-btn {
 			margin-right: 0.7rem;
 		}
-		i {
-			font-size: 1.2rem;
-			margin-left: -3px;
+		.ic {
+			width: 18px;
+			opacity: 0.6;
+			margin: 0 auto;
 		}
 	}
 	.view {
