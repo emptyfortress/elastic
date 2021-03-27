@@ -3,47 +3,23 @@
 	Loader(v-if="loading")
 	.searchgrid(v-else)
 		.zero
-			v-breadcrumbs(:items="bread")
 			.alls
 				.res {{ query }}:
-				.find(v-if="total") найдено <span>{{ total }}</span> результатов в {{ category }} категориях &mdash;
+				.find(v-if="total") найдено <span>{{ total }}</span> результатов
 				.find(v-else) Ничего не найдено. Измените условия поиска.
-				div
-					v-chip(v-if="totaldoc" color="docolor" dark @click="setCheck(1)")
-						v-avatar {{ totaldoc }}
-						|Документы
-					v-chip(v-if="totaltask" color="taskcolor" dark @click="setCheck(2)") 
-						v-avatar {{ totaltask}}
-						|Задания
-					v-chip(v-if="totaltask1" color="taskcolor" dark @click="setCheck(3)") 
-						v-avatar {{ totaltask1}}
-						|ГЗ
-					v-chip(v-if="totalfile" color="dark" dark @click="setCheck(4)") 
-						v-avatar {{ totalfile }}
-						|Файлы
-				.dow
-					v-btn(depressed color="blue-grey" dark small) Искать всюду
 		.sort
-			.d-flex
-				v-checkbox(label="Сначала результаты со мной" dense).my
+			.sele
 				span Сортировать по:
-				.nk релевантность
-				.nk дата
-				.nk тип
-				.nk состояние
+				v-select(:items="sort" dense value="Релевантность")
 			div
 				v-btn(icon @click="grid = false")
 					v-icon mdi-format-list-bulleted-square
 				v-btn(icon @click="grid = true")
-					v-icon mdi-view-grid
+					v-icon mdi-table
 			
 		div
-			Filters(v-if="searchItemsResults.length")
 		div(v-if="total && !grid")
-			listItem1(v-for="item in filterResults" :item="item" :key="item.id" :zapros="query" @preview="preview = true")
-		div(v-if="total && grid").boxcont
-			.box(v-for="item in filterResults")
-				CardInfo(:item="item")
+			listItem1(v-for="item in searchItemsResults" :item="item" :key="item.id" :zapros="query" @preview="preview = true")
  
 		div(v-if="!total")
 			.nothing
@@ -54,7 +30,6 @@
 </template>
 
 <script>
-import Filters from '@/components/Filters'
 import listItem1 from '@/components/listItem1'
 import Preview from '@/components/Preview'
 import Loader from '@/components/Loader'
@@ -62,94 +37,92 @@ import CardInfo from '@/components/CardInfo'
 // import items from '@/store/data.js'
 
 export default {
-	data () {
+	data() {
 		return {
 			grid: false,
 			preview: false,
+			sort: ['Релевантность', 'тип', 'размер', 'автор', 'срок'],
 			bread: [
-				{text: 'Docsvison', href: '/'},
-				{text: 'Мои папки', href: '/'},
-				{text: 'Заявки', href: '/'},
+				{ text: 'Docsvison', href: '/' },
+				{ text: 'Мои папки', href: '/' },
+				{ text: 'Заявки', href: '/' },
 			],
 		}
 	},
 	computed: {
-		query () {
+		query() {
 			return this.$route.params.id
 		},
-		loading () {
+		loading() {
 			return this.$store.getters.loading
 		},
-		searchItemsResults () {
+		searchItemsResults() {
 			return this.$store.getters.searchItemsResults
 		},
-		filterResults () {
+		filterResults() {
 			return this.$store.getters.filterResults
 		},
-		total () {
+		total() {
 			return this.searchItemsResults.length
 		},
-		totaldoc () {
-			return this.searchItemsResults.filter( item => item.item.type === 'doc').length
+		totaldoc() {
+			return this.searchItemsResults.filter((item) => item.item.type === 'doc')
+				.length
 		},
-		totaltask () {
-			return this.searchItemsResults.filter( item => item.item.type === 'task').length
+		totaltask() {
+			return this.searchItemsResults.filter((item) => item.item.type === 'task')
+				.length
 		},
-		totaltask1 () {
-			return this.searchItemsResults.filter( item => item.item.typ === 'Группа заданий').length
+		totaltask1() {
+			return this.searchItemsResults.filter(
+				(item) => item.item.typ === 'Группа заданий'
+			).length
 		},
-		totalfile () {
-			return this.searchItemsResults.filter( item => item.item.type === 'file').length
+		totalfile() {
+			return this.searchItemsResults.filter((item) => item.item.type === 'file')
+				.length
 		},
-		category () {
-			let temp = 0;
+		category() {
+			let temp = 0
 			if (this.totaldoc) {
-				temp ++
-			} 
+				temp++
+			}
 			if (this.totaltask) {
-				temp ++
-			} 
+				temp++
+			}
 			if (this.totaltask1) {
-				temp ++
-			} 
+				temp++
+			}
 			if (this.totalfile) {
-				temp ++
+				temp++
 			}
 			return temp
-		}
+		},
 	},
 	components: {
-		Filters,
 		listItem1,
 		Preview,
 		Loader,
 		CardInfo,
 	},
 	methods: {
-		setCheck (e) {
+		setCheck(e) {
 			let doc = [e]
 			this.$store.commit('setChecked', doc)
-		}
-		// searchAll () {
-		// 	this.$store.commit('setFilterResults', this.items)
-		// }
-	}
+		},
+	},
 }
-
 </script>
 
 <style scoped lang="scss">
 @import '@/assets/css/colors.scss';
 
 .searchgrid {
-	display: grid;
-	grid-template-columns: 260px auto;
-	grid-gap: 2rem;
 }
 .zero {
 	grid-column: 1/3;
 	background: #fff;
-	padding: .2rem 1rem;
+	padding: 0.2rem 1rem;
 	border-bottom: 1px solid #ccc;
 	display: grid;
 }
@@ -158,48 +131,41 @@ export default {
 	font-weight: bold;
 }
 .sort {
+	margin-top: 2rem;
 	grid-column: 1/3;
 	display: flex;
 	justify-content: space-between;
 	font-size: 0.8rem;
-}
-.nk {
-	margin: 0 .5rem;
-	color: $link;
-	cursor: pointer;
-}
-.my {
-	height: 24px;
-	margin: 0;
-	padding: 0;
-	margin-right: 5rem;
-}
-.v-breadcrumbs {
-	padding: 0;
-	background: #fff;
-	
+	.sele {
+		display: flex;
+		align-items: center;
+		span {
+			margin-right: 15px;
+			margin-top: -7px;
+		}
+		.v-input {
+			width: 160px;
+		}
+	}
 }
 .alls {
 	display: grid;
 	align-items: flex-start;
 	grid-template-columns: auto auto 1fr auto;
 	padding: 1rem 0;
-	grid-gap: .5rem;
+	grid-gap: 0.5rem;
 	.v-chip {
 		cursor: pointer;
-		margin-right: .25rem;
-		margin-bottom: .25rem;
+		margin-right: 0.25rem;
+		margin-bottom: 0.25rem;
 		padding-left: 4px;
 		.v-avatar {
-			margin-right: .5rem;
+			margin-right: 0.5rem;
 		}
 	}
 }
-.dow {
-	align-self: flex-end;
-}
 .find {
-	margin-top: .5rem;
+	margin-top: 0.5rem;
 	span {
 		font-size: 1.6rem;
 		line-height: 1rem;
@@ -217,15 +183,4 @@ export default {
 		font-size: 0.9rem;
 	}
 }
-.boxcont {
-	display: flex;
-	gap: 1rem;
-	flex-wrap: wrap;
-}
-.box {
-	flex-basis: 203px;
-	flex-grow: 1;
-	flex-shrink: 1;
-}
-
 </style>

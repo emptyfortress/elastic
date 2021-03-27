@@ -6,6 +6,7 @@
 		v-spacer
 		.status {{ item.item.status }}
 	.txt(v-if="item.item.type !== 'file'")
+		v-icon(color="#dedede").star mdi-star-outline
 		TextHighlight(:queries="queries").titul {{ item.item.title }}
 		.attr
 			TextHighlight(:queries="queries").status Автор: {{ item.item.author }}
@@ -39,15 +40,14 @@
 import TextHighlight from 'vue-text-highlight'
 
 export default {
-	props: ['item', 'zapros' ],
-	data () {
-		return {
-		}
+	props: ['item', 'zapros'],
+	data() {
+		return {}
 	},
 	computed: {
-		queries () {
+		queries() {
 			return this.zapros.split(' ')
-		}
+		},
 	},
 	components: {
 		TextHighlight,
@@ -56,23 +56,21 @@ export default {
 		// ttt () {
 		// 	console.log(this.queries)
 		// }
-	}
+	},
 }
-
 </script>
 
 <style scoped lang="scss">
 @import '@/assets/css/colors.scss';
 
-
 .item {
 	width: 100%;
 	background: #fff;
-	margin-bottom: .5rem;
+	margin-bottom: 0.5rem;
 	border: 1px solid #dedede;
 	border-radius: 3px;
 	cursor: pointer;
-	padding: .5rem;
+	padding: 0.5rem;
 	&.task {
 		border-left: 5px solid $taskcolor;
 		&:hover {
@@ -97,7 +95,7 @@ export default {
 }
 .attr {
 	display: flex;
-	font-size: .8rem;
+	font-size: 0.8rem;
 	color: #999;
 	&.first {
 		margin-left: 17px;
@@ -106,22 +104,22 @@ export default {
 		margin-right: 2rem;
 	}
 	> :last-child {
-		margin-right: .5rem;
+		margin-right: 0.5rem;
 		text-transform: uppercase;
 		letter-spacing: 2px;
 		font-size: 0.7rem;
 	}
-	margin-bottom: .5rem;
+	margin-bottom: 0.5rem;
 }
 .txt {
 	margin-left: 1rem;
 	.files {
 		display: flex;
 		align-items: flex-start;
-		margin-top: 1.0rem;
+		margin-top: 1rem;
 		img {
 			display: inline-block;
-			margin-right: .5rem;
+			margin-right: 0.5rem;
 		}
 	}
 	.zg {
@@ -142,7 +140,7 @@ export default {
 	line-height: 110%;
 }
 .titul .zg {
-	font-size: 1.0rem;
+	font-size: 1rem;
 	color: $link;
 }
 .ic {
@@ -180,7 +178,7 @@ export default {
 	grid-template-columns: 70px auto;
 	img {
 		grid-column: 1/2;
-		grid-row: span 3
+		grid-row: span 3;
 	}
 }
 .card {
@@ -193,5 +191,10 @@ export default {
 	&:hover {
 		text-decoration: underline;
 	}
+}
+.star {
+	margin-right: 5px;
+	margin-bottom: 5px;
+	cursor: pointer;
 }
 </style>
