@@ -2,26 +2,23 @@
 .home
 	.inf
 		ul
-			li Упрощенная версия поиска
+			li Это упрощенная версия поиска
 			li Убрана цветовая дифференциация 
 			li В результатах есть выбор между гридом и лентой
 			li Добавлена сортировка
 			li Агрегатов нет
 			li Хинтов нет
+			li Ничего нет
 
 </template>
 
 <script>
-
 export default {
-	components: {
-	}
+	components: {},
 }
-
 </script>
 
 <style scoped lang="scss">
-
 .home {
 	display: flex;
 	height: 75vh;
