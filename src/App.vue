@@ -18,7 +18,7 @@ v-app
 		v-container.cont
 			transition(name="slide-fade" mode="out-in")
 				div
-					Hint(:searchMode="searchMode")
+					//- Hint(:searchMode="searchMode")
 					v-slide-x-transition(mode="out-in")
 						router-view
 </template>
@@ -55,10 +55,6 @@ export default {
 		maincolor() {
 			let name = this.$route.name
 			switch (name) {
-			case 'results':
-				return 'purple'
-			case 'advanced':
-				return 'purple'
 			case 'doc':
 				return 'docolor'
 			case 'task':
