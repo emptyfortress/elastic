@@ -31,12 +31,13 @@
 			
 		div(v-show="sidebar")
 			Filters(v-if="searchItemsResults.length")
+
+		div(v-if="total && grid" :class="{fil : !sidebar}")
+			Toolbar(:total="total")
+			Grid
 		div(v-if="total && !grid" :class="{fil : !sidebar}")
 			listItem1(v-for="item in filterResults" :item="item" :key="item.id" :zapros="query" @preview="preview = true")
-		div(v-if="total && grid" :class="{fil : !sidebar}").boxcont
-			.box(v-for="item in filterResults")
-				CardInfo(:item="item")
- 
+
 		div(v-if="!total")
 			.nothing
 				img(src="@/assets/img/nothing.svg")
