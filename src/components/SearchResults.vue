@@ -5,7 +5,7 @@
 		.zero
 			.alls
 				.res {{ query }}:
-				.find(v-if="total") найдено <span>{{ total }}</span> результатов в {{ category }} категориях &mdash;
+				.find(v-if="total") найдено <span>{{ total }}</span> результатов &mdash;
 				.find(v-else) Ничего не найдено. Измените условия поиска.
 				div
 					v-chip(v-if="totaldoc" color="docolor" dark @click="setCheck(1)")
@@ -17,28 +17,23 @@
 					v-chip(v-if="totaltask1" color="taskcolor" dark @click="setCheck(3)") 
 						v-avatar {{ totaltask1}}
 						|ГЗ
-					v-chip(v-if="totalfile" color="dark" dark @click="setCheck(4)") 
-						v-avatar {{ totalfile }}
-						|Файлы
 		.sort
-			.d-flex
-				v-checkbox(label="Сначала результаты со мной" dense).my
+			.sele
 				span Сортировать по:
-				.nk релевантность
-				.nk дата
-				.nk тип
-				.nk состояние
+				v-select(:items="sort" dense value="Релевантность")
 			div
+				v-btn(icon @click="sidebar = !sidebar")
+					img(src="@/assets/img/sidebar.svg").sidebar
+				v-btn(icon @click="grid = true")
+					v-icon mdi-table
 				v-btn(icon @click="grid = false")
 					v-icon mdi-format-list-bulleted-square
-				v-btn(icon @click="grid = true")
-					v-icon mdi-view-grid
 			
-		div
+		div(v-show="sidebar")
 			Filters(v-if="searchItemsResults.length")
-		div(v-if="total && !grid")
+		div(v-if="total && !grid" :class="{fil : !sidebar}")
 			listItem1(v-for="item in filterResults" :item="item" :key="item.id" :zapros="query" @preview="preview = true")
-		div(v-if="total && grid").boxcont
+		div(v-if="total && grid" :class="{fil : !sidebar}").boxcont
 			.box(v-for="item in filterResults")
 				CardInfo(:item="item")
  
@@ -62,7 +57,9 @@ export default {
 	data () {
 		return {
 			grid: false,
+			sidebar: false,
 			preview: false,
+			sort: ['Релевантность', 'тип', 'размер', 'автор', 'срок'],
 		}
 	},
 	computed: {
@@ -154,17 +151,17 @@ export default {
 	display: flex;
 	justify-content: space-between;
 	font-size: 0.8rem;
-}
-.nk {
-	margin: 0 .5rem;
-	color: $link;
-	cursor: pointer;
-}
-.my {
-	height: 24px;
-	margin: 0;
-	padding: 0;
-	margin-right: 5rem;
+	.sele {
+		display: flex;
+		align-items: center;
+		span {
+			margin-right: 15px;
+			margin-top: -7px;
+		}
+		.v-input {
+			width: 160px;
+		}
+	}
 }
 .alls {
 	display: grid;
@@ -211,5 +208,10 @@ export default {
 	flex-grow: 1;
 	flex-shrink: 1;
 }
-
+.sidebar {
+	opacity: .5;
+}
+.fil {
+	grid-column: 1/3;
+}
 </style>
