@@ -1,38 +1,50 @@
 <template lang="pug">
 .filters
 	.zg
-		.z Фильтры
+		.z Уточните запрос
 		.lin(@click="reset") Сбросить все
-	section
-		.section Тип карточки
-			.item(v-for="prop in child" v-if="badge(prop.id)")
-				v-checkbox(color="purple" dense :label="prop.name" :value="prop.id" v-model="checked1").my
-				.badge {{ badge(prop.id) }}
-		.section(v-if="showSecond") Вид документа
-			.item(v-for="prop in child1" v-if="badge(prop.id)")
-				v-checkbox(color="purple" dense :label="prop.name" :value="prop.id" v-model="checked1").my
-				.badge {{ badge(prop.id) }}
-		.section(v-if="showSecond1") Вид задания
-			.item(v-for="prop in child2" v-if="badge(prop.id)")
-				v-checkbox(color="purple" dense :label="prop.name" :value="prop.id" v-model="checked1").my
-				.badge {{ badge(prop.id) }}
-		.section.mt-5 Дата регистрации (диапазон)
-			v-menu( v-model="menu2" :nudge-right="40" ref="menu" :close-on-content-click="false" transition="scale-transition" offset-y min-width="290px" )
-				template( v-slot:activator="{ on, attrs }" )
-					v-text-field( v-model="dateRangeText" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" clearable).sm
-				v-date-picker(v-model="dates" color="purple" show-current range )
-					v-spacer
-					v-btn(text color="primary" @click="menu2 = false") Cancel
-					v-btn(text color="primary" @click="$refs.menu.save(dates)") OK
-			.item
-				v-checkbox(color="purple" dense value="9" label="Текущая неделя" v-model="checked1").my
-				.badge 3
-			.item
-				v-checkbox(color="purple" dense value="10" label="Текущий месяц" v-model="checked1").my
-				.badge 8
-			.item
-				v-checkbox(color="purple" dense value="11" label="Текущий квартал" v-model="checked1").my
-				.badge 34
+	section.mt-4
+		v-expansion-panels(accordion multiple v-model="panel")
+			v-expansion-panel
+				v-expansion-panel-header Тип карточки
+				v-expansion-panel-content.tight
+					.item(v-for="prop in child" v-if="badge(prop.id)")
+						v-checkbox(color="primary" dense :label="prop.name" :value="prop.id" v-model="checked1").my
+						.badge {{ badge(prop.id) }}
+
+			v-expansion-panel
+				v-expansion-panel-header Вид документа
+				v-expansion-panel-content.tight
+					.item(v-for="prop in child1" v-if="badge(prop.id)")
+						v-checkbox(color="primary" dense :label="prop.name" :value="prop.id" v-model="checked1").my
+						.badge {{ badge(prop.id) }}
+
+			v-expansion-panel
+				v-expansion-panel-header Вид задания
+				v-expansion-panel-content.tight
+					.item(v-for="prop in child2" v-if="badge(prop.id)")
+						v-checkbox(color="primary" dense :label="prop.name" :value="prop.id" v-model="checked1").my
+						.badge {{ badge(prop.id) }}
+
+			v-expansion-panel
+				v-expansion-panel-header Дата регистрации (диапазон)
+				v-expansion-panel-content.tight
+					v-menu( v-model="menu2" :nudge-right="40" ref="menu" :close-on-content-click="false" transition="scale-transition" offset-y min-width="290px" )
+						template( v-slot:activator="{ on, attrs }" )
+							v-text-field( v-model="dateRangeText" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" clearable).sm
+						v-date-picker(v-model="dates" color="primary" show-current range )
+							v-spacer
+							v-btn(text color="primary" @click="menu2 = false") Cancel
+							v-btn(text color="primary" @click="$refs.menu.save(dates)") OK
+					.item
+						v-checkbox(color="primary" dense value="9" label="Текущая неделя" v-model="checked1").my
+						.badge 3
+					.item
+						v-checkbox(color="primary" dense value="10" label="Текущий месяц" v-model="checked1").my
+						.badge 8
+					.item
+						v-checkbox(color="primary" dense value="11" label="Текущий квартал" v-model="checked1").my
+						.badge 34
 
 </template>
 
@@ -45,6 +57,7 @@ export default {
 			checked1: [],
 			dates: [],
 			menu2: false,
+			panel: [1,1,0,0],
 			child: [
 				{ id: 1, name: 'Документ' },
 				{ id: 2, name: 'Задание' },
@@ -253,5 +266,21 @@ export default {
 	margin: 0;
 	padding: 0;
 	height: 36px;
+}
+
+.theme--light.v-expansion-panels .v-expansion-panel {
+	background: none;
+	padding: 0;
+}
+.v-expansion-panel {
+	&:before {
+		box-shadow: none;
+	}
+	button {
+		padding: 0;
+	}
+}
+.v-expansion-panel--active > .v-expansion-panel-header {
+    min-height: 48px;
 }
 </style>

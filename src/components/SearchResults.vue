@@ -17,7 +17,7 @@
 					v-chip(v-if="totaltask1" color="taskcolor" dark @click="setCheck(3)") 
 						v-avatar {{ totaltask1}}
 						|ГЗ
-		.sort
+		.sort(:class="{sid : !sidebar}")
 			.sele
 				span Сортировать по:
 				v-select(:items="sort" dense value="Релевантность")
@@ -61,8 +61,9 @@ import Grid from '@/components/Grid.vue'
 export default {
 	data () {
 		return {
-			grid: false,
-			sidebar: 0,
+			grid: true,
+			sidebar: true,
+			sdb: 0,
 			preview: false,
 			view: 0,
 			sort: ['Релевантность', 'тип', 'размер', 'автор', 'срок'],
@@ -149,7 +150,7 @@ export default {
 .searchgrid {
 	display: grid;
 	grid-template-columns: 260px auto;
-	grid-gap: 2rem;
+	grid-gap: 1rem;
 }
 .zero {
 	grid-column: 1/3;
@@ -163,11 +164,14 @@ export default {
 	font-weight: bold;
 }
 .sort {
-	grid-column: 1/3;
+	grid-column: 2/3;
 	display: flex;
 	/* background: #ccc; */
 	justify-content: space-between;
 	font-size: 0.8rem;
+	&.sid {
+		grid-column: 1/3;
+	}
 	.sele {
 		display: flex;
 		align-items: center;

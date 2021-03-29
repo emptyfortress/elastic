@@ -78,7 +78,7 @@ export default {
 			} else return 'add'
 		},
 		items() {
-			return this.$store.getters.searchItemsResults
+			return this.$store.getters.filterResults
 		},
 		indeterminate() {
 			let sel = this.items.reduce((total, item) => {
