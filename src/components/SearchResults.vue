@@ -30,17 +30,6 @@
 				v-btn(icon @click="grid = false")
 					v-icon mdi-format-list-bulleted-square
 
-			//-
-				v-btn-toggle(dense v-model="sdb" color="black").sidebar 
-					v-btn(icon @click="switchSidebar")
-						img(src="@/assets/img/sidebar.svg")
-				v-btn-toggle(v-model="view" mandatory dense) 
-					v-btn(icon @click="grid = true")
-						v-icon mdi-table
-					v-btn(icon @click="grid = false") 
-						v-icon mdi-format-list-bulleted-square
-			//
-
 		div(v-show="sidebar")
 			Filters(v-if="searchItemsResults.length")
 
