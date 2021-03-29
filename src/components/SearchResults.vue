@@ -21,13 +21,21 @@
 			.sele
 				span Сортировать по:
 				v-select(:items="sort" dense value="Релевантность")
+
 			div
-				v-btn(icon @click="sidebar = !sidebar")
-					img(src="@/assets/img/sidebar.svg").sidebar
-				v-btn(icon @click="grid = true")
-					v-icon mdi-table
-				v-btn(icon @click="grid = false")
-					v-icon mdi-format-list-bulleted-square
+				v-btn-toggle(dense).sidebar 
+					v-btn(icon @click="sidebar = !sidebar")
+						img(src="@/assets/img/sidebar.svg")
+				v-btn-toggle(v-model="view" mandatory dense) 
+					v-btn(icon @click="grid = true")
+						v-icon(color="#607D8B") mdi-table
+					v-btn(icon @click="grid = false") 
+						v-icon(color="#607D8B") mdi-format-list-bulleted-square
+
+				//- v-btn(icon @click="grid = true")
+				//- 	v-icon mdi-table
+				//- v-btn(icon @click="grid = false")
+					//- v-icon mdi-format-list-bulleted-square
 			
 		div(v-show="sidebar")
 			Filters(v-if="searchItemsResults.length")
@@ -61,6 +69,7 @@ export default {
 			grid: false,
 			sidebar: false,
 			preview: false,
+			view: 0,
 			sort: ['Релевантность', 'тип', 'размер', 'автор', 'срок'],
 		}
 	},
@@ -152,11 +161,13 @@ export default {
 .sort {
 	grid-column: 1/3;
 	display: flex;
+	/* background: #ccc; */
 	justify-content: space-between;
 	font-size: 0.8rem;
 	.sele {
 		display: flex;
 		align-items: center;
+		/* padding-top: 6px; */
 		span {
 			margin-right: 15px;
 			margin-top: -7px;
@@ -212,7 +223,12 @@ export default {
 	flex-shrink: 1;
 }
 .sidebar {
-	opacity: .5;
+	margin-right: 5px;
+	transform: translateY(3px);
+	img {
+		/* width: 22px; */
+	}
+	/* opacity: .5; */
 }
 .fil {
 	grid-column: 1/3;
