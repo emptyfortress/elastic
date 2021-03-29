@@ -23,8 +23,8 @@
 				v-select(:items="sort" dense value="Релевантность")
 
 			div
-				v-btn-toggle(dense).sidebar 
-					v-btn(icon @click="sidebar = !sidebar")
+				v-btn-toggle(dense v-model="sdb").sidebar 
+					v-btn(icon @click="switchSidebar")
 						img(src="@/assets/img/sidebar.svg")
 				v-btn-toggle(v-model="view" mandatory dense) 
 					v-btn(icon @click="grid = true")
@@ -32,11 +32,6 @@
 					v-btn(icon @click="grid = false") 
 						v-icon(color="#607D8B") mdi-format-list-bulleted-square
 
-				//- v-btn(icon @click="grid = true")
-				//- 	v-icon mdi-table
-				//- v-btn(icon @click="grid = false")
-					//- v-icon mdi-format-list-bulleted-square
-			
 		div(v-show="sidebar")
 			Filters(v-if="searchItemsResults.length")
 
@@ -67,7 +62,7 @@ export default {
 	data () {
 		return {
 			grid: false,
-			sidebar: false,
+			sidebar: 0,
 			preview: false,
 			view: 0,
 			sort: ['Релевантность', 'тип', 'размер', 'автор', 'срок'],
@@ -127,6 +122,15 @@ export default {
 		Grid,
 	},
 	methods: {
+	 switchSidebar() {
+		 if (this.sidebar) {
+			 this.sidebar = false
+			 this.sdb = null
+		 } else {
+			 this.sidebar = true
+			 this.sdb = 0
+		 }
+	 },
 		setCheck (e) {
 			let doc = [e]
 			this.$store.commit('setChecked', doc)
