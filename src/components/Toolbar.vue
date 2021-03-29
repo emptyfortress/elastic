@@ -44,7 +44,7 @@ export default {
 		return {
 			num: 100,
 			buttons: [
-				{ text: 'Прочитать все', icon: 'readall', click: '' },
+				{ text: 'Прочитать все', icon: 'readAll', click: '' },
 				{ text: 'Группировка', icon: 'multi', click: 'groupped' },
 				{ text: 'Обновить', icon: 'reload', click: '' },
 				{ text: 'Экспорт', icon: 'xls', click: '' },
