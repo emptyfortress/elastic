@@ -51,7 +51,8 @@ import Filters from '@/components/Filters'
 import listItem1 from '@/components/listItem1'
 import Preview from '@/components/Preview'
 import Loader from '@/components/Loader'
-import CardInfo from '@/components/CardInfo'
+import Toolbar from '@/components/Toolbar.vue'
+import Grid from '@/components/Grid.vue'
 // import items from '@/store/data.js'
 
 export default {
@@ -113,7 +114,8 @@ export default {
 		listItem1,
 		Preview,
 		Loader,
-		CardInfo,
+		Toolbar,
+		Grid,
 	},
 	methods: {
 		setCheck (e) {
