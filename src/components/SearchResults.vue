@@ -37,7 +37,7 @@
 
 		div(v-if="total && grid" :class="{fil : !sidebar}")
 			Toolbar(:total="total")
-			Grid
+			Grid(:zapros="query")
 		div(v-if="total && !grid" :class="{fil : !sidebar}")
 			listItem1(v-for="item in filterResults" :item="item" :key="item.id" :zapros="query" @preview="preview = true")
 

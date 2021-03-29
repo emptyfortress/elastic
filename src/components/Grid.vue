@@ -45,14 +45,17 @@ table.full
 			td() {{ item.item.typ }}
 			td()
 				v-icon(small color="#dedede").star mdi-star-outline
-				span {{ item.item.title }}
+				TextHighlight(:queries="queries") {{ item.item.title }}
 			td() {{ item.item.author }}
 			td() {{ item.item.status }}
 
 </template>
 
 <script>
+import TextHighlight from 'vue-text-highlight'
+
 export default {
+	props: ['zapros'],
 	data() {
 		return {
 			columns: [
@@ -72,6 +75,9 @@ export default {
 		}
 	},
 	computed: {
+		queries () {
+			return this.zapros.split(' ')
+		},
 		adding() {
 			if (this.addMode) {
 				return 'adding'
@@ -105,6 +111,9 @@ export default {
 				this.all = true
 			}
 		},
+	},
+	components: {
+		TextHighlight,
 	},
 }
 </script>

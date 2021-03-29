@@ -17,9 +17,14 @@
 			i.icon-doc
 			.qua {{ item.item.num }}
 		.files(v-if="item.item.file" @click="$emit('preview')")
-			img(src="@/assets/img/filetype/doc.svg" width="12")
-			TextHighlight(:queries="queries").zg {{ item.item.file }}
+			img(src="@/assets/img/filetype/doc.svg" width="26")
+			div
+				div
+					TextHighlight(:queries="queries").zg {{ item.item.file }}
+				div
+					TextHighlight(:queries="queries").smtxt {{ item.item.digest }}
 		.more(v-if="item.item.file") Еще...
+
 	.txt(v-else)
 		.fille
 			img(src="@/assets/img/filetype/doc.svg" height="64")
@@ -121,25 +126,25 @@ export default {
 		margin-top: 1.0rem;
 		img {
 			display: inline-block;
-			margin-right: .5rem;
+			margin-right: .8rem;
 		}
 	}
 	.zg {
 		color: $link;
 		font-size: 0.9rem;
-		line-height: 110%;
 		&:hover {
 			text-decoration: underline;
 		}
 	}
+	.smtxt {
+		font-size: .85rem;
+		color: #666;
+		line-height: 1.0;
+		display: block;
+	}
 }
 .titul {
 	font-size: 1.2rem;
-}
-.hl {
-	display: inline-block;
-	background: $yellow;
-	line-height: 110%;
 }
 .titul .zg {
 	font-size: 1.0rem;
