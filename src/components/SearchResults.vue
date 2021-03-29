@@ -23,6 +23,14 @@
 				v-select(:items="sort" dense value="Релевантность")
 
 			div
+				v-btn(icon @click="switchSidebar")
+					img(src="@/assets/img/sidebar.svg").sd
+				v-btn(icon @click="grid = true")
+					v-icon mdi-table
+				v-btn(icon @click="grid = false")
+					v-icon mdi-format-list-bulleted-square
+
+			//-
 				v-btn-toggle(dense v-model="sdb" color="black").sidebar 
 					v-btn(icon @click="switchSidebar")
 						img(src="@/assets/img/sidebar.svg")
@@ -31,6 +39,7 @@
 						v-icon mdi-table
 					v-btn(icon @click="grid = false") 
 						v-icon mdi-format-list-bulleted-square
+			//
 
 		div(v-show="sidebar")
 			Filters(v-if="searchItemsResults.length")
@@ -227,13 +236,13 @@ export default {
 	flex-grow: 1;
 	flex-shrink: 1;
 }
-.sidebar {
-	margin-right: 15px;
-	transform: translateY(3px);
-	img {
-		opacity: .4;
-	}
-}
+/* .sidebar { */
+/* 	margin-right: 15px; */
+/* 	transform: translateY(3px); */
+/* 	img { */
+/* 		opacity: .4; */
+/* 	} */
+/* } */
 .fil {
 	grid-column: 1/3;
 }
@@ -258,5 +267,8 @@ export default {
 	img {
 		opacity: 1;
 	}
+}
+.sd {
+	opacity: 54%;
 }
 </style>
