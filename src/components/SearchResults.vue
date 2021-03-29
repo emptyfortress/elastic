@@ -23,14 +23,14 @@
 				v-select(:items="sort" dense value="Релевантность")
 
 			div
-				v-btn-toggle(dense v-model="sdb").sidebar 
+				v-btn-toggle(dense v-model="sdb" color="black").sidebar 
 					v-btn(icon @click="switchSidebar")
 						img(src="@/assets/img/sidebar.svg")
 				v-btn-toggle(v-model="view" mandatory dense) 
 					v-btn(icon @click="grid = true")
-						v-icon(color="#607D8B") mdi-table
+						v-icon mdi-table
 					v-btn(icon @click="grid = false") 
-						v-icon(color="#607D8B") mdi-format-list-bulleted-square
+						v-icon mdi-format-list-bulleted-square
 
 		div(v-show="sidebar")
 			Filters(v-if="searchItemsResults.length")
@@ -136,9 +136,6 @@ export default {
 			let doc = [e]
 			this.$store.commit('setChecked', doc)
 		}
-		// searchAll () {
-		// 	this.$store.commit('setFilterResults', this.items)
-		// }
 	}
 }
 
@@ -150,7 +147,7 @@ export default {
 .searchgrid {
 	display: grid;
 	grid-template-columns: 260px auto;
-	grid-gap: 1rem;
+	grid-gap: 0rem 2rem;
 }
 .zero {
 	grid-column: 1/3;
@@ -166,7 +163,7 @@ export default {
 .sort {
 	grid-column: 2/3;
 	display: flex;
-	/* background: #ccc; */
+	margin-top: 1rem;
 	justify-content: space-between;
 	font-size: 0.8rem;
 	&.sid {
@@ -231,14 +228,35 @@ export default {
 	flex-shrink: 1;
 }
 .sidebar {
-	margin-right: 5px;
+	margin-right: 15px;
 	transform: translateY(3px);
 	img {
-		/* width: 22px; */
+		opacity: .4;
 	}
-	/* opacity: .5; */
 }
 .fil {
 	grid-column: 1/3;
+}
+.v-btn-toggle {
+	border-radius: 0;
+	i {
+		opacity: .4;
+	}
+}
+.v-btn-toggle > .v-btn.v-btn {
+	border: none;
+}
+.theme--light.v-btn-toggle:not(.v-btn-toggle--group) {
+	background: transparent;
+}
+.v-btn-toggle .v-item--active {
+	i {
+		opacity: 1;
+	}
+}
+.sidebar .v-item--active {
+	img {
+		opacity: 1;
+	}
 }
 </style>

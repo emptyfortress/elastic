@@ -29,3 +29,11 @@
 .v-application--is-ltr .v-expansion-panel-header__icon {
 	margin-right: -8px;
 }
+.v-menu__content {
+	z-index: 250 !important;
+}
+.v-item--active {
+	img {
+		opacity: 1;
+	}
+}
