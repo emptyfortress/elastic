@@ -228,24 +228,10 @@ export default {
 .fil {
 	grid-column: 1/3;
 }
-.v-btn-toggle {
-	border-radius: 0;
-	i {
-		opacity: .4;
-	}
-}
-.v-btn-toggle > .v-btn.v-btn {
-	border: none;
-}
 .theme--light.v-btn-toggle:not(.v-btn-toggle--group) {
 	background: transparent;
 }
-.v-btn-toggle .v-item--active {
-	i {
-		opacity: 1;
-	}
-}
 .sd {
-	opacity: 54%;
+	opacity: .54;
 }
 </style>
