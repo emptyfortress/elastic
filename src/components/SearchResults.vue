@@ -236,13 +236,6 @@ export default {
 	flex-grow: 1;
 	flex-shrink: 1;
 }
-/* .sidebar { */
-/* 	margin-right: 15px; */
-/* 	transform: translateY(3px); */
-/* 	img { */
-/* 		opacity: .4; */
-/* 	} */
-/* } */
 .fil {
 	grid-column: 1/3;
 }
@@ -260,11 +253,6 @@ export default {
 }
 .v-btn-toggle .v-item--active {
 	i {
-		opacity: 1;
-	}
-}
-.sidebar .v-item--active {
-	img {
 		opacity: 1;
 	}
 }
