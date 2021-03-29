@@ -4,10 +4,7 @@ v-app
 	v-app-bar(app :color="maincolor" flat collapse-on-scroll clipped-left :class="calcWidth()" elevation="2" ).pr-2
 		v-app-bar-nav-icon(color="#fff" @click="$store.commit('toggleDrawer')")
 		.logo(v-show="logo && !$vuetify.breakpoint.mobile")
-			v-btn(icon v-if="$route.name === 'results'" dark large @click="$router.push('/')")
-				v-icon mdi-arrow-left-circle-outline
-			span(v-if="$route.name === 'results'") Поиск
-			span(v-else) Docsvision
+			span Docsvision
 		v-spacer
 		searchComponent(:active="active")
 		v-btn( href="" icon  v-show="offsetTop" @click="toggleSearch").mr-3
@@ -18,7 +15,6 @@ v-app
 		v-container.cont
 			transition(name="slide-fade" mode="out-in")
 				div
-					Hint(:searchMode="searchMode")
 					v-slide-x-transition(mode="out-in")
 						router-view
 </template>
@@ -26,15 +22,12 @@ v-app
 <script>
 import Drawer from './components/Drawer'
 import searchComponent from '@/components/searchComponent'
-import Hint from '@/components/Hint'
-
 
 export default {
 	name: 'App', 
 	components: { 
 		Drawer,
 		searchComponent,
-		Hint
 	}, 
 	data () {
 		return {
@@ -55,10 +48,6 @@ export default {
 		maincolor() {
 			let name = this.$route.name
 			switch (name) {
-			case 'results':
-				return 'purple'
-			case 'advanced':
-				return 'purple'
 			case 'doc':
 				return 'docolor'
 			case 'task':

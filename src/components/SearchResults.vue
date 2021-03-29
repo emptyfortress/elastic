@@ -3,7 +3,6 @@
 	Loader(v-if="loading")
 	.searchgrid(v-else)
 		.zero
-			v-breadcrumbs(:items="bread")
 			.alls
 				.res {{ query }}:
 				.find(v-if="total") найдено <span>{{ total }}</span> результатов в {{ category }} категориях &mdash;
@@ -21,8 +20,6 @@
 					v-chip(v-if="totalfile" color="dark" dark @click="setCheck(4)") 
 						v-avatar {{ totalfile }}
 						|Файлы
-				.dow
-					v-btn(depressed color="blue-grey" dark small) Искать всюду
 		.sort
 			.d-flex
 				v-checkbox(label="Сначала результаты со мной" dense).my
@@ -66,11 +63,6 @@ export default {
 		return {
 			grid: false,
 			preview: false,
-			bread: [
-				{text: 'Docsvison', href: '/'},
-				{text: 'Мои папки', href: '/'},
-				{text: 'Заявки', href: '/'},
-			],
 		}
 	},
 	computed: {
@@ -174,11 +166,6 @@ export default {
 	padding: 0;
 	margin-right: 5rem;
 }
-.v-breadcrumbs {
-	padding: 0;
-	background: #fff;
-	
-}
 .alls {
 	display: grid;
 	align-items: flex-start;
@@ -194,9 +181,6 @@ export default {
 			margin-right: .5rem;
 		}
 	}
-}
-.dow {
-	align-self: flex-end;
 }
 .find {
 	margin-top: .5rem;
