@@ -19,17 +19,17 @@
 						|ГЗ
 		.sort(:class="{sid : !sidebar}")
 			.sele
-				span Сортировать по:
+				v-btn(icon @click="switchSidebar")
+					v-icon(v-show="sidebar") mdi-backburger
+					v-icon(v-show="!sidebar") mdi-forwardburger
+				label.ml-5.mr-2 Сортировать по:
 				v-select(:items="sort" dense value="Релевантность")
 
 			.d-flex
-				v-btn-toggle(dense v-model="sdb").sidebar 
-					v-btn(icon @click="switchSidebar")
-						img(src="@/assets/img/sidebar.svg")
-				v-btn-toggle(v-model="view" mandatory dense) 
+				v-btn-toggle(icon v-model="view" mandatory dense group) 
 					v-btn(icon @click="grid = true")
 						v-icon mdi-table
-					v-btn(icon @click="grid = false") 
+					v-btn(icon @click="grid = false")
 						v-icon mdi-format-list-bulleted-square
 
 		div(v-show="sidebar")
@@ -173,13 +173,13 @@ export default {
 	.sele {
 		display: flex;
 		align-items: center;
-		/* padding-top: 6px; */
 		span {
 			margin-right: 15px;
 			margin-top: -7px;
 		}
 		.v-input {
 			width: 160px;
+			transform: translateY(6px);
 		}
 	}
 }
@@ -232,7 +232,7 @@ export default {
 	grid-column: 1/3;
 }
 .sidebar {
-	margin-right: 2rem;
+	/* margin-right: 2rem; */
 	.v-btn {
 		/* margin-bottom: -4px; */
 	}
@@ -240,6 +240,17 @@ export default {
 .theme--light.v-btn-toggle:not(.v-btn-toggle--group) {
 	background: transparent;
 }
+.v-btn-toggle .v-btn:not(.v-btn--text):not(.v-btn--outlined).v-btn--active:before {
+	opacity: .7;
+}
+.v-btn-toggle .v-btn--active > .v-btn__content .v-icon {
+	/* color: #fff; */
+}
+
+.v-btn-toggle .v-btn::before {
+	background: $dark;
+}
+
 .theme--light.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn {
 	border: 1px solid #aaa !important;
 	background: #fff;
