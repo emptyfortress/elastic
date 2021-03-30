@@ -1,53 +1,54 @@
 <template lang="pug">
-table.full
-	thead
-		tr.toolbar
-			th.sm
-				v-simple-checkbox(:value="all" @input="setAll" :indeterminate="indeterminate" v-ripple).check
-			th(v-for="column in columns"
-				:class="{'sorting' : sortByIndex === column.id}")
-				v-icon(v-if="sortByIndex === column.id" :class="{'sortup' : up}").sort mdi-arrow-down
-				span {{ column.name }}
-				v-icon(v-show="column.filter || column.addF" :class="adding").sort.ml-2 mdi-filter
-				.over
-					v-tooltip(top)
-						template(v-slot:activator="{ on, attrs }")
-							v-btn(icon small @click="sort(column.id)" v-bind="attrs" v-on="on")
-								v-icon(:class="{'sortup' : up}") mdi-arrow-down
-						span Сортировка
+.all
+	table.full
+		thead
+			tr.toolbar
+				th.sm
+					v-simple-checkbox(:value="all" @input="setAll" :indeterminate="indeterminate" v-ripple).check
+				th(v-for="column in columns"
+					:class="{'sorting' : sortByIndex === column.id}")
+					v-icon(v-if="sortByIndex === column.id" :class="{'sortup' : up}").sort mdi-arrow-down
+					span {{ column.name }}
+					v-icon(v-show="column.filter || column.addF" :class="adding").sort.ml-2 mdi-filter
+					.over
+						v-tooltip(top)
+							template(v-slot:activator="{ on, attrs }")
+								v-btn(icon small @click="sort(column.id)" v-bind="attrs" v-on="on")
+									v-icon(:class="{'sortup' : up}") mdi-arrow-down
+							span Сортировка
 
-					v-tooltip(top)
-						template(v-slot:activator="{ on, attrs }")
-							v-btn(icon small @click="filterByIndex = column.id" v-bind="attrs" v-on="on")
-								v-icon mdi-filter-outline
-						span Фильтр
+						v-tooltip(top)
+							template(v-slot:activator="{ on, attrs }")
+								v-btn(icon small @click="filterByIndex = column.id" v-bind="attrs" v-on="on")
+									v-icon mdi-filter-outline
+							span Фильтр
 
-					v-tooltip(top)
-						template(v-slot:activator="{ on, attrs }")
-							v-btn(icon small @click="filterByIndex = null" v-bind="attrs" v-on="on")
-								v-icon mdi-eye-off
-						span Скрыть
+						v-tooltip(top)
+							template(v-slot:activator="{ on, attrs }")
+								v-btn(icon small @click="filterByIndex = null" v-bind="attrs" v-on="on")
+									v-icon mdi-eye-off
+							span Скрыть
 
-				//- v-slide-y-transition
-				//- 	v-card.quick.elevation-3(v-show="filterByIndex === column.id")
-				//- 		v-text-field(clearable :key="column.id").mx-3
-				//- 		v-card-actions
-				//- 			v-btn(icon small color="primary" @click="removeFilter(column.id)")
-				//- 				v-icon mdi-trash-can-outline
-				//- 			v-btn(icon small color="primary" @click="addFilter(column.id)")
-				//- 				v-icon mdi-plus-circle-outline
-				//- 			v-spacer
-				//- 			v-btn(text small color="primary" @click="setFilter(column.id)") Применить
-	tbody(is="transition-group" name="list")
-		tr( v-for="(item, i) in items" :key="item.item.id"  @contextmenu.prevent="$refs.ctxMenu.open").ro
-			td(v-ripple).sm
-				v-simple-checkbox(v-model="item.item.selected" color="primary").check
-			td() {{ item.item.typ }}
-			td()
-				v-icon(small color="#dedede").star mdi-star-outline
-				TextHighlight(:queries="queries") {{ item.item.title }}
-			td() {{ item.item.author }}
-			td() {{ item.item.status }}
+					//- v-slide-y-transition
+					//- 	v-card.quick.elevation-3(v-show="filterByIndex === column.id")
+					//- 		v-text-field(clearable :key="column.id").mx-3
+					//- 		v-card-actions
+					//- 			v-btn(icon small color="primary" @click="removeFilter(column.id)")
+					//- 				v-icon mdi-trash-can-outline
+					//- 			v-btn(icon small color="primary" @click="addFilter(column.id)")
+					//- 				v-icon mdi-plus-circle-outline
+					//- 			v-spacer
+					//- 			v-btn(text small color="primary" @click="setFilter(column.id)") Применить
+		tbody(is="transition-group" name="list")
+			tr( v-for="(item, i) in items" :key="item.item.id"  @contextmenu.prevent="$refs.ctxMenu.open").ro
+				td(v-ripple).sm
+					v-simple-checkbox(v-model="item.item.selected" color="primary").check
+				td() {{ item.item.typ }}
+				td()
+					v-icon(small color="#dedede").star mdi-star-outline
+					TextHighlight(:queries="queries") {{ item.item.title }}
+				td() {{ item.item.author }}
+				td() {{ item.item.status }}
 
 </template>
 
@@ -119,17 +120,20 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.all {
+	height: calc(100vh - 260px);
+	overflow: auto;
+}
 .full {
 	width: 100%;
 	background: #fff;
 	transition: all 0.3s ease;
 	margin-bottom: 100px;
-
 	tr {
 		background: #fff;
-		&.toolbar th {
-			top: 45px;
-		}
+		/* &.toolbar th { */
+		/* 	top: 45px; */
+		/* } */
 	}
 	th {
 		cursor: pointer;

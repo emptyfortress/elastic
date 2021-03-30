@@ -1,7 +1,6 @@
 <template lang="pug">
 .filters
 	.zg
-		//- .z Уточните запрос
 		.lin(@click="reset") Сбросить все
 		.lin(@click="expand")
 			span(v-show="panel.length <= 1") Распахнуть все
@@ -52,6 +51,12 @@
 					.item
 						v-checkbox(color="primary" dense value="11" label="Текущий квартал" v-model="checked1").my
 						.badge 34
+			v-expansion-panel(v-for="n in 10")
+				v-expansion-panel-header Заголовок {{ n }}
+				v-expansion-panel-content.tight
+					.item(v-for="m in 5")
+						v-checkbox(color="primary" dense label="Свойство").my
+						.badge 7
 
 </template>
 
@@ -243,6 +248,18 @@ export default {
 <style scoped lang="scss">
 @import '@/assets/css/colors.scss';
 
+.filters {
+	font-size: 0.9rem;
+	/* background: #ddd; */
+	/* padding-right: 7px; */
+	height: calc(100vh - 210px);
+	overflow: auto;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+	padding-right: 1rem;
+	border-right: 1px solid silver;
+}
 .zg {
 	display: flex;
 	justify-content: space-between;
@@ -256,9 +273,6 @@ export default {
 	font-size: .8rem;
 	color: $link;
 	cursor: pointer;
-}
-.filters {
-	font-size: 0.9rem;
 }
 .section {
 	margin-top: 1rem;
@@ -292,7 +306,7 @@ export default {
 		box-shadow: none;
 	}
 	button {
-		padding: 0;
+		/* padding: 0; */
 	}
 }
 .v-expansion-panel--active > .v-expansion-panel-header {

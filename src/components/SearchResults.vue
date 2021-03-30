@@ -8,13 +8,13 @@
 				.find(v-if="total") найдено <span>{{ total }}</span> результатов &mdash;
 				.find(v-else) Ничего не найдено. Измените условия поиска.
 				div
-					v-chip(v-if="totaldoc" color="docolor" dark @click="setCheck(1)")
+					v-chip(v-if="totaldoc" color="docolor" :outlined="outline1" dark @click="setChip(1)")
 						v-avatar {{ totaldoc }}
 						|Документы
-					v-chip(v-if="totaltask" color="taskcolor" dark @click="setCheck(2)") 
+					v-chip(v-if="totaltask" color="taskcolor" :outlined="outline2" dark @click="setChip(2)") 
 						v-avatar {{ totaltask}}
 						|Задания
-					v-chip(v-if="totaltask1" color="taskcolor" dark @click="setCheck(3)") 
+					v-chip(v-if="totaltask1" color="taskcolor" :outlined="outline3" dark @click="setChip(3)") 
 						v-avatar {{ totaltask1}}
 						|ГЗ
 		.sort(:class="{sid : !sidebar}")
@@ -67,10 +67,20 @@ export default {
 			sdb: 0,
 			preview: false,
 			view: 0,
+			chips: [],
 			sort: ['Релевантность', 'тип', 'размер', 'автор', 'срок'],
 		}
 	},
 	computed: {
+		outline1 () {
+			return !this.chips.includes(1)
+		},
+		outline2 () {
+			return !this.chips.includes(2)
+		},
+		outline3 () {
+			return !this.chips.includes(3)
+		},
 		query () {
 			return this.$route.params.id
 		},
@@ -124,19 +134,24 @@ export default {
 		Grid,
 	},
 	methods: {
-	 switchSidebar() {
-		 if (this.sidebar) {
-			 this.sidebar = false
-			 this.sdb = null
-		 } else {
-			 this.sidebar = true
-			 this.sdb = 0
-		 }
-	 },
-		setCheck (e) {
-			let doc = [e]
-			this.$store.commit('setChecked', doc)
-		}
+		switchSidebar() {
+			if (this.sidebar) {
+				this.sidebar = false
+				this.sdb = null
+			 } else {
+				this.sidebar = true
+				this.sdb = 0
+			}
+		},
+		setChip(e) {
+			var index = this.chips.indexOf(e);
+			if (index === -1) {
+				this.chips.push(e);
+			} else {
+				this.chips.splice(index, 1);
+			}
+			this.$store.commit('setChecked', this.chips)
+		},
 	}
 }
 
@@ -145,10 +160,15 @@ export default {
 <style scoped lang="scss">
 @import '@/assets/css/colors.scss';
 
+/* .all { */
+/* 	background: #ccc; */
+/* 	height: 800px; */
+/* 	overflow: auto; */
+/* } */
 .searchgrid {
 	display: grid;
 	grid-template-columns: 260px auto;
-	grid-gap: 0rem 2rem;
+	grid-gap: 0rem 1rem;
 }
 .zero {
 	grid-column: 1/3;
@@ -196,6 +216,8 @@ export default {
 		padding-left: 4px;
 		.v-avatar {
 			margin-right: .5rem;
+			background: $yellow;
+			color: #000;
 		}
 	}
 }
@@ -231,28 +253,19 @@ export default {
 .fil {
 	grid-column: 1/3;
 }
-.sidebar {
-	/* margin-right: 2rem; */
-	.v-btn {
-		/* margin-bottom: -4px; */
-	}
-}
-.theme--light.v-btn-toggle:not(.v-btn-toggle--group) {
-	background: transparent;
-}
 .v-btn-toggle .v-btn:not(.v-btn--text):not(.v-btn--outlined).v-btn--active:before {
-	opacity: .7;
+	opacity: 1;
 }
 .v-btn-toggle .v-btn--active > .v-btn__content .v-icon {
-	/* color: #fff; */
+	color: #fff;
 }
 
 .v-btn-toggle .v-btn::before {
 	background: $dark;
+	border-radius: 4px;
+}
+.v-btn-toggle--group > .v-btn.v-btn {
+	margin: 0;
 }
 
-.theme--light.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn {
-	border: 1px solid #aaa !important;
-	background: #fff;
-}
 </style>
