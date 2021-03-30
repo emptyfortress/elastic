@@ -1,8 +1,11 @@
 <template lang="pug">
 .filters
 	.zg
-		.z Уточните запрос
+		//- .z Уточните запрос
 		.lin(@click="reset") Сбросить все
+		.lin(@click="expand")
+			span(v-show="panel.length <= 1") Распахнуть все
+			span(v-show="panel.length > 1") Свернуть все
 	section.mt-4
 		v-expansion-panels(accordion multiple v-model="panel")
 			v-expansion-panel
@@ -25,6 +28,10 @@
 					.item(v-for="prop in child2" v-if="badge(prop.id)")
 						v-checkbox(color="primary" dense :label="prop.name" :value="prop.id" v-model="checked1").my
 						.badge {{ badge(prop.id) }}
+					.lin.mt-2(@click="more = !more" v-show="!more") Еще
+					.item(v-for="n in 40" v-show="more")
+						v-checkbox(color="primary" dense label="Свойство").my
+						.badge 5
 
 			v-expansion-panel
 				v-expansion-panel-header Дата регистрации (диапазон)
@@ -57,7 +64,8 @@ export default {
 			checked1: [],
 			dates: [],
 			menu2: false,
-			panel: [1,1,0,0],
+			panel: [0],
+			more: false,
 			child: [
 				{ id: 1, name: 'Документ' },
 				{ id: 2, name: 'Задание' },
@@ -106,6 +114,13 @@ export default {
 		}
 	},
 	methods: {
+		expand() {
+			if (this.panel.length <=1) {
+				this.panel = [0,1,2,3]
+			} else {
+				this.panel = []
+			}
+		},
 		reset () {
 			this.checked1 = []
 			this.dates = []
@@ -282,5 +297,9 @@ export default {
 }
 .v-expansion-panel--active > .v-expansion-panel-header {
     min-height: 48px;
+}
+.tight {
+	max-height: 300px;
+	overflow: auto;
 }
 </style>

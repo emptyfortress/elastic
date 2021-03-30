@@ -22,22 +22,25 @@
 				span Сортировать по:
 				v-select(:items="sort" dense value="Релевантность")
 
-			div
-				v-btn(icon @click="switchSidebar")
-					img(src="@/assets/img/sidebar.svg").sd
-				v-btn(icon @click="grid = true")
-					v-icon mdi-table
-				v-btn(icon @click="grid = false")
-					v-icon mdi-format-list-bulleted-square
+			.d-flex
+				v-btn-toggle(dense v-model="sdb").sidebar 
+					v-btn(icon @click="switchSidebar")
+						img(src="@/assets/img/sidebar.svg")
+				v-btn-toggle(v-model="view" mandatory dense) 
+					v-btn(icon @click="grid = true")
+						v-icon mdi-table
+					v-btn(icon @click="grid = false") 
+						v-icon mdi-format-list-bulleted-square
 
 		div(v-show="sidebar")
 			Filters(v-if="searchItemsResults.length")
 
-		div(v-if="total && grid" :class="{fil : !sidebar}")
+		div(v-if="total" :class="{fil : !sidebar}")
 			Toolbar(:total="total")
-			Grid(:zapros="query")
-		div(v-if="total && !grid" :class="{fil : !sidebar}")
-			listItem1(v-for="item in filterResults" :item="item" :key="item.id" :zapros="query" @preview="preview = true")
+			div(v-if="total && grid" :class="{fil : !sidebar}")
+				Grid(:zapros="query")
+			div(v-if="total && !grid" :class="{fil : !sidebar}")
+				listItem1(v-for="item in filterResults" :item="item" :key="item.id" :zapros="query" @preview="preview = true").mt-1
 
 		div(v-if="!total")
 			.nothing
@@ -228,10 +231,17 @@ export default {
 .fil {
 	grid-column: 1/3;
 }
+.sidebar {
+	margin-right: 2rem;
+	.v-btn {
+		/* margin-bottom: -4px; */
+	}
+}
 .theme--light.v-btn-toggle:not(.v-btn-toggle--group) {
 	background: transparent;
 }
-.sd {
-	opacity: .54;
+.theme--light.v-btn-toggle:not(.v-btn-toggle--group) .v-btn.v-btn {
+	border: 1px solid #aaa !important;
+	background: #fff;
 }
 </style>
