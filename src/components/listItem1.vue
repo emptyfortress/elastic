@@ -57,6 +57,8 @@ export default {
 			let base = this.item.item.type
 			if ( this.item.item.inactive ) {
 				return 'inactive' + ' ' + base
+			} else if ( this.item.item.selected ) {
+				return 'selected' + ' ' + base
 			} else return base
 		},
 		queries () {
@@ -107,6 +109,9 @@ export default {
 			border: 1px solid $link;
 			border-left: 5px solid $dark;
 		}
+	}
+	&.selected {
+			background: #e0f1ff;
 	}
 	&.inactive {
 		color: #ccc;
