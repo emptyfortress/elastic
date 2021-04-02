@@ -1,62 +1,67 @@
 <template lang="pug">
-.filters
-	.zg
-		.lin(@click="reset") Сбросить все
-		.lin(@click="expand")
-			span(v-show="panel.length <= 1") Распахнуть все
-			span(v-show="panel.length > 1") Свернуть все
-	section.mt-4
-		v-expansion-panels(accordion multiple v-model="panel")
-			v-expansion-panel
-				v-expansion-panel-header Тип карточки
-				v-expansion-panel-content.tight
-					.item(v-for="prop in child" v-if="badge(prop.id)")
-						v-checkbox(color="primary" dense :label="prop.name" :value="prop.id" v-model="checked1").my
-						.badge {{ badge(prop.id) }}
+div
+	.left
+		//- .touch Уточните запрос
+		.zg
+			.lin(@click="reset") Сбросить все
+			.lin(@click="expand")
+				span(v-show="panel.length <= 1") Распахнуть все
+				span(v-show="panel.length > 1") Свернуть все
 
-			v-expansion-panel
-				v-expansion-panel-header Вид документа
-				v-expansion-panel-content.tight
-					.item(v-for="prop in child1" v-if="badge(prop.id)")
-						v-checkbox(color="primary" dense :label="prop.name" :value="prop.id" v-model="checked1").my
-						.badge {{ badge(prop.id) }}
+	.filters
+		section
+			v-expansion-panels(accordion multiple v-model="panel")
+				v-expansion-panel
+					v-expansion-panel-header Тип карточки
+					v-expansion-panel-content.tight
+						.item(v-for="prop in child" v-if="badge(prop.id)")
+							v-checkbox(color="primary" dense :label="prop.name" :value="prop.id" v-model="checked1").my
+							.badge {{ badge(prop.id) }}
 
-			v-expansion-panel
-				v-expansion-panel-header Вид задания
-				v-expansion-panel-content.tight
-					.item(v-for="prop in child2" v-if="badge(prop.id)")
-						v-checkbox(color="primary" dense :label="prop.name" :value="prop.id" v-model="checked1").my
-						.badge {{ badge(prop.id) }}
-					.lin.mt-2(@click="more = !more" v-show="!more") Еще
-					.item(v-for="n in 40" v-show="more")
-						v-checkbox(color="primary" dense label="Свойство").my
-						.badge 5
+				v-expansion-panel
+					v-expansion-panel-header Вид документа
+					v-expansion-panel-content.tight
+						.item(v-for="prop in child1" v-if="badge(prop.id)")
+							v-checkbox(color="primary" dense :label="prop.name" :value="prop.id" v-model="checked1").my
+							.badge {{ badge(prop.id) }}
 
-			v-expansion-panel
-				v-expansion-panel-header Дата регистрации (диапазон)
-				v-expansion-panel-content.tight
-					v-menu( v-model="menu2" :nudge-right="40" ref="menu" :close-on-content-click="false" transition="scale-transition" offset-y min-width="290px" )
-						template( v-slot:activator="{ on, attrs }" )
-							v-text-field( v-model="dateRangeText" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" clearable).sm
-						v-date-picker(v-model="dates" color="primary" show-current range )
-							v-spacer
-							v-btn(text color="primary" @click="menu2 = false") Cancel
-							v-btn(text color="primary" @click="$refs.menu.save(dates)") OK
-					.item
-						v-checkbox(color="primary" dense value="9" label="Текущая неделя" v-model="checked1").my
-						.badge 3
-					.item
-						v-checkbox(color="primary" dense value="10" label="Текущий месяц" v-model="checked1").my
-						.badge 8
-					.item
-						v-checkbox(color="primary" dense value="11" label="Текущий квартал" v-model="checked1").my
-						.badge 34
-			v-expansion-panel(v-for="n in 10")
-				v-expansion-panel-header Заголовок {{ n }}
-				v-expansion-panel-content.tight
-					.item(v-for="m in 5")
-						v-checkbox(color="primary" dense label="Свойство").my
-						.badge 7
+				v-expansion-panel
+					v-expansion-panel-header Вид задания
+					v-expansion-panel-content.tight
+						.item(v-for="prop in child2" v-if="badge(prop.id)")
+							v-checkbox(color="primary" dense :label="prop.name" :value="prop.id" v-model="checked1").my
+							.badge {{ badge(prop.id) }}
+						.item(v-for="(n, index) in addition" v-show="more" :key="index")
+							v-checkbox(color="primary" dense label="Свойство").my
+							.badge 5
+						.lin.mt-2(@click="addMore") Еще
+
+				v-expansion-panel
+					v-expansion-panel-header Дата регистрации (диапазон)
+					v-expansion-panel-content.tight
+						v-menu( v-model="menu2" :nudge-right="40" ref="menu" :close-on-content-click="false" transition="scale-transition" offset-y min-width="290px" )
+							template( v-slot:activator="{ on, attrs }" )
+								v-text-field( v-model="dateRangeText" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" clearable).sm
+							v-date-picker(v-model="dates" color="primary" show-current range )
+								v-spacer
+								v-btn(text color="primary" @click="menu2 = false") Cancel
+								v-btn(text color="primary" @click="$refs.menu.save(dates)") OK
+						.item
+							v-checkbox(color="primary" dense value="9" label="Текущая неделя" v-model="checked1").my
+							.badge 3
+						.item
+							v-checkbox(color="primary" dense value="10" label="Текущий месяц" v-model="checked1").my
+							.badge 8
+						.item
+							v-checkbox(color="primary" dense value="11" label="Текущий квартал" v-model="checked1").my
+							.badge 34
+
+				v-expansion-panel(v-for="n in 10" :key="n")
+					v-expansion-panel-header Заголовок {{ n }}
+					v-expansion-panel-content.tight
+						.item(v-for="m in 5")
+							v-checkbox(color="primary" dense label="Свойство").my
+							.badge 7
 
 </template>
 
@@ -71,6 +76,7 @@ export default {
 			menu2: false,
 			panel: [0],
 			more: false,
+			addition: 0,
 			child: [
 				{ id: 1, name: 'Документ' },
 				{ id: 2, name: 'Задание' },
@@ -129,6 +135,10 @@ export default {
 		reset () {
 			this.checked1 = []
 			this.dates = []
+		},
+		addMore() {
+			this.more = true
+			this.addition = this.addition + 10
 		},
 		badge(e) {
 			switch (e) {
@@ -248,11 +258,25 @@ export default {
 <style scoped lang="scss">
 @import '@/assets/css/colors.scss';
 
+.left {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	/* align-items: center; */
+	height: 67px;
+	/* box-shadow: 0 2px 3px 0 rgba(0,0,0,.2); */
+	/* background: #ccc; */
+}
+.touch {
+	font-size: .9rem;
+	font-weight: bold;
+	margin-bottom: .5rem;
+}
 .filters {
 	font-size: 0.9rem;
 	/* background: #ddd; */
 	/* padding-right: 7px; */
-	height: calc(100vh - 210px);
+	height: calc(100vh - 230px);
 	overflow: auto;
 	&::-webkit-scrollbar {
 		display: none;
@@ -261,6 +285,7 @@ export default {
 	border-right: 1px solid silver;
 }
 .zg {
+	width: 100%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -305,15 +330,11 @@ export default {
 	&:before {
 		box-shadow: none;
 	}
-	button {
-		/* padding: 0; */
-	}
 }
 .v-expansion-panel--active > .v-expansion-panel-header {
     min-height: 48px;
 }
-.tight {
-	max-height: 300px;
-	overflow: auto;
+.v-expansion-panel-header {
+	padding: 16px 4px;
 }
 </style>

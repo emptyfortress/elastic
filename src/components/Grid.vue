@@ -40,9 +40,9 @@
 					//- 			v-spacer
 					//- 			v-btn(text small color="primary" @click="setFilter(column.id)") Применить
 		tbody(is="transition-group" name="list")
-			tr( v-for="(item, i) in items" :key="item.item.id"  @contextmenu.prevent="$refs.ctxMenu.open").ro
+			tr( v-for="(item, i) in items" :key="item.item.id"  :class="{inactive : item.item.inactive}").ro
 				td(v-ripple).sm
-					v-simple-checkbox(v-model="item.item.selected" color="primary").check
+					v-simple-checkbox(v-model="item.item.selected" color="primary" :disabled="item.item.inactive").check
 				td() {{ item.item.typ }}
 				td()
 					v-icon(small color="#dedede").star mdi-star-outline
@@ -168,6 +168,14 @@ export default {
 			border-bottom: 1px solid #eee;
 			padding: 6px 1rem;
 			/* position: relative; */
+		}
+		&.inactive {
+			&:hover {
+				cursor: not-allowed;
+			}
+			td {
+				color: #aaa;
+			}
 		}
 	}
 }

@@ -1,12 +1,15 @@
 <template lang="pug">
-.item(:class="item.item.type")
+.item(:class="itemClass")
 	.attr.first
 		.status {{ item.item.typ }}
 		.status {{ item.item.vid }}
 		v-spacer
 		.status {{ item.item.status }}
 	.txt(v-if="item.item.type !== 'file'")
-		TextHighlight(:queries="queries").titul {{ item.item.title }}
+		.titul
+			v-simple-checkbox(v-model="item.item.selected" color="primary" :disabled="item.item.inactive").check
+			v-icon(color="#ccc").ml-2 mdi-star-outline
+			TextHighlight(:queries="queries") {{ item.item.title }}
 		.attr
 			TextHighlight(:queries="queries").status Автор: {{ item.item.author }}
 			TextHighlight(:queries="queries").status Изменено: {{ item.item.changed }}
@@ -50,6 +53,12 @@ export default {
 		}
 	},
 	computed: {
+		itemClass() {
+			let base = this.item.item.type
+			if ( this.item.item.inactive ) {
+				return 'inactive' + ' ' + base
+			} else return base
+		},
 		queries () {
 			return this.zapros.split(' ')
 		}
@@ -99,6 +108,17 @@ export default {
 			border-left: 5px solid $dark;
 		}
 	}
+	&.inactive {
+		color: #ccc;
+		border-left: 5px solid #ccc;
+		.zg, .smtxt {
+			color: #ccc !important;
+		}
+		&:hover {
+			border-color: #ccc;
+			cursor: not-allowed;
+		}
+	}
 }
 .attr {
 	display: flex;
@@ -144,12 +164,15 @@ export default {
 	}
 }
 .titul {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
 	font-size: 1.2rem;
 }
-.titul .zg {
-	font-size: 1.0rem;
-	color: $link;
-}
+/* .titul .zg { */
+/* 	font-size: 1.0rem; */
+/* 	color: $link; */
+/* } */
 .ic {
 	float: right;
 	position: relative;

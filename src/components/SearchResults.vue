@@ -32,7 +32,7 @@
 					v-btn(icon @click="grid = false")
 						v-icon mdi-format-list-bulleted-square
 
-		div(v-show="sidebar")
+		.filt(v-show="sidebar")
 			Filters(v-if="searchItemsResults.length")
 
 		div(v-if="total" :class="{fil : !sidebar}")
@@ -181,8 +181,13 @@ export default {
 	font-size: 1.4rem;
 	font-weight: bold;
 }
+.filt {
+	grid-column: 1/2;
+	grid-row: 2/8;
+}
 .sort {
 	grid-column: 2/3;
+	grid-row: 2/3;
 	display: flex;
 	margin-top: 1rem;
 	justify-content: space-between;
@@ -216,8 +221,6 @@ export default {
 		padding-left: 4px;
 		.v-avatar {
 			margin-right: .5rem;
-			background: $yellow;
-			color: #000;
 		}
 	}
 }
