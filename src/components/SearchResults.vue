@@ -168,7 +168,7 @@ export default {
 .searchgrid {
 	display: grid;
 	grid-template-columns: 260px auto;
-	grid-gap: 0rem 1rem;
+	grid-gap: 0rem .5rem;
 }
 .zero {
 	grid-column: 1/3;

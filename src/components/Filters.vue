@@ -262,10 +262,7 @@ export default {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
-	/* align-items: center; */
 	height: 67px;
-	/* box-shadow: 0 2px 3px 0 rgba(0,0,0,.2); */
-	/* background: #ccc; */
 }
 .touch {
 	font-size: .9rem;
@@ -275,14 +272,21 @@ export default {
 .filters {
 	font-size: 0.9rem;
 	/* background: #ddd; */
-	/* padding-right: 7px; */
+	padding-right: 9px;
 	height: calc(100vh - 230px);
-	overflow: auto;
-	&::-webkit-scrollbar {
-		display: none;
-	}
-	padding-right: 1rem;
 	border-right: 1px solid silver;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	mask-image: linear-gradient(to top, transparent, black), linear-gradient(to left, transparent 17px, black 17px);
+	mask-size: 100% 20000px;
+	mask-position: left bottom;
+	-webkit-mask-image: linear-gradient(to top, transparent, black), linear-gradient(to left, transparent 17px, black 17px);
+	-webkit-mask-size: 100% 20000px;
+	-webkit-mask-position: left bottom;
+	transition: mask-position 0.3s, -webkit-mask-position 0.3s;
+	&:hover {
+		-webkit-mask-position: left top;
+	}
 }
 .zg {
 	width: 100%;
