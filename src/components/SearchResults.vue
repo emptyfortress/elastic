@@ -2,19 +2,19 @@
 .all
 	Loader(v-if="loading")
 	.searchgrid(v-else)
-		.zero
+		.zero(v-show="searchMode")
 			.alls
 				.find(v-if="total") По запросу
 				.find <span>{{ query }}</span>
 				.find(v-if="total") найдено <span>{{ total }}</span> результатов
 				.find(v-else) Ничего не найдено. Измените условия поиска.
 				.spac
-				v-btn(depressed color="dark" dark small).fl Очистить запрос
+				v-btn(depressed color="dark" dark small @click="clear").fl Очистить запрос
 
 		.filt(v-show="sidebar")
 			Filters(v-if="searchItemsResults.length")
 
-		div(v-if="total" :class="{fil : !sidebar}")
+		div(v-if="total").fil
 			.foldhd Это заголовок текущей папки
 			Toolbar(:total="total")
 			div(v-if="total && grid" :class="{fil : !sidebar}")
@@ -52,6 +52,9 @@ export default {
 		}
 	},
 	computed: {
+		searchMode () {
+			return this.$store.getters.searchMode
+		},
 		outline1 () {
 			return !this.chips.includes(1)
 		},
@@ -114,6 +117,9 @@ export default {
 		Grid,
 	},
 	methods: {
+		clear () {
+			this.$store.commit('setSearchMode', false)
+		},
 		switchSidebar() {
 			if (this.sidebar) {
 				this.sidebar = false
