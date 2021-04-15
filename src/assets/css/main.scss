@@ -32,3 +32,9 @@
 .v-menu__content {
 	z-index: 250 !important;
 }
+.theme--light.v-tabs.filt > .v-tabs-bar {
+	background-color: #e4e4e0;
+}
+.filt .v-tabs-slider-wrapper {
+	top: 0;
+}

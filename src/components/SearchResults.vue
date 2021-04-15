@@ -17,18 +17,11 @@
 					v-chip(v-if="totaltask1" color="taskcolor" :outlined="outline3" dark @click="setChip(3)") 
 						v-avatar {{ totaltask1}}
 						|ГЗ
-		.sort(:class="{sid : !sidebar}")
-			.sele
-				v-btn(icon @click="switchSidebar")
-					v-icon(v-show="sidebar") mdi-backburger
-					v-icon(v-show="!sidebar") mdi-forwardburger
-				label.ml-5.mr-2 Сортировать по:
-				v-select(:items="sort" dense value="Релевантность")
 
 		.filt(v-show="sidebar")
 			Filters(v-if="searchItemsResults.length")
 
-		div(v-if="total" :class="{fil : !sidebar}")
+		.main(v-if="total" :class="{fil : !sidebar}")
 			Toolbar(:total="total")
 			div(v-if="total && grid" :class="{fil : !sidebar}")
 				Grid(:zapros="query")
@@ -55,8 +48,6 @@ import Grid from '@/components/Grid.vue'
 export default {
 	data () {
 		return {
-			sidebar: true,
-			sdb: 0,
 			preview: false,
 			view: 0,
 			chips: [],
@@ -64,6 +55,9 @@ export default {
 		}
 	},
 	computed: {
+		sidebar () {
+			return this.$store.getters.sidebar
+		},
 		grid () {
 			return this.$store.getters.grid
 		},
@@ -129,15 +123,6 @@ export default {
 		Grid,
 	},
 	methods: {
-		switchSidebar() {
-			if (this.sidebar) {
-				this.sidebar = false
-				this.sdb = null
-			 } else {
-				this.sidebar = true
-				this.sdb = 0
-			}
-		},
 		setChip(e) {
 			var index = this.chips.indexOf(e);
 			if (index === -1) {
@@ -176,9 +161,13 @@ export default {
 	font-size: 1.4rem;
 	font-weight: bold;
 }
+.main {
+	margin-top: 3rem;
+}
 .filt {
 	grid-column: 1/2;
 	grid-row: 2/8;
+	margin-top: 3rem;
 }
 .sort {
 	grid-column: 2/3;

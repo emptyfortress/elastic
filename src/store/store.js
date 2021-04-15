@@ -13,6 +13,7 @@ export default new Vuex.Store({
 		filterResults: [],
 		checked: [],
 		grid: true,
+		sidebar: true,
 	},
 	getters: {
 		drawer: state => { return state.drawer },
@@ -23,6 +24,7 @@ export default new Vuex.Store({
 		filterResults: state => { return state.filterResults },
 		checked: state => { return state.checked },
 		grid: state => { return state.grid },
+		sidebar: state => { return state.sidebar },
 	},
 	mutations: {
 		toggleDrawer (state) { state.drawer = !state.drawer },
@@ -34,6 +36,7 @@ export default new Vuex.Store({
 		setFilterResults (state, payload) { state.filterResults = payload },
 		setChecked (state, payload) { state.checked = payload },
 		setGrid (state, payload) { state.grid = payload },
+		setSidebar (state, payload) { state.sidebar = payload },
 	},
 	actions: {
 	},

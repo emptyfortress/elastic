@@ -3,6 +3,9 @@
 	hr.line
 	.tool(v-if="!editMode")
 		.d-flex
+			v-btn(icon @click="switchSidebar")
+				v-icon(v-show="sidebar") mdi-backburger
+				v-icon(v-show="!sidebar") mdi-forwardburger
 			v-slide-x-transition(mode="out-in" hide-on-leave)
 				.total
 					span Всего:
@@ -36,7 +39,8 @@
 				v-tooltip( bottom )
 					template(v-slot:activator="{ on }")
 						v-btn(icon v-on="on" @click="click(item.click)")
-							img(:src="require(`@/assets/img/${item.icon}.svg`)").ic
+							v-icon(v-if="item.id === 0") mdi-sort-variant
+							img(:src="require(`@/assets/img/${item.icon}.svg`)" v-else).ic
 					span {{item.text}}
 	.tool(v-if="editMode").pr-3
 		.total.text-uppercase Редактирование таблицы
@@ -53,13 +57,14 @@ export default {
 			num: 100,
 			view: 0,
 			buttons: [
-				{ text: 'Прочитать все', icon: 'readAll', click: '' },
-				{ text: 'Группировка', icon: 'multi', click: 'groupped' },
-				{ text: 'Обновить', icon: 'reload', click: '' },
-				{ text: 'Экспорт', icon: 'xls', click: '' },
-				{ text: 'Reset', icon: 'reset', click: '' },
-				{ text: 'Настройки', icon: 'setup', click: '' },
-				{ text: 'Редактировать', icon: 'edit', click: 'edit' },
+				{ id: 0, text: 'Сортировка', icon: 'mdi-sort-variant', click: '' },
+				{ id: 1, text: 'Прочитать все', icon: 'readAll', click: '' },
+				// { id: 2, text: 'Группировка', icon: 'multi', click: 'groupped' },
+				{ id: 3, text: 'Обновить', icon: 'reload', click: '' },
+				{ id: 4, text: 'Экспорт', icon: 'xls', click: '' },
+				{ id: 5, text: 'Reset', icon: 'reset', click: '' },
+				{ id: 6, text: 'Настройки', icon: 'setup', click: '' },
+				{ id: 7, text: 'Редактировать', icon: 'edit', click: 'edit' },
 			],
 			views: [
 				'Это представление',
@@ -70,6 +75,9 @@ export default {
 		}
 	},
 	computed: {
+		sidebar () {
+			return this.$store.getters.sidebar
+		},
 		editMode() {
 			return this.$store.getters.editMode
 		},
@@ -86,6 +94,13 @@ export default {
 		},
 	},
 	methods: {
+		switchSidebar() {
+			if (this.sidebar) {
+				this.$store.commit('setSidebar', false)
+			 } else {
+				this.$store.commit('setSidebar', true)
+			}
+		},
 		grid (e) {
 			if (e === 0) {
 				this.$store.commit('setGrid', true)
