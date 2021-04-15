@@ -23,6 +23,14 @@
 						v-btn(depressed small).ml-2 Делегировать
 						v-btn(icon small).ml-4
 							v-icon mdi-dots-vertical
+
+		.d-flex
+			v-btn-toggle(icon v-model="view" mandatory dense group) 
+				v-btn(icon @click="grid(0)")
+					v-icon mdi-table
+				v-btn(icon @click="grid(1)")
+					v-icon mdi-format-list-bulleted-square
+
 		.toolcontent
 			template(v-for="(item, index) in buttons")
 				v-tooltip( bottom )
@@ -43,6 +51,7 @@ export default {
 	data() {
 		return {
 			num: 100,
+			view: 0,
 			buttons: [
 				{ text: 'Прочитать все', icon: 'readAll', click: '' },
 				{ text: 'Группировка', icon: 'multi', click: 'groupped' },
@@ -77,6 +86,11 @@ export default {
 		},
 	},
 	methods: {
+		grid (e) {
+			if (e === 0) {
+				this.$store.commit('setGrid', true)
+			} else this.$store.commit('setGrid', false)
+		},
 		topage(e) {
 			this.$vuetify.goTo(e * this.windHeight)
 		},
@@ -179,5 +193,9 @@ export default {
 	&:active {
 		background: #f3f4f4;
 	}
+}
+.v-btn-toggle--group > .v-btn.v-btn {
+	margin-left: 0;
+	margin-right: 0;
 }
 </style>

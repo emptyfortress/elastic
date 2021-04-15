@@ -25,13 +25,6 @@
 				label.ml-5.mr-2 Сортировать по:
 				v-select(:items="sort" dense value="Релевантность")
 
-			.d-flex
-				v-btn-toggle(icon v-model="view" mandatory dense group) 
-					v-btn(icon @click="grid = true")
-						v-icon mdi-table
-					v-btn(icon @click="grid = false")
-						v-icon mdi-format-list-bulleted-square
-
 		.filt(v-show="sidebar")
 			Filters(v-if="searchItemsResults.length")
 
@@ -62,7 +55,6 @@ import Grid from '@/components/Grid.vue'
 export default {
 	data () {
 		return {
-			grid: true,
 			sidebar: true,
 			sdb: 0,
 			preview: false,
@@ -72,6 +64,9 @@ export default {
 		}
 	},
 	computed: {
+		grid () {
+			return this.$store.getters.grid
+		},
 		outline1 () {
 			return !this.chips.includes(1)
 		},
