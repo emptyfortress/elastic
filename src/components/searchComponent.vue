@@ -2,7 +2,7 @@
 v-scale-transition(origin="center right" mode="out-in")
 	v-card(v-show="searchMode" tile).searchbox
 		.where
-			v-select(:items="scope" dark dense value="Везде" hide-detail)
+			v-select(:items="scope" dark dense value="В текущей папке" hide-detail)
 		.place
 			input(:placeholder="holder"
 				v-model="query"

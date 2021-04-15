@@ -4,38 +4,18 @@
 	.searchgrid(v-else)
 		.zero
 			.alls
-				.res {{ query }}:
-				.find(v-if="total") найдено <span>{{ total }}</span> результатов &mdash;
+				.find(v-if="total") По запросу
+				.find <span>{{ query }}</span>
+				.find(v-if="total") найдено <span>{{ total }}</span> результатов
 				.find(v-else) Ничего не найдено. Измените условия поиска.
-				div
-					v-chip(v-if="totaldoc" color="docolor" :outlined="outline1" dark @click="setChip(1)")
-						v-avatar {{ totaldoc }}
-						|Документы
-					v-chip(v-if="totaltask" color="taskcolor" :outlined="outline2" dark @click="setChip(2)") 
-						v-avatar {{ totaltask}}
-						|Задания
-					v-chip(v-if="totaltask1" color="taskcolor" :outlined="outline3" dark @click="setChip(3)") 
-						v-avatar {{ totaltask1}}
-						|ГЗ
-		.sort(:class="{sid : !sidebar}")
-			.sele
-				v-btn(icon @click="switchSidebar")
-					v-icon(v-show="sidebar") mdi-backburger
-					v-icon(v-show="!sidebar") mdi-forwardburger
-				label.ml-5.mr-2 Сортировать по:
-				v-select(:items="sort" dense value="Релевантность")
-
-			.d-flex
-				v-btn-toggle(icon v-model="view" mandatory dense group) 
-					v-btn(icon @click="grid = true")
-						v-icon mdi-table
-					v-btn(icon @click="grid = false")
-						v-icon mdi-format-list-bulleted-square
+				.spac
+				v-btn(depressed color="dark" dark small).fl Очистить запрос
 
 		.filt(v-show="sidebar")
 			Filters(v-if="searchItemsResults.length")
 
 		div(v-if="total" :class="{fil : !sidebar}")
+			.foldhd Это заголовок текущей папки
 			Toolbar(:total="total")
 			div(v-if="total && grid" :class="{fil : !sidebar}")
 				Grid(:zapros="query")
@@ -63,7 +43,7 @@ export default {
 	data () {
 		return {
 			grid: true,
-			sidebar: true,
+			sidebar: false,
 			sdb: 0,
 			preview: false,
 			view: 0,
@@ -209,20 +189,11 @@ export default {
 	}
 }
 .alls {
-	display: grid;
-	align-items: flex-start;
-	grid-template-columns: auto auto 1fr auto;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
 	padding: 1rem 0;
 	grid-gap: .5rem;
-	.v-chip {
-		cursor: pointer;
-		margin-right: .25rem;
-		margin-bottom: .25rem;
-		padding-left: 4px;
-		.v-avatar {
-			margin-right: .5rem;
-		}
-	}
 }
 .find {
 	margin-top: .5rem;
@@ -269,6 +240,17 @@ export default {
 }
 .v-btn-toggle--group > .v-btn.v-btn {
 	margin: 0;
+}
+.foldhd {
+	margin-top: 2rem;
+	margin-bottom: .5rem;
+	font-size: 1.3rem;
+}
+.fl {
+	align-self: flex-end;
+}
+.spac {
+	flex-grow: 1;
 }
 
 </style>
