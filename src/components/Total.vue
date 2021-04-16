@@ -1,13 +1,17 @@
 <template lang="pug">
-.multi
-	v-btn(icon @click="clear")
-		v-icon mdi-close
-	.tot {{ total }}
-	.arr &rarr;
-	v-btn(v-for="bt in btn" depressed small color="#fff").action {{ bt }}
-	.up
-	v-btn(icon)
-		v-icon mdi-chevron-up
+.multi(:class="{ big : big }")
+	.row
+		v-btn(icon @click="clear")
+			v-icon mdi-close
+		.tot {{ total }}
+		.arr &rarr;
+		v-btn(v-for="bt in btn" depressed small color="#fff" @click="bt.action").action {{ bt.label }}
+		.up
+		v-btn(icon @click="setbig").chev
+			v-icon mdi-chevron-up
+	.row.bottom
+		v-btn( depressed small v-for="n in 4" v-show="!delegation").action Кнопка действий
+		p(v-show="delegation") здесь выбор из справочника сотрудников
 </template>
 
 <script>
@@ -15,14 +19,27 @@ export default {
 	props: ['total'],
 	data() {
 		return {
+			big: false,
+			delegation: false,
 			btn: [
-				'Делегировать',
-				'Прочитать',
-				'Завершить',
+				{ label: 'Делегировать', action: this.deleg },
+				{ label: 'Прочитать', action: this.empty},
+				{ label: 'Завершить', action: this.empty },
 			]
 		}
 	},
 	methods: {
+		setbig () {
+			this.delegation = false
+			this.big = !this.big
+		},
+		empty () {
+			return
+		},
+		deleg () {
+			this.big = !this.big
+			this.delegation = !this.delegation
+		},
 		clear() {
 			this.$emit('clear')
 		}
@@ -35,18 +52,27 @@ export default {
 	position: absolute;
 	bottom: 0;
 	left: 0;
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-	padding: 0 .5rem;
 	height: 50px;
-	line-height: 50px;
 	width: 100%;
 	background: #e4e4e0;
+	padding: 0 .5rem;
+	transition: .3s ease all;
+	.row {
+		padding: .5rem;
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		&.bottom {
+			margin-left: 84px;
+		}
+	}
 	border-radius: 15px 15px 0 0;
 	box-shadow: 0 -2px 6px rgba(0, 0, 0, .2);
 	border: 1px solid #ccc;
 	border-bottom: none;
+	&.big {
+		height: 150px;
+	}
 }
 .tot {
 	font-size: 1.1rem;
@@ -60,5 +86,11 @@ export default {
 }
 .up {
 	flex-grow: 1;
+}
+.chev {
+	transition: .2s ease all;
+	.big & {
+		transform: rotate(180deg);
+	}
 }
 </style>
