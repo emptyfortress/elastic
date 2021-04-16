@@ -34,13 +34,24 @@
 				v-btn(icon @click="grid(1)")
 					v-icon mdi-format-list-bulleted-square
 
+
 		.toolcontent
+			v-menu(offset-y="50" transition="slide-y-transition" bottom)
+				template(v-slot:activator="{attrs, on}")
+					v-btn(icon v-bind="attrs" v-on="on")
+						v-icon mdi-sort-variant
+				v-list(dense)
+					v-list-item-group(v-model="srtSelected" color="primary")
+						v-list-item( v-for="(item, index) in sort" :key="index" link @click="setSort(index)")
+							v-list-item-icon()
+								v-icon(small v-if="item.srt") mdi-arrow-down
+							v-list-item-title {{ item.title }}
+
 			template(v-for="(item, index) in buttons")
 				v-tooltip( bottom )
 					template(v-slot:activator="{ on }")
 						v-btn(icon v-on="on" @click="click(item.click)")
-							v-icon(v-if="item.id === 0") mdi-sort-variant
-							img(:src="require(`@/assets/img/${item.icon}.svg`)" v-else).ic
+							img(:src="require(`@/assets/img/${item.icon}.svg`)").ic
 					span {{item.text}}
 	.tool(v-if="editMode").pr-3
 		.total.text-uppercase Редактирование таблицы
@@ -56,8 +67,8 @@ export default {
 		return {
 			num: 100,
 			view: 0,
+			srtSelected: 0,
 			buttons: [
-				{ id: 0, text: 'Сортировка', icon: 'mdi-sort-variant', click: '' },
 				{ id: 1, text: 'Прочитать все', icon: 'readAll', click: '' },
 				// { id: 2, text: 'Группировка', icon: 'multi', click: 'groupped' },
 				{ id: 3, text: 'Обновить', icon: 'reload', click: '' },
@@ -72,6 +83,13 @@ export default {
 				'Все скопром',
 				'Настроено в УД',
 			],
+			sort: [
+				{ srt: true, title: 'Релевантность' },
+				{ srt: false, title: 'Тип' },
+				{ srt: false, title: 'Автор' },
+				{ srt: false, title: 'Срок' },
+				{ srt: false, title: 'Статус' },
+			]
 		}
 	},
 	computed: {
@@ -94,6 +112,14 @@ export default {
 		},
 	},
 	methods: {
+		setSort(e) {
+			this.srtSelected = e
+			this.sort.map((item) => {
+				item.srt = false
+				return item
+			})
+			this.sort[e].srt = true
+		},
 		switchSidebar() {
 			if (this.sidebar) {
 				this.$store.commit('setSidebar', false)
@@ -212,5 +238,8 @@ export default {
 .v-btn-toggle--group > .v-btn.v-btn {
 	margin-left: 0;
 	margin-right: 0;
+}
+.v-application--is-ltr .v-list-item__action:first-child, .v-application--is-ltr .v-list-item__icon:first-child {
+	margin-right: 5px;
 }
 </style>
