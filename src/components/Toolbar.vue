@@ -48,7 +48,7 @@
 							v-list-item-title {{ item.title }}
 
 			template(v-for="(item, index) in buttons")
-				v-tooltip( bottom )
+				v-tooltip( top )
 					template(v-slot:activator="{ on }")
 						v-btn(icon v-on="on" @click="click(item.click)")
 							img(:src="require(`@/assets/img/${item.icon}.svg`)").ic
