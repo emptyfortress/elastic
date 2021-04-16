@@ -2,6 +2,7 @@ const items = [
 	{
 		id: 0,
 		type: 'task',
+		selected: false,
 		typ: 'Задание',
 		vid: 'На исполнение',
 		status: 'В работе',
@@ -15,6 +16,7 @@ const items = [
 	{
 		id: 1,
 		type: 'doc',
+		selected: false,
 		typ: 'Документ',
 		vid: 'Приказ',
 		status: 'На подписании',
@@ -28,6 +30,7 @@ const items = [
 	{
 		id: 2,
 		type: 'doc',
+		selected: false,
 		typ: 'Документ',
 		vid: 'Приказ',
 		status: 'На согласовании',
@@ -42,6 +45,7 @@ const items = [
 	{
 		id: 3,
 		type: 'doc',
+		selected: false,
 		typ: 'Документ',
 		vid: 'Приказ',
 		status: 'На согласовании',
@@ -55,6 +59,7 @@ const items = [
 	{
 		id: 4,
 		type: 'file',
+		selected: false,
 		typ: 'Файл',
 		vid: 'Основной',
 		title: 'Заявка № 45612-3',
@@ -67,6 +72,7 @@ const items = [
 	{
 		id: 5,
 		type: 'doc',
+		selected: false,
 		typ: 'Документ',
 		vid: 'Заявление',
 		status: 'На подписании',
@@ -80,6 +86,7 @@ const items = [
 	{
 		id: 6,
 		type: 'doc',
+		selected: false,
 		typ: 'Документ',
 		vid: 'Служебная записка',
 		status: 'На подписании',
@@ -93,6 +100,7 @@ const items = [
 	{
 		id: 7,
 		type: 'doc',
+		selected: false,
 		typ: 'Документ',
 		vid: 'Договор',
 		status: 'Подготовка',
@@ -106,6 +114,7 @@ const items = [
 	{
 		id: 8,
 		type: 'file',
+		selected: false,
 		typ: 'Файл',
 		vid: 'Основной',
 		title: 'Цели на 3 кв сотрудников отдела',
@@ -118,6 +127,7 @@ const items = [
 	{
 		id: 9,
 		type: 'doc',
+		selected: false,
 		typ: 'Документ',
 		vid: 'Договор',
 		status: 'Подготовка',
@@ -131,6 +141,7 @@ const items = [
 	{
 		id: 10,
 		type: 'doc',
+		selected: false,
 		typ: 'Документ',
 		vid: 'Договор',
 		status: 'Подготовка',
@@ -144,6 +155,7 @@ const items = [
 	{
 		id: 11,
 		type: 'doc',
+		selected: false,
 		typ: 'Документ',
 		vid: 'Заявка',
 		status: 'На согласовании',
@@ -158,6 +170,7 @@ const items = [
 	{
 		id: 12,
 		type: 'task',
+		selected: false,
 		typ: 'Задание',
 		vid: 'На ознакомление',
 		status: 'В работе',
@@ -171,6 +184,7 @@ const items = [
 	{
 		id: 13,
 		type: 'doc',
+		selected: false,
 		typ: 'Документ',
 		vid: 'Заявка',
 		status: 'На согласовании',
@@ -184,6 +198,7 @@ const items = [
 	{
 		id: 14,
 		type: 'doc',
+		selected: false,
 		typ: 'Документ',
 		vid: 'Заявка',
 		status: 'Подготовка',
@@ -197,6 +212,7 @@ const items = [
 	{
 		id: 15,
 		type: 'doc',
+		selected: false,
 		typ: 'Документ',
 		vid: 'Служебная записка',
 		status: 'На подписании',
@@ -210,6 +226,7 @@ const items = [
 	{
 		id: 16,
 		type: 'task',
+		selected: false,
 		typ: 'Задание',
 		vid: 'На исполнение',
 		status: 'В работе',
@@ -221,6 +238,7 @@ const items = [
 	{
 		id: 17,
 		type: 'task',
+		selected: false,
 		typ: 'Задание',
 		vid: 'На исполнение',
 		status: 'Завершено',
@@ -232,6 +250,7 @@ const items = [
 	{
 		id: 18,
 		type: 'task',
+		selected: false,
 		typ: 'Задание',
 		vid: 'На исполнение',
 		status: 'Завершено',
@@ -243,6 +262,7 @@ const items = [
 	{
 		id: 19,
 		type: 'task',
+		selected: false,
 		typ: 'Задание',
 		vid: 'На исполнение',
 		status: 'Завершено',
@@ -254,6 +274,7 @@ const items = [
 	{
 		id: 20,
 		type: 'file',
+		selected: false,
 		typ: 'Файл',
 		vid: 'Основной',
 		title: 'Приказ о награждении премиями виноватых и закрытии столовой',
@@ -266,6 +287,7 @@ const items = [
 	{
 		id: 21,
 		type: 'file',
+		selected: false,
 		typ: 'Файл',
 		vid: 'Основной',
 		title: 'График отпусков на первое полугодие',
@@ -278,6 +300,7 @@ const items = [
 	{
 		id: 22,
 		type: 'file',
+		selected: false,
 		typ: 'Файл',
 		vid: 'Основной',
 		title: 'График отпусков на второе полугодие',
@@ -290,6 +313,7 @@ const items = [
 	{
 		id: 23,
 		type: 'task',
+		selected: false,
 		typ: 'Задание',
 		vid: 'На согласование',
 		title: 'Согласование договора аренды с ООО Ромашка',
@@ -302,6 +326,7 @@ const items = [
 	{
 		id: 24,
 		type: 'task',
+		selected: false,
 		typ: 'Группа заданий',
 		vid: 'На ознакомление',
 		title: 'Положение об отпусках на следующий год',
@@ -314,6 +339,7 @@ const items = [
 	{
 		id: 25,
 		type: 'task',
+		selected: false,
 		typ: 'Задание',
 		vid: 'На согласование',
 		status: 'Завершено',
