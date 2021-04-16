@@ -36,15 +36,18 @@
 
 
 		.toolcontent
-			v-menu(offset-y="50" transition="slide-y-transition" bottom)
-				template(v-slot:activator="{attrs, on}")
-					v-btn(icon v-bind="attrs" v-on="on")
-						v-icon mdi-sort-variant
+			v-menu(offset-y transition="slide-y-transition" bottom)
+				template(v-slot:activator="{on: menu, attrs}")
+					v-tooltip(top)
+						template(v-slot:activator="{ on: tooltip }")
+							v-btn(icon v-bind="attrs" v-on="{ ...menu, ...tooltip }")
+								v-icon mdi-sort-variant
+						span Сортировка
 				v-list(dense)
 					v-list-item-group(v-model="srtSelected" color="primary")
-						v-list-item( v-for="(item, index) in sort" :key="index" link @click="setSort(index)")
-							v-list-item-icon()
-								v-icon(small v-if="item.srt") mdi-arrow-down
+						v-list-item( v-for="(item, index) in sort" :key="index" link @click="setSort(item, index )")
+							v-list-item-icon(@click.stop="revert = !revert")
+								v-icon(small v-if="item.srt" :class="{ rot : revert }") mdi-arrow-down
 							v-list-item-title {{ item.title }}
 
 			template(v-for="(item, index) in buttons")
@@ -68,6 +71,7 @@ export default {
 			num: 100,
 			view: 0,
 			srtSelected: 0,
+			revert: false,
 			buttons: [
 				{ id: 1, text: 'Прочитать все', icon: 'readAll', click: '' },
 				// { id: 2, text: 'Группировка', icon: 'multi', click: 'groupped' },
@@ -112,13 +116,15 @@ export default {
 		},
 	},
 	methods: {
-		setSort(e) {
-			this.srtSelected = e
-			this.sort.map((item) => {
-				item.srt = false
-				return item
-			})
-			this.sort[e].srt = true
+		setSort(item, index ) {
+			if (this.srtSelected !== index) {
+				this.srtSelected = index
+				this.sort.map((item) => {
+					item.srt = false
+					return item
+				})
+				this.sort[index].srt = true
+			}
 		},
 		switchSidebar() {
 			if (this.sidebar) {
@@ -241,5 +247,8 @@ export default {
 }
 .v-application--is-ltr .v-list-item__action:first-child, .v-application--is-ltr .v-list-item__icon:first-child {
 	margin-right: 5px;
+}
+.rot {
+	transform: rotate(180deg);
 }
 </style>

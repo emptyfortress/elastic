@@ -5,12 +5,12 @@
 			v-icon mdi-close
 		.tot {{ total }}
 		.arr &rarr;
-		v-btn(v-for="bt in btn" depressed small color="#fff" @click="bt.action").action {{ bt.label }}
+		v-btn(v-for="bt in btn" depressed small color="#fff" @click="bt.action" :key="bt.label").action {{ bt.label }}
 		.up
 		v-btn(icon @click="setbig").chev
 			v-icon mdi-chevron-up
 	.row.bottom
-		v-btn( depressed small v-for="n in 4" v-show="!delegation").action Кнопка действий
+		v-btn( depressed small v-for="n in 4" v-show="!delegation" :key="n").action Кнопка действий
 		p(v-show="delegation") здесь выбор из справочника сотрудников
 </template>
 
