@@ -38,7 +38,7 @@
 		.toolcontent
 			v-menu(offset-y transition="slide-y-transition" bottom)
 				template(v-slot:activator="{on: menu, attrs}")
-					v-tooltip(top)
+					v-tooltip(top open-delay="500")
 						template(v-slot:activator="{ on: tooltip }")
 							v-btn(icon v-bind="attrs" v-on="{ ...menu, ...tooltip }")
 								v-icon mdi-sort-variant
@@ -51,7 +51,7 @@
 							v-list-item-title {{ item.title }}
 
 			template(v-for="(item, index) in buttons")
-				v-tooltip( top )
+				v-tooltip( top open-delay="500")
 					template(v-slot:activator="{ on }")
 						v-btn(icon v-on="on" @click="click(item.click)")
 							img(:src="require(`@/assets/img/${item.icon}.svg`)").ic

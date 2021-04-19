@@ -23,8 +23,8 @@ export default {
 			delegation: false,
 			btn: [
 				{ label: 'Делегировать', action: this.deleg },
-				{ label: 'Прочитать', action: this.empty},
-				{ label: 'Завершить', action: this.empty },
+				{ label: 'Прочитать', action: this.clear},
+				{ label: 'Завершить', action: this.clear },
 			]
 		}
 	},
