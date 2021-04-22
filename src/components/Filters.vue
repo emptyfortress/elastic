@@ -5,12 +5,8 @@ div
 			v-tabs(v-model="tabs" fixed-tabs).filt
 				v-tabs-slider
 				v-tab(href="#tabs-1")
-					v-icon mdi-filter-outline
-				v-tab(href="#tabs-2")
-					v-icon mdi-order-bool-descending
-					//- img(src="@/assets/img/multi.svg")
-				v-tab(href="#tabs-3")
-					v-icon mdi-folder-search-outline
+					v-icon mdi-contrast-box
+					span.mx-2 Фильтрация
 
 	v-tabs-items(v-model="tabs")
 		v-tab-item(value="tabs-1")
@@ -74,19 +70,11 @@ div
 									v-checkbox(color="primary" dense label="Свойство").my
 									.badge 7
 
-		v-tab-item(value="tabs-2")
-			.common
-				h3 Здесь группировка
-		v-tab-item(value="tabs-3")
-			.common
-				h3 Здесь запросы
-
 </template>
 
 <script>
-
 export default {
-	data () {
+	data() {
 		return {
 			filter: [],
 			tabs: null,
@@ -115,43 +103,43 @@ export default {
 			],
 		}
 	},
-	created () {
+	created() {
 		this.filter = this.searchItemsResults
 		this.$store.commit('setFilterResults', this.filter)
 	},
 	computed: {
 		dateRangeText: {
-			get () {
+			get() {
 				return this.dates.join(' ~ ')
 			},
-			set () {}
+			set() {},
 		},
-		checked () {
+		checked() {
 			return this.$store.getters.checked
 		},
-		searchItemsResults () {
+		searchItemsResults() {
 			return this.$store.getters.searchItemsResults
 		},
-		showSecond () {
+		showSecond() {
 			if (this.badge(5) + this.badge(6) + this.badge(7) + this.badge(8)) {
 				return true
 			} else return false
 		},
-		showSecond1 () {
+		showSecond1() {
 			if (this.badge(9) + this.badge(10) + this.badge(11)) {
 				return true
 			} else return false
-		}
+		},
 	},
 	methods: {
 		expand() {
-			if (this.panel.length <=1) {
-				this.panel = [0,1,2,3]
+			if (this.panel.length <= 1) {
+				this.panel = [0, 1, 2, 3]
 			} else {
 				this.panel = []
 			}
 		},
-		reset () {
+		reset() {
 			this.checked1 = []
 			this.dates = []
 		},
@@ -162,29 +150,51 @@ export default {
 		badge(e) {
 			switch (e) {
 			case 1:
-				return this.searchItemsResults.filter( item => item.item.type === 'doc').length
+				return this.searchItemsResults.filter(
+					(item) => item.item.type === 'doc'
+				).length
 			case 2:
-				return this.searchItemsResults.filter( item => item.item.type === 'task').length
+				return this.searchItemsResults.filter(
+					(item) => item.item.type === 'task'
+				).length
 			case 3:
-				return this.searchItemsResults.filter( item => item.item.typ === 'Группа заданий').length
+				return this.searchItemsResults.filter(
+					(item) => item.item.typ === 'Группа заданий'
+				).length
 			case 4:
-				return this.searchItemsResults.filter( item => item.item.type === 'file').length
+				return this.searchItemsResults.filter(
+					(item) => item.item.type === 'file'
+				).length
 			case 5:
-				return this.searchItemsResults.filter( item => item.item.vid === 'Приказ').length
+				return this.searchItemsResults.filter(
+					(item) => item.item.vid === 'Приказ'
+				).length
 			case 6:
-				return this.searchItemsResults.filter( item => item.item.vid === 'Договор').length
+				return this.searchItemsResults.filter(
+					(item) => item.item.vid === 'Договор'
+				).length
 			case 7:
-				return this.searchItemsResults.filter( item => item.item.vid === 'Служебная записка').length
+				return this.searchItemsResults.filter(
+					(item) => item.item.vid === 'Служебная записка'
+				).length
 			case 8:
-				return this.searchItemsResults.filter( item => item.item.vid === 'Заявление').length
+				return this.searchItemsResults.filter(
+					(item) => item.item.vid === 'Заявление'
+				).length
 			case 9:
-				return this.searchItemsResults.filter( item => item.item.vid === 'На согласование').length
+				return this.searchItemsResults.filter(
+					(item) => item.item.vid === 'На согласование'
+				).length
 			case 10:
-				return this.searchItemsResults.filter( item => item.item.vid === 'На исполнение').length
+				return this.searchItemsResults.filter(
+					(item) => item.item.vid === 'На исполнение'
+				).length
 			case 11:
-				return this.searchItemsResults.filter( item => item.item.vid === 'На ознакомление').length
+				return this.searchItemsResults.filter(
+					(item) => item.item.vid === 'На ознакомление'
+				).length
 			}
-		}
+		},
 	},
 	watch: {
 		checked: function() {
@@ -193,85 +203,72 @@ export default {
 		checked1: function() {
 			if (this.checked1.length) {
 				if (this.checked1.includes(1) && this.checked1.includes(2)) {
-					let temp = this.searchItemsResults.filter( item => {
-						return (item.item.type === 'doc' || item.item.type === 'task')
+					let temp = this.searchItemsResults.filter((item) => {
+						return item.item.type === 'doc' || item.item.type === 'task'
 					})
 					this.$store.commit('setFilterResults', temp)
-				} 
-				else if (this.checked1.includes(1)) {
-					let temp = this.searchItemsResults.filter( item => {
-						return (item.item.type === 'doc')
+				} else if (this.checked1.includes(1)) {
+					let temp = this.searchItemsResults.filter((item) => {
+						return item.item.type === 'doc'
 					})
 					this.$store.commit('setFilterResults', temp)
-				}
-				else if (this.checked1.includes(2)) {
-					let temp = this.searchItemsResults.filter( item => {
-						return (item.item.type === 'task')
+				} else if (this.checked1.includes(2)) {
+					let temp = this.searchItemsResults.filter((item) => {
+						return item.item.type === 'task'
 					})
 					this.$store.commit('setFilterResults', temp)
-				}
-				else if (this.checked1.includes(3)) {
-					let temp = this.searchItemsResults.filter( item => {
-						return (item.item.typ === 'Группа заданий')
+				} else if (this.checked1.includes(3)) {
+					let temp = this.searchItemsResults.filter((item) => {
+						return item.item.typ === 'Группа заданий'
 					})
 					this.$store.commit('setFilterResults', temp)
-				}
-				else if (this.checked1.includes(4)) {
-					let temp = this.searchItemsResults.filter( item => {
-						return (item.item.type === 'file')
+				} else if (this.checked1.includes(4)) {
+					let temp = this.searchItemsResults.filter((item) => {
+						return item.item.type === 'file'
 					})
 					this.$store.commit('setFilterResults', temp)
-				}
-				else if (this.checked1.includes(5)) {
-					let temp = this.searchItemsResults.filter( item => {
-						return (item.item.vid === 'Приказ')
+				} else if (this.checked1.includes(5)) {
+					let temp = this.searchItemsResults.filter((item) => {
+						return item.item.vid === 'Приказ'
 					})
 					this.$store.commit('setFilterResults', temp)
-				}
-				else if (this.checked1.includes(6)) {
-					let temp = this.searchItemsResults.filter( item => {
-						return (item.item.vid === 'Договор')
+				} else if (this.checked1.includes(6)) {
+					let temp = this.searchItemsResults.filter((item) => {
+						return item.item.vid === 'Договор'
 					})
 					this.$store.commit('setFilterResults', temp)
-				}
-				else if (this.checked1.includes(7)) {
-					let temp = this.searchItemsResults.filter( item => {
-						return (item.item.vid === 'Служебная записка')
+				} else if (this.checked1.includes(7)) {
+					let temp = this.searchItemsResults.filter((item) => {
+						return item.item.vid === 'Служебная записка'
 					})
 					this.$store.commit('setFilterResults', temp)
-				}
-				else if (this.checked1.includes(8)) {
-					let temp = this.searchItemsResults.filter( item => {
-						return (item.item.vid === 'Заявление')
+				} else if (this.checked1.includes(8)) {
+					let temp = this.searchItemsResults.filter((item) => {
+						return item.item.vid === 'Заявление'
 					})
 					this.$store.commit('setFilterResults', temp)
-				}
-				else if (this.checked1.includes(9)) {
-					let temp = this.searchItemsResults.filter( item => {
-						return (item.item.vid === 'На согласование')
+				} else if (this.checked1.includes(9)) {
+					let temp = this.searchItemsResults.filter((item) => {
+						return item.item.vid === 'На согласование'
 					})
 					this.$store.commit('setFilterResults', temp)
-				}
-				else if (this.checked1.includes(10)) {
-					let temp = this.searchItemsResults.filter( item => {
-						return (item.item.vid === 'На исполнение')
+				} else if (this.checked1.includes(10)) {
+					let temp = this.searchItemsResults.filter((item) => {
+						return item.item.vid === 'На исполнение'
+					})
+					this.$store.commit('setFilterResults', temp)
+				} else if (this.checked1.includes(11)) {
+					let temp = this.searchItemsResults.filter((item) => {
+						return item.item.vid === 'На ознакомление'
 					})
 					this.$store.commit('setFilterResults', temp)
 				}
-				else if (this.checked1.includes(11)) {
-					let temp = this.searchItemsResults.filter( item => {
-						return (item.item.vid === 'На ознакомление')
-					})
-					this.$store.commit('setFilterResults', temp)
-				}
-
 			} else {
-				this.$store.commit('setFilterResults', this. searchItemsResults)
+				this.$store.commit('setFilterResults', this.searchItemsResults)
 			}
-		}
-	}
+		},
+	},
 }
-
 </script>
 
 <style scoped lang="scss">
@@ -284,7 +281,7 @@ export default {
 	/* height: 67px; */
 }
 .touch {
-	font-size: .9rem;
+	font-size: 0.9rem;
 	font-weight: bold;
 	/* margin-bottom: .5rem; */
 }
@@ -294,10 +291,12 @@ export default {
 	border-right: 1px solid silver;
 	overflow-y: scroll;
 	overflow-x: hidden;
-	mask-image: linear-gradient(to top, transparent, black), linear-gradient(to left, transparent 17px, black 17px);
+	mask-image: linear-gradient(to top, transparent, black),
+		linear-gradient(to left, transparent 17px, black 17px);
 	mask-size: 100% 20000px;
 	mask-position: left bottom;
-	-webkit-mask-image: linear-gradient(to top, transparent, black), linear-gradient(to left, transparent 17px, black 17px);
+	-webkit-mask-image: linear-gradient(to top, transparent, black),
+		linear-gradient(to left, transparent 17px, black 17px);
 	-webkit-mask-size: 100% 20000px;
 	-webkit-mask-position: left bottom;
 	transition: mask-position 0.3s, -webkit-mask-position 0.3s;
@@ -310,7 +309,6 @@ export default {
 		text-align: center;
 		margin-top: 4rem;
 	}
-
 }
 .filters {
 	font-size: 0.9rem;
@@ -323,20 +321,19 @@ export default {
 	align-items: center;
 	border-bottom: 1px solid #ccc;
 	height: 32px;
-	padding-left: .5rem;
+	padding-left: 0.5rem;
 }
 .z {
 	font-weight: bold;
 }
 .lin {
-	font-size: .8rem;
+	font-size: 0.8rem;
 	color: $link;
 	cursor: pointer;
 }
 .section {
 	margin-top: 1rem;
-	margin-bottom: .5rem;
-
+	margin-bottom: 0.5rem;
 }
 .my {
 	margin: 0;
@@ -366,7 +363,7 @@ export default {
 	}
 }
 .v-expansion-panel--active > .v-expansion-panel-header {
-    min-height: 48px;
+	min-height: 48px;
 }
 .v-expansion-panel-header {
 	padding: 16px 4px;

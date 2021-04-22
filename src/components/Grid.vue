@@ -164,7 +164,9 @@ export default {
 	}
 	th {
 		cursor: pointer;
-		background: #dadada;
+		background: #fff;
+		border: 1px solid #ccc;
+		/* background: #dadada; */
 		height: 2.5rem;
 		position: sticky;
 		z-index: 200;

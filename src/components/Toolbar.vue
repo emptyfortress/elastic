@@ -1,7 +1,7 @@
 <template lang="pug">
 .all(:class="{ edit : editMode}")
 	hr.line
-	.tool(v-if="!editMode")
+	.tool(v-if="!editMode" @mouseover="swit" @mouseleave="swit1")
 		.d-flex
 			v-btn(icon @click="switchSidebar")
 				v-icon(v-show="sidebar") mdi-backburger
@@ -35,7 +35,10 @@
 					v-icon mdi-format-list-bulleted-square
 
 
-		.toolcontent
+
+		.zaglush(v-show="!tools")
+
+		.toolcontent(v-show="tools")
 			v-menu(offset-y transition="slide-y-transition" bottom)
 				template(v-slot:activator="{on: menu, attrs}")
 					v-tooltip(top open-delay="500")
@@ -69,6 +72,7 @@ export default {
 	data() {
 		return {
 			num: 100,
+			tools: false,
 			view: 0,
 			srtSelected: 0,
 			revert: false,
@@ -116,6 +120,12 @@ export default {
 		},
 	},
 	methods: {
+		swit () {
+			this.tools = true
+		},
+		swit1 () {
+			this.tools = false
+		},
 		setSort(item, index ) {
 			if (this.srtSelected !== index) {
 				this.srtSelected = index
@@ -180,7 +190,7 @@ export default {
 	}
 }
 .all {
-	background: #e4e4e0;
+	background: #fff;
 	/* border-top: 1px solid #ccc; */
 	position: sticky;
 	z-index: 200;
@@ -250,5 +260,11 @@ export default {
 }
 .rot {
 	transform: rotate(180deg);
+}
+.zaglush {
+	width: 330px;
+	text-align: center;
+	background: url(../assets/img/dots.png) no-repeat right 0 center;
+	
 }
 </style>
