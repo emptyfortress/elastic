@@ -4,15 +4,10 @@ div
 		.touch
 			v-tabs(v-model="tabs" fixed-tabs).filt
 				v-tabs-slider
-				v-tab(href="#tabs-1")
-					.rel
-						v-icon mdi-contrast
-						.dot(v-show="aggr")
 				v-tab(href="#tabs-2")
 					v-icon mdi-order-bool-descending
-					//- img(src="@/assets/img/multi.svg")
-				v-tab(href="#tabs-3")
-					v-icon mdi-folder-search-outline
+					span.mx-3 Группы
+					span.badge 4
 
 	v-tabs-items(v-model="tabs")
 		v-tab-item(value="tabs-1")
@@ -39,6 +34,9 @@ export default {
 			tabs: null,
 			aggr: false,
 		}
+	},
+	created () {
+		this.$store.commit('setFilterResults', this.searchItemsResults)
 	},
 }
 
@@ -90,13 +88,10 @@ export default {
 .filt img {
 	width: 18px;
 }
-.dot {
-	width: 10px;
-	height: 10px;
-	border-radius: 50%;
-	background: red;
-	position: absolute;
-	top: 0px;
-	right: 0px;
+.badge {
+	border-radius: 4px;
+	background: $link;
+	color: #fff;
+	padding: 0 4px;
 }
 </style>

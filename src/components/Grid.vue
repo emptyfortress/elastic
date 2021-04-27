@@ -92,7 +92,7 @@ export default {
 			} else return 'add'
 		},
 		items() {
-			return this.$store.getters.filterResults
+			return this.$store.getters.searchItemsResults
 		},
 		total () {
 			return this.items.reduce((total, item) => {

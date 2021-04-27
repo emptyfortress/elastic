@@ -1,9 +1,5 @@
 <template lang="pug">
 .group
-	.tit
-		span Группировка
-		v-btn(x-small icon @click="group = !group")
-			v-icon mdi-power
 	.drop(@click="group = !group")
 		.task(v-if="!group") Перетащите сюда заголовок колонки для группировки
 		.a(v-else)
@@ -12,9 +8,18 @@
 			span Группа 2
 			span.b &rarr;
 			span Группа 3
+			span.b &rarr;
+			span Группа 4
+			v-btn(icon small color="error").ml-3
+				v-icon(small) mdi-close
 
 	v-slide-x-transition(mode="out-in")
 		tree(v-show="group" :data="items" :options="treeOptions").tree
+			span(slot-scope="{ node }").tree-text
+				template
+					.flex
+						div {{ node.text }}
+						.count {{ node.data.count }}
 </template>
 
 <script>
@@ -27,10 +32,19 @@ export default {
 			items: [
 				{text: 'Группа 1'},
 				{text: 'Группа 2'},
-				{text: 'Группа 3', children: [
-					{text: 'Группа 3.1'},
-					{text: 'Группа 3.2'}
-				]}
+				{text: 'Группа 3',
+					data: { count: 3 },
+					children: [
+						{text: 'Группа 3.1'},
+						{text: 'Группа 3.2'},
+						{text: 'Группа 3.3'}
+					]},
+				{text: 'Группа 4',
+					data: { count: 2 },
+					children: [
+						{text: 'Группа 4.1'},
+						{text: 'Группа 4.2'}
+					]}
 			],
 			treeOptions: {
 				checkbox: false,
@@ -85,5 +99,21 @@ export default {
 }
 .tree {
 	font-size: 0.85rem;
+}
+.tree-text {
+	width: 100%;
+}
+.flex {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+}
+.count {
+	padding: 0 4px;
+	background: $link;
+	line-height: 120%;
+	border-radius: 4px;
+	color: #fff;
+	font-size: 0.8rem;
 }
 </style>
