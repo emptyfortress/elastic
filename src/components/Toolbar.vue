@@ -1,7 +1,7 @@
 <template lang="pug">
 .all(:class="{ edit : editMode}")
 	hr.line
-	.tool(v-if="!editMode" @mouseover="swit" @mouseleave="swit1")
+	.tool(v-if="!editMode")
 		.d-flex
 			v-btn(icon @click="switchSidebar")
 				v-icon(v-show="sidebar") mdi-backburger
@@ -34,11 +34,9 @@
 				v-btn(icon @click="grid(1)")
 					v-icon mdi-format-list-bulleted-square
 
+		//- .zaglush(v-show="!tools")
 
-
-		.zaglush(v-show="!tools")
-
-		.toolcontent(v-show="tools")
+		.toolcontent
 			v-menu(offset-y transition="slide-y-transition" bottom)
 				template(v-slot:activator="{on: menu, attrs}")
 					v-tooltip(top open-delay="500")
@@ -59,6 +57,7 @@
 						v-btn(icon v-on="on" @click="click(item.click)")
 							img(:src="require(`@/assets/img/${item.icon}.svg`)").ic
 					span {{item.text}}
+
 	.tool(v-if="editMode").pr-3
 		.total.text-uppercase Редактирование таблицы
 		.toolcontent
@@ -72,7 +71,7 @@ export default {
 	data() {
 		return {
 			num: 100,
-			tools: false,
+			// tools: false,
 			view: 0,
 			srtSelected: 0,
 			revert: false,
@@ -120,12 +119,12 @@ export default {
 		},
 	},
 	methods: {
-		swit () {
-			this.tools = true
-		},
-		swit1 () {
-			this.tools = false
-		},
+		// swit () {
+		// 	this.tools = true
+		// },
+		// swit1 () {
+		// 	this.tools = false
+		// },
 		setSort(item, index ) {
 			if (this.srtSelected !== index) {
 				this.srtSelected = index
@@ -205,6 +204,10 @@ export default {
 	.toolcontent {
 		height: 44px;
 		line-height: 44px;
+		opacity: .3;
+		&:hover {
+			opacity: 1;
+		}
 		.v-btn {
 			margin-right: 0.7rem;
 		}

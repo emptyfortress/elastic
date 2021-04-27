@@ -5,8 +5,8 @@ div
 			v-tabs(v-model="tabs" fixed-tabs).filt
 				v-tabs-slider
 				v-tab(href="#tabs-1")
-					v-icon mdi-contrast-box
-					span.mx-2 Фильтрация
+					v-icon mdi-contrast
+					span.mx-2 Агрегаты
 
 	v-tabs-items(v-model="tabs")
 		v-tab-item(value="tabs-1")
@@ -286,7 +286,7 @@ export default {
 	/* margin-bottom: .5rem; */
 }
 .common {
-	padding-right: 9px;
+	/* padding-right: 9px; */
 	height: calc(100vh - 260px);
 	border-right: 1px solid silver;
 	overflow-y: scroll;
@@ -311,8 +311,8 @@ export default {
 	}
 }
 .filters {
+	padding: .5rem;
 	font-size: 0.9rem;
-	/* background: #ddd; */
 }
 .zg {
 	width: 100%;
@@ -342,10 +342,10 @@ export default {
 .item {
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
-	.badge {
-		margin-bottom: -6px;
-	}
+	align-items: baseline;
+	/* .badge { */
+	/* 	margin-bottom: -6px; */
+	/* } */
 }
 .sm {
 	margin: 0;
