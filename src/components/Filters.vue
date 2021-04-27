@@ -59,7 +59,6 @@ export default {
 	/* margin-bottom: .5rem; */
 }
 .common {
-	padding-right: 9px;
 	height: calc(100vh - 260px);
 	border-right: 1px solid silver;
 	overflow-y: scroll;

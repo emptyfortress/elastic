@@ -1,40 +1,52 @@
-@import '@/assets/css/colors';
+@import "@/assets/css/colors";
 
 .rel {
-	position: relative;
+  position: relative;
 }
 
 .zag {
-	font-size: 1.8rem;
-	color: #666;
+  font-size: 1.8rem;
+  color: #666;
 }
 
-.my  {
-	.v-label {
-		font-size: .85rem;
-	}
-	.v-input__control {
-		height: 20px;
-	}
+.my {
+  .v-label {
+    font-size: 0.85rem;
+  }
+  .v-input__control {
+    height: 20px;
+  }
 }
 @media (min-width: 1800px) {
-	.container {
-		max-width: 100%;
-	}
+  .container {
+    max-width: 100%;
+  }
 }
 .tight .v-expansion-panel-content__wrap {
-	padding: 0 4px;
-	margin-bottom: 1.5rem;
+  padding: 0 4px;
+  margin-bottom: 1.5rem;
 }
 .v-application--is-ltr .v-expansion-panel-header__icon {
-	margin-right: -8px;
+  margin-right: -8px;
 }
 .v-menu__content {
-	z-index: 250 !important;
+  z-index: 250 !important;
 }
 .theme--light.v-tabs.filt > .v-tabs-bar {
-	background-color: #e4e4e0;
+  background-color: #e4e4e0;
 }
 .filt .v-tabs-slider-wrapper {
-	top: 0;
+  top: 0;
+}
+.tree {
+  .tree-arrow,
+  .tree-arrow.has-child {
+    width: 20px;
+  }
+  .tree-arrow {
+    margin-left: 0;
+  }
+  .tree-content {
+    padding-left: 0 !important;
+  }
 }

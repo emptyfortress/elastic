@@ -1,5 +1,6 @@
 <template lang="pug">
 .filters
+	.tit Агрегаты
 	.zg
 		.lin(@click="reset") Сбросить все
 		.lin(@click="expand")
@@ -251,7 +252,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 @import '@/assets/css/colors.scss';
 
 .filters {
@@ -312,6 +313,12 @@ export default {
 }
 .v-expansion-panel-header {
 	padding: 16px 4px;
+}
+.tit {
+	text-transform: uppercase;
+	text-align: center;
+	font-size: 0.8rem;
+	margin-top: .5rem;
 }
 
 </style>
