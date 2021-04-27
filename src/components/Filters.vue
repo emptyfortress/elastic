@@ -5,7 +5,9 @@ div
 			v-tabs(v-model="tabs" fixed-tabs).filt
 				v-tabs-slider
 				v-tab(href="#tabs-1")
-					v-icon mdi-filter-outline
+					.rel
+						v-icon mdi-contrast
+						.dot(v-show="aggr")
 				v-tab(href="#tabs-2")
 					v-icon mdi-order-bool-descending
 					//- img(src="@/assets/img/multi.svg")
@@ -15,7 +17,7 @@ div
 	v-tabs-items(v-model="tabs")
 		v-tab-item(value="tabs-1")
 			.common
-				Aggregate
+				Aggregate(@aggregate="aggr = true" @reset="aggr = false")
 
 		v-tab-item(value="tabs-2")
 			.common
@@ -35,6 +37,7 @@ export default {
 	data () {
 		return {
 			tabs: null,
+			aggr: false,
 		}
 	},
 }
@@ -87,5 +90,14 @@ export default {
 }
 .filt img {
 	width: 18px;
+}
+.dot {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: red;
+	position: absolute;
+	top: 0px;
+	right: 0px;
 }
 </style>

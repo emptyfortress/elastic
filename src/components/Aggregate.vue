@@ -239,9 +239,11 @@ export default {
 					})
 					this.$store.commit('setFilterResults', temp)
 				}
+				this.$emit('aggregate')
 
 			} else {
-				this.$store.commit('setFilterResults', this. searchItemsResults)
+				this.$store.commit('setFilterResults', this.searchItemsResults)
+				this.$emit('reset')
 			}
 		}
 	}
@@ -285,9 +287,9 @@ export default {
 .item {
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
+	align-items: baseline;
 	.badge {
-		margin-bottom: -6px;
+		/* margin-bottom: -6px; */
 	}
 }
 .sm {
