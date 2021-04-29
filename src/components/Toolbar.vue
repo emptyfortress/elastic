@@ -204,10 +204,6 @@ export default {
 	.toolcontent {
 		height: 44px;
 		line-height: 44px;
-		opacity: .3;
-		&:hover {
-			opacity: 1;
-		}
 		.v-btn {
 			margin-right: 0.7rem;
 		}
