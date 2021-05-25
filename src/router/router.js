@@ -5,7 +5,7 @@ import SearchResults from '@/components/SearchResults'
 import Folder from '@/components/Folder'
 import Doc from '@/components/Doc'
 import Task from '@/components/Task'
-import Test from '@/components/Test'
+import Help from '@/components/Help'
 import Advanced from '@/components/Advanced'
 
 
@@ -18,9 +18,9 @@ const routes = [
 		component: Home
 	},
 	{
-		path: '/test',
-		name: 'test',
-		component: Test,
+		path: '/help',
+		name: 'help',
+		component: Help,
 		props: true,
 	},
 	{

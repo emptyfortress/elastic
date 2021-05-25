@@ -1,68 +1,81 @@
 <template lang="pug">
-.all(:class="{ edit : editMode}")
+.all
+	v-btn.owl(depressed, small, @click='help')
+		img(src='@/assets/img/owl.svg')
+		span Помощь
 	hr.line
-	.tool(v-if="!editMode")
+	.tool
 		.d-flex
-			v-btn(icon @click="switchSidebar")
-				v-icon(v-show="sidebar") mdi-backburger
-				v-icon(v-show="!sidebar") mdi-forwardburger
-			v-slide-x-transition(mode="out-in" hide-on-leave)
+			v-btn(icon, @click='switchSidebar')
+				v-icon(v-show='sidebar') mdi-backburger
+				v-icon(v-show='!sidebar') mdi-forwardburger
+			v-slide-x-transition(mode='out-in', hide-on-leave)
 				.total
 					span Всего:
 					span.font-weight-bold.ml-3 {{ total }}
-					v-slide-x-transition(mode="out-in" hide-on-leave)
-						v-btn(depressed small v-if="filtered && !addMode" @click="$emit('reset')").ml-5 Показать все
-					v-slide-x-transition(mode="out-in" hide-on-leave)
-						v-btn(depressed small v-if="addMode" @click="$emit('app')").ml-5 Применить фильтры
-			v-slide-x-reverse-transition(mode="out-in")
-				.total(v-if="selected > 0")
+					v-slide-x-transition(mode='out-in', hide-on-leave)
+						v-btn.ml-5(
+							depressed,
+							small,
+							v-if='filtered && !addMode',
+							@click='$emit("reset")'
+						) Показать все
+					v-slide-x-transition(mode='out-in', hide-on-leave)
+						v-btn.ml-5(depressed, small, v-if='addMode', @click='$emit("app")') Применить фильтры
+			v-slide-x-reverse-transition(mode='out-in')
+				.total(v-if='selected > 0')
 					span Выбрано:
-					v-btn(icon small @click="$emit('reset2')").mx-3
+					v-btn.mx-3(icon, small, @click='$emit("reset2")')
 						v-icon mdi-close
 					span.font-weight-bold {{ selected }}
 					.ml-6
-						v-btn(depressed small) Прочитать
-						v-btn(depressed small).ml-2 В работу
-						v-btn(depressed small).ml-2 Делегировать
-						v-btn(icon small).ml-4
+						v-btn(depressed, small) Прочитать
+						v-btn.ml-2(depressed, small) В работу
+						v-btn.ml-2(depressed, small) Делегировать
+						v-btn.ml-4(icon, small)
 							v-icon mdi-dots-vertical
 
 		.d-flex
-			v-btn-toggle(icon v-model="view" mandatory dense group) 
-				v-btn(icon @click="grid(0)")
+			v-btn-toggle(icon, v-model='view', mandatory, dense, group) 
+				v-btn(icon, @click='grid(0)')
 					v-icon mdi-table
-				v-btn(icon @click="grid(1)")
+				v-btn(icon, @click='grid(1)')
 					v-icon mdi-format-list-bulleted-square
 
 		//- .zaglush(v-show="!tools")
 
 		.toolcontent
-			v-menu(offset-y transition="slide-y-transition" bottom)
-				template(v-slot:activator="{on: menu, attrs}")
-					v-tooltip(top open-delay="500")
-						template(v-slot:activator="{ on: tooltip }")
-							v-btn(icon v-bind="attrs" v-on="{ ...menu, ...tooltip }")
+			v-menu(offset-y, transition='slide-y-transition', bottom)
+				template(v-slot:activator='{ on: menu, attrs }')
+					v-tooltip(top, open-delay='500')
+						template(v-slot:activator='{ on: tooltip }')
+							v-btn(icon, v-bind='attrs', v-on='{ ...menu, ...tooltip }')
 								v-icon mdi-sort-variant
 						span Сортировка
 				v-list(dense)
-					v-list-item-group(v-model="srtSelected" color="primary")
-						v-list-item( v-for="(item, index) in sort" :key="index" link @click="setSort(item, index )")
-							v-list-item-icon(@click.stop="revert = !revert")
-								v-icon(small v-if="item.srt" :class="{ rot : revert }") mdi-arrow-down
+					v-list-item-group(v-model='srtSelected', color='primary')
+						v-list-item(
+							v-for='(item, index) in sort',
+							:key='index',
+							link,
+							@click='setSort(item, index)'
+						)
+							v-list-item-icon(@click.stop='revert = !revert')
+								v-icon(small, v-if='item.srt', :class='{ rot: revert }') mdi-arrow-down
 							v-list-item-title {{ item.title }}
 
-			template(v-for="(item, index) in buttons")
-				v-tooltip( top open-delay="500")
-					template(v-slot:activator="{ on }")
-						v-btn(icon v-on="on" @click="click(item.click)")
-							img(:src="require(`@/assets/img/${item.icon}.svg`)").ic
-					span {{item.text}}
+			template(v-for='(item, index) in buttons')
+				v-tooltip(top, open-delay='500')
+					template(v-slot:activator='{ on }')
+						v-btn(icon, v-on='on', @click='click(item.click)')
+							img.ic(:src='require(`@/assets/img/${item.icon}.svg`)')
+					span {{ item.text }}
 
-	.tool(v-if="editMode").pr-3
-		.total.text-uppercase Редактирование таблицы
-		.toolcontent
-			v-btn(depressed text @click="$emit('edit')") Отмена
-			v-btn(depressed text @click="$emit('edit')") Сохранить
+			v-tooltip(top, open-delay='500')
+				template(v-slot:activator='{ on: tooltip }')
+					v-btn(icon, v-bind='attrs', v-on='{ ...tooltip }', @click='help')
+						v-icon mdi-help-circle-outline
+				span Помощь
 </template>
 
 <script>
@@ -77,7 +90,6 @@ export default {
 			revert: false,
 			buttons: [
 				{ id: 1, text: 'Прочитать все', icon: 'readAll', click: '' },
-				// { id: 2, text: 'Группировка', icon: 'multi', click: 'groupped' },
 				{ id: 3, text: 'Обновить', icon: 'reload', click: '' },
 				{ id: 4, text: 'Экспорт', icon: 'xls', click: '' },
 				{ id: 5, text: 'Reset', icon: 'reset', click: '' },
@@ -96,16 +108,16 @@ export default {
 				{ srt: false, title: 'Автор' },
 				{ srt: false, title: 'Срок' },
 				{ srt: false, title: 'Статус' },
-			]
+			],
 		}
 	},
 	computed: {
-		sidebar () {
+		sidebar() {
 			return this.$store.getters.sidebar
 		},
-		editMode() {
-			return this.$store.getters.editMode
-		},
+		// editMode() {
+		// 	return this.$store.getters.editMode
+		// },
 		but() {
 			if (this.smallFilter !== null) {
 				return 'click'
@@ -125,7 +137,11 @@ export default {
 		// swit1 () {
 		// 	this.tools = false
 		// },
-		setSort(item, index ) {
+		help() {
+			this.$router.push('/help')
+			this.$store.commit('setSearchMode', false)
+		},
+		setSort(item, index) {
 			if (this.srtSelected !== index) {
 				this.srtSelected = index
 				this.sort.map((item) => {
@@ -138,11 +154,11 @@ export default {
 		switchSidebar() {
 			if (this.sidebar) {
 				this.$store.commit('setSidebar', false)
-			 } else {
+			} else {
 				this.$store.commit('setSidebar', true)
 			}
 		},
-		grid (e) {
+		grid(e) {
 			if (e === 0) {
 				this.$store.commit('setGrid', true)
 			} else this.$store.commit('setGrid', false)
@@ -254,7 +270,8 @@ export default {
 	margin-left: 0;
 	margin-right: 0;
 }
-.v-application--is-ltr .v-list-item__action:first-child, .v-application--is-ltr .v-list-item__icon:first-child {
+.v-application--is-ltr .v-list-item__action:first-child,
+.v-application--is-ltr .v-list-item__icon:first-child {
 	margin-right: 5px;
 }
 .rot {
@@ -264,6 +281,16 @@ export default {
 	width: 330px;
 	text-align: center;
 	background: url(../assets/img/dots.png) no-repeat right 0 center;
-	
+}
+.owl {
+	padding: 3px 10px;
+	background: #fff;
+	position: absolute;
+	top: -28px;
+	right: 0;
+	img {
+		width: 24px;
+		margin-right: 5px;
+	}
 }
 </style>
