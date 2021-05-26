@@ -2,41 +2,44 @@
 .help
 	h3 Помощь по работе с гридом
 	.grid
-		.pic
+		Gif(:tema='sel')
 
 		ul.side
-			li.selected Общие сведения
-			li Тулбар
-			li Левая панель
-			li Список | таблица
-			li Настройка колонок
-			li Сортировка
-			li Фильтрация
-			li Группировка
-			li Агрегаты
-			li Групповые операции
-			li Экспорт
+			li(
+				@click='handle(item)',
+				v-for='item in list',
+				:key='item.id',
+				:class='{ selected: item.id === sel.id }'
+			) {{ item.name }}
 </template>
 
 <script>
+import Gif from '@/components/Gif.vue'
+
 export default {
+	components: { Gif },
 	data() {
 		return {
-			item: 0,
+			sel: { id: 0, name: 'Общие сведения' },
 			list: [
-				{ name: 'Общие сведения' },
-				{ name: 'Тулбар' },
-				{ name: 'Левая панель' },
-				{ name: 'Список | таблица' },
-				{ name: 'Настройка колонок' },
-				{ name: 'Сортировка' },
-				{ name: 'Фильтрация' },
-				{ name: 'Группировка' },
-				{ name: 'Агрегаты' },
-				{ name: 'Групповые операции' },
-				{ name: 'Экспорт' },
+				{ id: 0, name: 'Общие сведения' },
+				{ id: 1, name: 'Тулбар' },
+				{ id: 2, name: 'Левая панель' },
+				{ id: 3, name: 'Список | таблица' },
+				{ id: 4, name: 'Настройка колонок' },
+				{ id: 5, name: 'Сортировка' },
+				{ id: 6, name: 'Фильтрация' },
+				{ id: 7, name: 'Группировка' },
+				{ id: 8, name: 'Агрегаты' },
+				{ id: 9, name: 'Групповые операции' },
+				{ id: 10, name: 'Экспорт' },
 			],
 		}
+	},
+	methods: {
+		handle(e) {
+			this.sel = e
+		},
 	},
 }
 </script>
@@ -57,12 +60,6 @@ h3 {
 	display: grid;
 	grid-template-columns: auto 250px;
 	gap: 1rem;
-	div {
-		background: #ccc;
-		height: 300px;
-	}
-}
-.pic {
 }
 .side {
 	list-style: none;
