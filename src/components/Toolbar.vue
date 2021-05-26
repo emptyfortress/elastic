@@ -73,9 +73,9 @@
 
 			v-tooltip(top, open-delay='500')
 				template(v-slot:activator='{ on: tooltip }')
-					v-btn(icon, v-bind='attrs', v-on='{ ...tooltip }', @click='help')
+					v-btn(icon, v-on='{ ...tooltip }', @click='mode')
 						v-icon mdi-help-circle-outline
-				span Помощь
+				span Help mode
 </template>
 
 <script>
@@ -131,12 +131,9 @@ export default {
 		},
 	},
 	methods: {
-		// swit () {
-		// 	this.tools = true
-		// },
-		// swit1 () {
-		// 	this.tools = false
-		// },
+		mode() {
+			this.$store.commit('toggleHelpMode')
+		},
 		help() {
 			this.$router.push('/help/0')
 			this.$store.commit('setSearchMode', false)

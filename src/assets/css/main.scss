@@ -9,9 +9,9 @@
 	color: #666;
 }
 
-.my  {
+.my {
 	.v-label {
-		font-size: .85rem;
+		font-size: 0.85rem;
 	}
 	.v-input__control {
 		height: 20px;
@@ -37,4 +37,13 @@
 }
 .filt .v-tabs-slider-wrapper {
 	top: 0;
+}
+// .hhh .v-btn,
+// .hhh .v-btn:hover {
+// 	cursor: help;
+// }
+.hhh div:hover,
+.hhh .v-btn:hover,
+.hhh .inactive td:hover {
+	cursor: help;
 }

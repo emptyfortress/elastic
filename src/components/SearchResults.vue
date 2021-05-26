@@ -1,39 +1,66 @@
 <template lang="pug">
-.all
-	Loader(v-if="loading")
+.all(:class='{ hhh: helpmode }')
+	Loader(v-if='loading')
 	.searchgrid(v-else)
 		.zero
-			.alls
+			.alls(v-if='helpmode')
+				h4 Внимание: включен режим помощи.
+				p Нажмите на интересующий элемент, чтобы получить помощь.
+			.alls(v-else)
 				.res {{ query }}:
-				.find(v-if="total") найдено <span>{{ total }}</span> результатов &mdash;
+				.find(v-if='total') найдено <span>{{ total }}</span> результатов &mdash;
 				.find(v-else) Ничего не найдено. Измените условия поиска.
 				div
-					v-chip(v-if="totaldoc" color="docolor" :outlined="outline1" dark @click="setChip(1)")
+					v-chip(
+						v-if='totaldoc',
+						color='docolor',
+						:outlined='outline1',
+						dark,
+						@click='setChip(1)'
+					)
 						v-avatar {{ totaldoc }}
-						|Документы
-					v-chip(v-if="totaltask" color="taskcolor" :outlined="outline2" dark @click="setChip(2)") 
-						v-avatar {{ totaltask}}
-						|Задания
-					v-chip(v-if="totaltask1" color="taskcolor" :outlined="outline3" dark @click="setChip(3)") 
-						v-avatar {{ totaltask1}}
-						|ГЗ
+						| Документы
+					v-chip(
+						v-if='totaltask',
+						color='taskcolor',
+						:outlined='outline2',
+						dark,
+						@click='setChip(2)'
+					) 
+						v-avatar {{ totaltask }}
+						| Задания
+					v-chip(
+						v-if='totaltask1',
+						color='taskcolor',
+						:outlined='outline3',
+						dark,
+						@click='setChip(3)'
+					) 
+						v-avatar {{ totaltask1 }}
+						| ГЗ
 
-		.filt(v-show="sidebar")
-			Filters(v-if="searchItemsResults.length")
+		.filt(v-show='sidebar')
+			Filters(v-if='searchItemsResults.length')
 
-		.main(v-if="total" :class="{fil : !sidebar}")
-			Toolbar(:total="total")
-			div(v-if="total && grid" :class="{fil : !sidebar}")
-				Grid(:zapros="query")
-			div(v-if="total && !grid" :class="{fil : !sidebar}")
-				listItem1(v-for="item in filterResults" :item="item" :key="item.id" :zapros="query" @preview="preview = true").mt-1
+		.main(v-if='total', :class='{ fil: !sidebar }')
+			Toolbar(:total='total')
+			div(v-if='total && grid', :class='{ fil: !sidebar }')
+				Grid(:zapros='query')
+			div(v-if='total && !grid', :class='{ fil: !sidebar }')
+				listItem1.mt-1(
+					v-for='item in filterResults',
+					:item='item',
+					:key='item.id',
+					:zapros='query',
+					@preview='preview = true'
+				)
 
-		div(v-if="!total")
+		div(v-if='!total')
 			.nothing
-				img(src="@/assets/img/nothing.svg")
+				img(src='@/assets/img/nothing.svg')
 				.big Ничего не найдено
 				.small Проверьте, нет ли опечаток. Попробуйте изменить запрос.
-	Preview(:preview="preview" @preview="preview = false")
+	Preview(:preview='preview', @preview='preview = false')
 </template>
 
 <script>
@@ -46,7 +73,7 @@ import Grid from '@/components/Grid.vue'
 // import items from '@/store/data.js'
 
 export default {
-	data () {
+	data() {
 		return {
 			preview: false,
 			view: 0,
@@ -55,64 +82,72 @@ export default {
 		}
 	},
 	computed: {
-		sidebar () {
+		helpmode() {
+			return this.$store.getters.helpmode
+		},
+		sidebar() {
 			return this.$store.getters.sidebar
 		},
-		grid () {
+		grid() {
 			return this.$store.getters.grid
 		},
-		outline1 () {
+		outline1() {
 			return !this.chips.includes(1)
 		},
-		outline2 () {
+		outline2() {
 			return !this.chips.includes(2)
 		},
-		outline3 () {
+		outline3() {
 			return !this.chips.includes(3)
 		},
-		query () {
+		query() {
 			return this.$route.params.id
 		},
-		loading () {
+		loading() {
 			return this.$store.getters.loading
 		},
-		searchItemsResults () {
+		searchItemsResults() {
 			return this.$store.getters.searchItemsResults
 		},
-		filterResults () {
+		filterResults() {
 			return this.$store.getters.filterResults
 		},
-		total () {
+		total() {
 			return this.searchItemsResults.length
 		},
-		totaldoc () {
-			return this.searchItemsResults.filter( item => item.item.type === 'doc').length
+		totaldoc() {
+			return this.searchItemsResults.filter((item) => item.item.type === 'doc')
+				.length
 		},
-		totaltask () {
-			return this.searchItemsResults.filter( item => item.item.type === 'task').length
+		totaltask() {
+			return this.searchItemsResults.filter((item) => item.item.type === 'task')
+				.length
 		},
-		totaltask1 () {
-			return this.searchItemsResults.filter( item => item.item.typ === 'Группа заданий').length
+		totaltask1() {
+			return this.searchItemsResults.filter(
+				(item) => item.item.typ === 'Группа заданий'
+			).length
 		},
-		totalfile () {
-			return this.searchItemsResults.filter( item => item.item.type === 'file').length
+		totalfile() {
+			return this.searchItemsResults.filter((item) => item.item.type === 'file')
+				.length
 		},
-		category () {
-			let temp = 0;
+		category() {
+			let temp = 0
 			if (this.totaldoc) {
-				temp ++
-			} 
+				temp++
+			}
 			if (this.totaltask) {
-				temp ++
-			} 
+				temp++
+			}
 			if (this.totaltask1) {
-				temp ++
-			} 
+				temp++
+			}
 			if (this.totalfile) {
-				temp ++
+				temp++
 			}
 			return temp
-		}
+		},
 	},
 	components: {
 		Filters,
@@ -124,17 +159,16 @@ export default {
 	},
 	methods: {
 		setChip(e) {
-			var index = this.chips.indexOf(e);
+			var index = this.chips.indexOf(e)
 			if (index === -1) {
-				this.chips.push(e);
+				this.chips.push(e)
 			} else {
-				this.chips.splice(index, 1);
+				this.chips.splice(index, 1)
 			}
 			this.$store.commit('setChecked', this.chips)
 		},
-	}
+	},
 }
-
 </script>
 
 <style scoped lang="scss">
@@ -145,15 +179,18 @@ export default {
 /* 	height: 800px; */
 /* 	overflow: auto; */
 /* } */
+.hhh {
+	background: #ffe5ea;
+}
 .searchgrid {
 	display: grid;
 	grid-template-columns: 260px auto;
-	grid-gap: 0rem .5rem;
+	grid-gap: 0rem 0.5rem;
 }
 .zero {
 	grid-column: 1/3;
 	background: #fff;
-	padding: .2rem 1rem;
+	padding: 0.2rem 1rem;
 	border-bottom: 1px solid #ccc;
 	display: grid;
 }
@@ -197,19 +234,19 @@ export default {
 	align-items: flex-start;
 	grid-template-columns: auto auto 1fr auto;
 	padding: 1rem 0;
-	grid-gap: .5rem;
+	grid-gap: 0.5rem;
 	.v-chip {
 		cursor: pointer;
-		margin-right: .25rem;
-		margin-bottom: .25rem;
+		margin-right: 0.25rem;
+		margin-bottom: 0.25rem;
 		padding-left: 4px;
 		.v-avatar {
-			margin-right: .5rem;
+			margin-right: 0.5rem;
 		}
 	}
 }
 .find {
-	margin-top: .5rem;
+	margin-top: 0.5rem;
 	span {
 		font-size: 1.6rem;
 		line-height: 1rem;
@@ -240,7 +277,8 @@ export default {
 .fil {
 	grid-column: 1/3;
 }
-.v-btn-toggle .v-btn:not(.v-btn--text):not(.v-btn--outlined).v-btn--active:before {
+.v-btn-toggle
+	.v-btn:not(.v-btn--text):not(.v-btn--outlined).v-btn--active:before {
 	opacity: 1;
 }
 .v-btn-toggle .v-btn--active > .v-btn__content .v-icon {
@@ -254,5 +292,4 @@ export default {
 .v-btn-toggle--group > .v-btn.v-btn {
 	margin: 0;
 }
-
 </style>
