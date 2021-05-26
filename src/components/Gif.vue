@@ -2,9 +2,9 @@
 .pic
 	h4 {{ tema.name }}
 	.desc Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться. Lorem Ipsum используют потому, что тот обеспечивает более или менее стандартное заполнение шаблона.
-	img.imag(src='@/assets/img/image-0.png', v-if='id === 0')
-	img(src='@/assets/img/image-1.png', v-if='id === 1')
-	img(src='@/assets/img/image-2.png', v-if='id === 2')
+	img.imag.sh(src='@/assets/img/image-0.png', v-if='id === 0')
+	img.sh(src='@/assets/img/image-1.png', v-if='id === 1')
+	img.sh(src='@/assets/img/image-2.png', v-if='id === 2')
 </template>
 
 <script>
@@ -42,6 +42,9 @@ export default {
 }
 .imag {
 	width: 100%;
+}
+.sh {
+	box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.2), -2px -3px 6px rgba(0, 0, 0, 0.2);
 }
 .desc {
 	font-size: 0.9rem;
