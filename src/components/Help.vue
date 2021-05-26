@@ -2,14 +2,14 @@
 .help
 	h3 Помощь по работе с гридом
 	.grid
-		Gif(:tema='sel')
+		Gif(:tema='id')
 
 		ul.side
 			li(
 				@click='handle(item)',
 				v-for='item in list',
 				:key='item.id',
-				:class='{ selected: item.id === sel.id }'
+				:class='{ selected: item.id === id }'
 			) {{ item.name }}
 </template>
 
@@ -20,7 +20,6 @@ export default {
 	components: { Gif },
 	data() {
 		return {
-			sel: { id: 0, name: 'Общие сведения' },
 			list: [
 				{ id: 0, name: 'Общие сведения' },
 				{ id: 1, name: 'Тулбар' },
@@ -35,6 +34,11 @@ export default {
 				{ id: 10, name: 'Экспорт' },
 			],
 		}
+	},
+	computed: {
+		id() {
+			return parseInt(this.$route.params.id)
+		},
 	},
 	methods: {
 		handle(e) {

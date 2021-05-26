@@ -2,14 +2,13 @@
 .pic
 	h4 {{ tema.name }}
 	.desc Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться. Lorem Ipsum используют потому, что тот обеспечивает более или менее стандартное заполнение шаблона.
-	img.imag(src='@/assets/img/image-0.png', v-if='tema.id === 0')
-	img(src='@/assets/img/image-1.png', v-if='tema.id === 1')
-	img(src='@/assets/img/image-2.png', v-if='tema.id === 2')
+	img.imag(src='@/assets/img/image-0.png', v-if='id === 0')
+	img(src='@/assets/img/image-1.png', v-if='id === 1')
+	img(src='@/assets/img/image-2.png', v-if='id === 2')
 </template>
 
 <script>
 export default {
-	props: ['tema'],
 	data() {
 		return {
 			list: [
@@ -26,6 +25,14 @@ export default {
 				{ id: 10, name: 'Экспорт' },
 			],
 		}
+	},
+	computed: {
+		id() {
+			return parseInt(this.$route.params.id)
+		},
+		tema() {
+			return this.list[this.id]
+		},
 	},
 }
 </script>
