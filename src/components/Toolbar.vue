@@ -138,7 +138,7 @@ export default {
 		// 	this.tools = false
 		// },
 		help() {
-			this.$router.push('/help')
+			this.$router.push('/help/0')
 			this.$store.commit('setSearchMode', false)
 		},
 		setSort(item, index) {

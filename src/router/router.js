@@ -18,7 +18,7 @@ const routes = [
 		component: Home
 	},
 	{
-		path: '/help',
+		path: '/help/:id',
 		name: 'help',
 		component: Help,
 		props: true,

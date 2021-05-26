@@ -1,6 +1,7 @@
 <template lang="pug">
 .pic
-	p {{ tema.name }}
+	h4 {{ tema.name }}
+	.desc Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться. Lorem Ipsum используют потому, что тот обеспечивает более или менее стандартное заполнение шаблона.
 	img.imag(src='@/assets/img/image-0.png', v-if='tema.id === 0')
 	img(src='@/assets/img/image-1.png', v-if='tema.id === 1')
 	img(src='@/assets/img/image-2.png', v-if='tema.id === 2')
@@ -34,6 +35,10 @@ export default {
 }
 .imag {
 	width: 100%;
+}
+.desc {
+	font-size: 0.9rem;
+	margin-bottom: 0.5rem;
 }
 .fade-enter-active,
 .fade-leave-active {

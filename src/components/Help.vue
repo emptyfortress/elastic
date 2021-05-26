@@ -38,6 +38,7 @@ export default {
 	},
 	methods: {
 		handle(e) {
+			this.$router.push(`/help/${e.id}`)
 			this.sel = e
 		},
 	},
