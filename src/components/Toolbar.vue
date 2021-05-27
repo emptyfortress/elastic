@@ -1,8 +1,9 @@
 <template lang="pug">
 .all
 	v-btn.owl(depressed, small, dark, color='link', @click='help')
-		img(src='@/assets/img/owl.svg')
+		v-icon(small) mdi-help-circle-outline
 		span Помощь
+			//- img(src='@/assets/img/owl.svg')
 	hr.line
 	.tool
 		.d-flex
@@ -71,11 +72,11 @@
 							img.ic(:src='require(`@/assets/img/${item.icon}.svg`)')
 					span {{ item.text }}
 
-			v-tooltip(top, open-delay='500')
-				template(v-slot:activator='{ on: tooltip }')
-					v-btn(icon, v-on='{ ...tooltip }', @click='mode')
-						v-icon mdi-help-circle-outline
-				span Help mode
+			//- v-tooltip(top, open-delay='500')
+			//- 	template(v-slot:activator='{ on: tooltip }')
+			//- 		v-btn(icon, v-on='{ ...tooltip }', @click='mode')
+			//- 			v-icon mdi-help-circle-outline
+			//- 	span Help mode
 </template>
 
 <script>
@@ -131,9 +132,9 @@ export default {
 		},
 	},
 	methods: {
-		mode() {
-			this.$store.commit('toggleHelpMode')
-		},
+		// mode() {
+		// 	this.$store.commit('toggleHelpMode')
+		// },
 		help() {
 			this.$router.push('/help/0')
 			this.$store.commit('setSearchMode', false)
@@ -285,6 +286,9 @@ export default {
 	position: absolute;
 	top: -28px;
 	right: 0;
+	span {
+		margin-left: 5px;
+	}
 	img {
 		width: 24px;
 		margin-right: 5px;
