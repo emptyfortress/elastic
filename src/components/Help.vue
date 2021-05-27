@@ -1,10 +1,11 @@
 <template lang="pug">
 .help
-	h3
-		v-btn.back(depressed, color='link', dark, @click='back')
+	.flex
+		v-btn(depressed, color='link', dark, @click='back')
 			v-icon(big) mdi-arrow-left-circle-outline
 			span Вернуться
-		span Помощь по работе с гридом
+		h3 Помощь по работе с гридом
+		v-checkbox.ml-3(label='Больше не показывать кнопку "Помощь"')
 	.grid
 		Gif(:tema='id')
 
@@ -101,5 +102,12 @@ h3 {
 			background: #e7e7e7;
 		}
 	}
+}
+.flex {
+	display: flex;
+	margin: 0 5rem;
+	align-items: center;
+	justify-content: space-between;
+	border-bottom: 1px solid #ccc;
 }
 </style>
