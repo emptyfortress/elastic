@@ -50,7 +50,7 @@ export default {
 			this.sel = e
 		},
 		back() {
-			this.$router.go(-1)
+			this.$router.push({ name: 'results', params: { id: 'sit' } })
 		},
 	},
 }

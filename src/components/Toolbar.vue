@@ -1,6 +1,6 @@
 <template lang="pug">
 .all
-	v-btn.owl(depressed, small, @click='help')
+	v-btn.owl(depressed, small, dark, color='link', @click='help')
 		img(src='@/assets/img/owl.svg')
 		span Помощь
 	hr.line
