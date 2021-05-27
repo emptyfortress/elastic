@@ -1,6 +1,10 @@
 <template lang="pug">
 .help
-	h3 Помощь по работе с гридом
+	h3
+		v-btn.back(depressed, color='link', dark, @click='back')
+			v-icon(big) mdi-arrow-left-circle-outline
+			span Вернуться
+		span Помощь по работе с гридом
 	.grid
 		Gif(:tema='id')
 
@@ -45,6 +49,9 @@ export default {
 			this.$router.push(`/help/${e.id}`)
 			this.sel = e
 		},
+		back() {
+			this.$router.go(-1)
+		},
 	},
 }
 </script>
@@ -53,12 +60,24 @@ export default {
 @import '@/assets/css/colors.scss';
 
 .help {
-	margin-top: 3rem;
+	/* background: #ccc; */
+	padding-top: 3rem;
 }
 h3 {
 	font-size: 1.3rem;
 	font-weight: 400;
 	text-align: center;
+	margin: 0 5rem;
+	/* background: red; */
+	position: relative;
+	.back {
+		position: absolute;
+		left: 0;
+		top: -8px;
+		span {
+			margin-left: 5px;
+		}
+	}
 }
 .grid {
 	margin: 2rem 5rem;
