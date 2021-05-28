@@ -15,6 +15,7 @@ export default new Vuex.Store({
 		grid: true,
 		sidebar: true,
 		helpmode: false,
+		showHelp: true,
 	},
 	getters: {
 		drawer: state => { return state.drawer },
@@ -27,6 +28,7 @@ export default new Vuex.Store({
 		grid: state => { return state.grid },
 		sidebar: state => { return state.sidebar },
 		helpmode: state => { return state.helpmode },
+		showHelp: state => { return state.showHelp },
 	},
 	mutations: {
 		toggleDrawer (state) { state.drawer = !state.drawer },
@@ -41,6 +43,7 @@ export default new Vuex.Store({
 		setSidebar (state, payload) { state.sidebar = payload },
 		setHelpMode (state, payload) { state.helpmode = payload },
 		toggleHelpMode (state) { state.helpmode = !state.helpmode },
+		hideBt (state) { state.showHelp = false },
 	},
 	actions: {
 	},

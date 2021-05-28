@@ -1,6 +1,6 @@
 <template lang="pug">
 .all
-	v-btn.owl(depressed, small, dark, color='link', @click='help')
+	v-btn.owl(depressed, small, dark, color='link', @click='help' v-if="showHelp")
 		v-icon(small) mdi-help-circle-outline
 		span Помощь
 			//- img(src='@/assets/img/owl.svg')
@@ -113,6 +113,9 @@ export default {
 		}
 	},
 	computed: {
+		showHelp () {
+			return this.$store.getters.showHelp
+		},
 		sidebar() {
 			return this.$store.getters.sidebar
 		},

@@ -5,7 +5,7 @@
 			v-icon(big) mdi-arrow-left-circle-outline
 			span Вернуться
 		h3 Помощь по работе с гридом
-		v-checkbox.ml-3(label='Больше не показывать кнопку "Помощь"')
+		v-checkbox.ml-3(label='Больше не показывать кнопку "Помощь"' v-model="hide")
 	.grid
 		Gif(:tema='id')
 
@@ -25,6 +25,7 @@ export default {
 	components: { Gif },
 	data() {
 		return {
+			hide: false,
 			list: [
 				{ id: 0, name: 'Общие сведения' },
 				{ id: 1, name: 'Тулбар' },
@@ -54,6 +55,11 @@ export default {
 			this.$router.push({ name: 'results', params: { id: 'sit' } })
 		},
 	},
+	watch: {
+		hide: function () {
+			this.$store.commit('hideBt')
+		}
+	}
 }
 </script>
 
