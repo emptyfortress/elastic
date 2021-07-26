@@ -6,7 +6,7 @@
 		v-spacer
 		.status {{ item.item.status }}
 	.txt(v-if="item.item.type !== 'file'")
-		.titul
+		.titul(@click="$emit('more1')")
 			v-simple-checkbox(v-model="item.item.selected" color="primary" :disabled="item.item.inactive").check.mr-2
 			//- v-icon(color="#ccc").ml-2 mdi-star-outline
 			TextHighlight(:queries="queries") {{ item.item.title }}
@@ -182,11 +182,8 @@ export default {
 	justify-content: flex-start;
 	align-items: center;
 	font-size: 1.2rem;
+	color: $link;
 }
-/* .titul .zg { */
-/* 	font-size: 1.0rem; */
-/* 	color: $link; */
-/* } */
 .ic {
 	float: right;
 	position: relative;

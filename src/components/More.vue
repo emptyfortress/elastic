@@ -11,7 +11,7 @@ v-dialog(v-model="more" max-width="680" persistent)
 		v-card-actions
 			v-spacer
 			v-btn(@click="$emit('more')" depressed) Отмена
-			v-btn(@click="$emit('more')" depressed) Открыть файл
+			v-btn(@click="$emit('more')" depressed color="primary") Предпросмотр
 
 </template>
 
@@ -31,9 +31,6 @@ export default {
 
 <style scoped lang="scss">
 .preview {
-	/* height: 800px; */
-	/* display: flex; */
-	/* justify-content: center; */
-	/* align-items: center; */
+	padding: 0.5rem;
 }
 </style>
