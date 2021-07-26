@@ -2,7 +2,7 @@
 .home
 	.inf
 		ul
-			li Это версия c облегченным дизайном тулбара
+			li Это версия для показа результатов поиска в виде ленты.
 
 </template>
 
@@ -11,14 +11,12 @@ import HelloWorld from '@/components/HelloWorld'
 
 export default {
 	components: {
-		HelloWorld
-	}
+		HelloWorld,
+	},
 }
-
 </script>
 
 <style scoped lang="scss">
-
 .home {
 	display: flex;
 	height: 75vh;
