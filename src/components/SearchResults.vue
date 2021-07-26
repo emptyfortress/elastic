@@ -53,6 +53,7 @@
 					:key='item.id',
 					:zapros='query',
 					@preview='preview = true'
+					@more='more = true'
 				)
 
 		div(v-if='!total')
@@ -61,12 +62,14 @@
 				.big Ничего не найдено
 				.small Проверьте, нет ли опечаток. Попробуйте изменить запрос.
 	Preview(:preview='preview', @preview='preview = false')
+	More(:more='more', @more='more = false')
 </template>
 
 <script>
 import Filters from '@/components/Filters'
 import listItem1 from '@/components/listItem1'
 import Preview from '@/components/Preview'
+import More from '@/components/More'
 import Loader from '@/components/Loader'
 import Toolbar from '@/components/Toolbar.vue'
 import Grid from '@/components/Grid.vue'
@@ -76,6 +79,7 @@ export default {
 	data() {
 		return {
 			preview: false,
+			more: false,
 			view: 0,
 			chips: [],
 			sort: ['Релевантность', 'тип', 'размер', 'автор', 'срок'],
@@ -153,6 +157,7 @@ export default {
 		Filters,
 		listItem1,
 		Preview,
+		More,
 		Loader,
 		Toolbar,
 		Grid,

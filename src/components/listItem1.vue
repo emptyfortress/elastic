@@ -1,32 +1,42 @@
 <template lang="pug">
 .item(:class="itemClass")
-	.attr.first
+	//- .attr.first
 		.status {{ item.item.typ }}
 		.status {{ item.item.vid }}
 		v-spacer
 		.status {{ item.item.status }}
 	.txt(v-if="item.item.type !== 'file'")
 		.titul
-			v-simple-checkbox(v-model="item.item.selected" color="primary" :disabled="item.item.inactive").check
-			v-icon(color="#ccc").ml-2 mdi-star-outline
+			v-simple-checkbox(v-model="item.item.selected" color="primary" :disabled="item.item.inactive").check.mr-2
+			//- v-icon(color="#ccc").ml-2 mdi-star-outline
 			TextHighlight(:queries="queries") {{ item.item.title }}
 		.attr
 			TextHighlight(:queries="queries").status Автор: {{ item.item.author }}
 			TextHighlight(:queries="queries").status Изменено: {{ item.item.changed }}
 			.status
-		TextHighlight(:queries="queries") {{ item.item.digest }}
+		//- TextHighlight(:queries="queries") {{ item.item.digest }}
 
-		.ic(v-if="item.item.file")
+		//- .ic(v-if="item.item.file")
 			i.icon-doc
 			.qua {{ item.item.num }}
-		.files(v-if="item.item.file" @click="$emit('preview')")
+		.files(v-if="item.item.file" v-for="n in 2")
 			img(src="@/assets/img/filetype/doc.svg" width="26")
 			div
-				div
+				div( @click.stop="$emit('preview')" )
 					TextHighlight(:queries="queries").zg {{ item.item.file }}
 				div
 					TextHighlight(:queries="queries").smtxt {{ item.item.digest }}
-		.more(v-if="item.item.file") Еще...
+					.smtxt.mylink.ml-3(@click="$emit('more')") Больше...
+
+		.files(v-if="item.item.more " v-for="n in 3")
+			img(src="@/assets/img/filetype/doc.svg" width="26")
+			div
+				div(@click.stop="$emit('preview')" )
+					TextHighlight(:queries="queries").zg {{ item.item.file }}
+				div
+					TextHighlight(:queries="queries").smtxt {{ item.item.digest }}
+		.more(v-if="!item.item.more" @click="item.item.more = !item.item.more") Еще файлы...
+		.more(v-if="item.item.more" @click="item.item.more = !item.item.more") Меньше...
 
 	.txt(v-else)
 		.fille
@@ -47,23 +57,22 @@
 import TextHighlight from 'vue-text-highlight'
 
 export default {
-	props: ['item', 'zapros' ],
-	data () {
-		return {
-		}
+	props: ['item', 'zapros'],
+	data() {
+		return {}
 	},
 	computed: {
 		itemClass() {
 			let base = this.item.item.type
-			if ( this.item.item.inactive ) {
+			if (this.item.item.inactive) {
 				return 'inactive' + ' ' + base
-			} else if ( this.item.item.selected ) {
+			} else if (this.item.item.selected) {
 				return 'selected' + ' ' + base
 			} else return base
 		},
-		queries () {
+		queries() {
 			return this.zapros.split(' ')
-		}
+		},
 	},
 	components: {
 		TextHighlight,
@@ -72,23 +81,21 @@ export default {
 		// ttt () {
 		// 	console.log(this.queries)
 		// }
-	}
+	},
 }
-
 </script>
 
 <style scoped lang="scss">
 @import '@/assets/css/colors.scss';
 
-
 .item {
 	width: 100%;
 	background: #fff;
-	margin-bottom: .5rem;
+	margin-bottom: 0.5rem;
 	border: 1px solid #dedede;
 	border-radius: 3px;
 	cursor: pointer;
-	padding: .5rem;
+	padding: 0.5rem;
 	&.task {
 		border-left: 5px solid $taskcolor;
 		&:hover {
@@ -111,12 +118,13 @@ export default {
 		}
 	}
 	&.selected {
-			background: #e0f1ff;
+		background: #e0f1ff;
 	}
 	&.inactive {
 		color: #ccc;
 		border-left: 5px solid #ccc;
-		.zg, .smtxt {
+		.zg,
+		.smtxt {
 			color: #ccc !important;
 		}
 		&:hover {
@@ -127,7 +135,8 @@ export default {
 }
 .attr {
 	display: flex;
-	font-size: .8rem;
+	flex-direction: column;
+	font-size: 0.8rem;
 	color: #999;
 	&.first {
 		margin-left: 17px;
@@ -136,22 +145,22 @@ export default {
 		margin-right: 2rem;
 	}
 	> :last-child {
-		margin-right: .5rem;
+		margin-right: 0.5rem;
 		text-transform: uppercase;
 		letter-spacing: 2px;
 		font-size: 0.7rem;
 	}
-	margin-bottom: .5rem;
+	margin-bottom: 0.5rem;
 }
 .txt {
 	margin-left: 1rem;
 	.files {
 		display: flex;
 		align-items: flex-start;
-		margin-top: 1.0rem;
+		margin-top: 1rem;
 		img {
 			display: inline-block;
-			margin-right: .8rem;
+			margin-right: 0.8rem;
 		}
 	}
 	.zg {
@@ -162,10 +171,10 @@ export default {
 		}
 	}
 	.smtxt {
-		font-size: .85rem;
-		color: #666;
-		line-height: 1.0;
-		display: block;
+		font-size: 0.85rem;
+		/* color: #666; */
+		line-height: 1;
+		display: inline;
 	}
 }
 .titul {
@@ -204,6 +213,7 @@ export default {
 .more {
 	font-size: 0.8rem;
 	color: $link;
+	margin-top: 1rem;
 	&:hover {
 		text-decoration: underline;
 	}
@@ -213,7 +223,7 @@ export default {
 	grid-template-columns: 70px auto;
 	img {
 		grid-column: 1/2;
-		grid-row: span 3
+		grid-row: span 3;
 	}
 }
 .card {
@@ -223,8 +233,12 @@ export default {
 }
 .mylink {
 	color: $link;
+	display: inline-block;
 	&:hover {
 		text-decoration: underline;
 	}
+}
+.mor {
+	display: inline;
 }
 </style>
