@@ -1,12 +1,12 @@
 <template lang="pug">
 v-dialog(v-model="more1" max-width="480" persistent)
 	v-card.preview
-		.zg Перейти в карточку?
+		.zg Переходим в карточку
 		v-divider.mx-4
 		v-card-actions
 			v-spacer
-			v-btn(@click="$emit('more1')" depressed) Отмена
-			v-btn(@click="$emit('more1')" depressed color="primary") Перейти
+			v-btn(@click="$emit('more1')" depressed ) Закрыть
+			v-spacer
 
 </template>
 

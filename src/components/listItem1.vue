@@ -1,40 +1,46 @@
 <template lang="pug">
 .item(:class="itemClass")
-	//- .attr.first
-		.status {{ item.item.typ }}
-		.status {{ item.item.vid }}
-		v-spacer
-		.status {{ item.item.status }}
 	.txt(v-if="item.item.type !== 'file'")
 		.titul(@click="$emit('more1')")
 			v-simple-checkbox(v-model="item.item.selected" color="primary" :disabled="item.item.inactive").check.mr-2
-			//- v-icon(color="#ccc").ml-2 mdi-star-outline
 			TextHighlight(:queries="queries") {{ item.item.title }}
 		.attr
 			TextHighlight(:queries="queries").status Автор: {{ item.item.author }}
 			TextHighlight(:queries="queries").status Изменено: {{ item.item.changed }}
 			.status
-		//- TextHighlight(:queries="queries") {{ item.item.digest }}
 
-		//- .ic(v-if="item.item.file")
-			i.icon-doc
-			.qua {{ item.item.num }}
 		.files(v-if="item.item.file" v-for="n in 2")
 			img(src="@/assets/img/filetype/doc.svg" width="26")
-			div
+			.expand
 				div( @click.stop="$emit('preview')" )
 					TextHighlight(:queries="queries").zg {{ item.item.file }}
-				div
+				.plotno
 					TextHighlight(:queries="queries").smtxt {{ item.item.digest }}
 					.smtxt.mylink.ml-3(@click="$emit('more')") Больше...
+			div
+				v-tooltip(bottom)
+					template( v-slot:activator="{ on, attrs }" )
+						v-btn(icon small v-bind="attr" v-on="on")
+							v-icon(small) mdi-cloud-download-outline
+					span Загрузить
+				v-tooltip(bottom)
+					template( v-slot:activator="{ on, attrs }" )
+						v-btn(icon small v-bind="attr" v-on="on")
+							v-icon(small) mdi-open-in-new
+					span Открыть
 
 		.files(v-if="item.item.more " v-for="n in 3")
 			img(src="@/assets/img/filetype/doc.svg" width="26")
-			div
+			.expand
 				div(@click.stop="$emit('preview')" )
 					TextHighlight(:queries="queries").zg {{ item.item.file }}
-				div
+				.plotno
 					TextHighlight(:queries="queries").smtxt {{ item.item.digest }}
+			div
+				v-btn(icon small)
+					v-icon(small) mdi-cloud-download-outline
+				v-btn(icon small)
+					v-icon(small) mdi-open-in-new
 		.more(v-if="!item.item.more" @click="item.item.more = !item.item.more") Еще файлы...
 		.more(v-if="item.item.more" @click="item.item.more = !item.item.more") Меньше...
 
@@ -156,8 +162,11 @@ export default {
 	margin-left: 1rem;
 	.files {
 		display: flex;
-		align-items: flex-start;
+		align-items: flex-center;
 		margin-top: 1rem;
+		.expand {
+			flex-grow: 1;
+		}
 		img {
 			display: inline-block;
 			margin-right: 0.8rem;
@@ -175,6 +184,9 @@ export default {
 		/* color: #666; */
 		line-height: 1;
 		display: inline;
+	}
+	.plotno {
+		margin-top: -4px;
 	}
 }
 .titul {
@@ -237,5 +249,7 @@ export default {
 }
 .mor {
 	display: inline;
+}
+.butt {
 }
 </style>

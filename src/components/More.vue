@@ -9,9 +9,11 @@ v-dialog(v-model="more" max-width="680" persistent)
 
 		v-divider.mx-4
 		v-card-actions
+			v-btn(small @click="$emit('more')" depressed) Отмена
 			v-spacer
-			v-btn(@click="$emit('more')" depressed) Отмена
-			v-btn(@click="$emit('more')" depressed color="primary") Предпросмотр
+			v-btn(small @click="$emit('more')" depressed color="primary") Просмотреть файл
+			v-btn(small @click="$emit('more')" depressed color="primary") Открыть
+			v-btn(small @click="$emit('more')" depressed color="primary") Скачать
 
 </template>
 
