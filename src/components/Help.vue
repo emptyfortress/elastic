@@ -77,7 +77,8 @@ export default {
 				subtitle: {
 					url: 'srt.srt',
 					style: {
-						color: 'red',
+						color: '#fff',
+						background: '#0000008f',
 						'font-size': '30px',
 					},
 				},
