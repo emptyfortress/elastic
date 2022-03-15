@@ -1,6 +1,6 @@
 <template lang="pug">
 .all
-	v-btn.owl(depressed, small, dark, color='link', @click='help' v-if="showHelp")
+	//- v-btn.owl(depressed, small, dark, color='link', @click='help' v-if="showHelp")
 		v-icon(small) mdi-help-circle-outline
 		span Помощь
 			//- img(src='@/assets/img/owl.svg')
@@ -37,7 +37,7 @@
 							v-icon mdi-dots-vertical
 
 		.d-flex
-			v-btn-toggle(icon, v-model='view', mandatory, dense, group) 
+			v-btn-toggle(icon, v-model='view', mandatory, dense, group)
 				v-btn(icon, @click='grid(0)')
 					v-icon mdi-table
 				v-btn(icon, @click='grid(1)')
@@ -46,6 +46,11 @@
 		//- .zaglush(v-show="!tools")
 
 		.toolcontent
+			v-tooltip(top, open-delay='500' v-if="showHelp")
+				template(v-slot:activator='{ on }')
+					v-btn(icon, v-on='on', @click='help')
+						v-icon mdi-help-circle-outline
+				span Помощь
 			v-menu(offset-y, transition='slide-y-transition', bottom)
 				template(v-slot:activator='{ on: menu, attrs }')
 					v-tooltip(top, open-delay='500')
@@ -90,12 +95,13 @@ export default {
 			srtSelected: 0,
 			revert: false,
 			buttons: [
+				// { id: 0, text: 'Помощь', icon: 'help', click: '' },
 				{ id: 1, text: 'Прочитать все', icon: 'readAll', click: '' },
 				{ id: 3, text: 'Обновить', icon: 'reload', click: '' },
 				{ id: 4, text: 'Экспорт', icon: 'xls', click: '' },
-				{ id: 5, text: 'Reset', icon: 'reset', click: '' },
+				// { id: 5, text: 'Reset', icon: 'reset', click: '' },
 				{ id: 6, text: 'Настройки', icon: 'setup', click: '' },
-				{ id: 7, text: 'Редактировать', icon: 'edit', click: 'edit' },
+				// { id: 7, text: 'Редактировать', icon: 'edit', click: 'edit' },
 			],
 			views: [
 				'Это представление',
@@ -113,7 +119,7 @@ export default {
 		}
 	},
 	computed: {
-		showHelp () {
+		showHelp() {
 			return this.$store.getters.showHelp
 		},
 		sidebar() {

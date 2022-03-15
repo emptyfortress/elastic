@@ -1,30 +1,34 @@
 <template lang="pug">
 .help
 	.flex
-		v-btn(depressed, color='link', dark, @click='back')
-			v-icon(big) mdi-arrow-left-circle-outline
+		v-tooltip(top, open-delay='500')
+			template(v-slot:activator='{ on }')
+				v-btn(icon, x-large, v-on='on', @click='back')
+					v-icon(big) mdi-arrow-left-circle-outline
 			span Вернуться
-		h3 Помощь по работе с гридом
-		v-checkbox.ml-3(label='Больше не показывать кнопку "Помощь"' v-model="hide")
+		h3 Быстрая помощь по работе с гридом
+	.txt Посмотрите короткий ролик о работе с гридом, либо выберите интересующий вас раздел в меню:
 	.grid
-		Gif(:tema='id')
-
 		ul.side
 			li(
-				@click='handle(item)',
+				@click='handle(item.id)',
 				v-for='item in list',
 				:key='item.id',
 				:class='{ selected: item.id === id }'
 			) {{ item.name }}
+		Artplayer(@get-instance="getInstance" :option="option" :style="style")
 </template>
 
 <script>
-import Gif from '@/components/Gif.vue'
+import Artplayer from 'artplayer/examples/vue/Artplayer'
 
 export default {
-	components: { Gif },
+	components: {
+		Artplayer,
+	},
 	data() {
 		return {
+			ins: null,
 			hide: false,
 			list: [
 				{ id: 0, name: 'Общие сведения' },
@@ -39,6 +43,50 @@ export default {
 				{ id: 9, name: 'Групповые операции' },
 				{ id: 10, name: 'Экспорт' },
 			],
+			option: {
+				url: 'Guide.mp4',
+				// poster: 'poster.jpg',
+				volume: 0.5,
+				muted: false,
+				autoplay: false,
+				pip: true,
+				autoSize: true,
+				screenshot: true,
+				setting: true,
+				loop: true,
+				playbackRate: true,
+				aspectRatio: true,
+				fullscreen: true,
+				fullscreenWeb: true,
+				mutex: true,
+				contextmenu: [
+					{
+						html: 'Custom menu',
+						click: function(contextmenu) {
+							console.info('You clicked on the custom menu')
+							contextmenu.show = false
+						},
+					},
+				],
+				highlight: [
+					{ time: 15, text: 'Тулбар' },
+					{ time: 30, text: 'Левая панель' },
+					{ time: 45, text: 'Список - таблица' },
+					{ time: 60, text: 'Настройка колонок' },
+				],
+				subtitle: {
+					url: 'srt.srt',
+					style: {
+						color: 'red',
+						'font-size': '30px',
+					},
+				},
+			},
+			style: {
+				width: '100%',
+				height: '600px',
+				margin: '0 auto',
+			},
 		}
 	},
 	computed: {
@@ -47,19 +95,25 @@ export default {
 		},
 	},
 	methods: {
+		getInstance(art) {
+			this.ins = art
+		},
 		handle(e) {
-			this.$router.push(`/help/${e.id}`)
-			this.sel = e
+			if (this.ins.playing) {
+				this.ins.pause()
+			}
+			this.ins.seek = e * 5
+			this.ins.play()
 		},
 		back() {
 			this.$router.push({ name: 'results', params: { id: 'sit' } })
 		},
 	},
 	watch: {
-		hide: function () {
+		hide: function() {
 			this.$store.commit('hideBt')
-		}
-	}
+		},
+	},
 }
 </script>
 
@@ -74,8 +128,7 @@ h3 {
 	font-size: 1.3rem;
 	font-weight: 400;
 	text-align: center;
-	margin: 0 5rem;
-	/* background: red; */
+	margin: 0 2rem;
 	position: relative;
 	.back {
 		position: absolute;
@@ -87,9 +140,9 @@ h3 {
 	}
 }
 .grid {
-	margin: 2rem 5rem;
+	margin: 2rem 0;
 	display: grid;
-	grid-template-columns: auto 250px;
+	grid-template-columns: 270px auto;
 	gap: 1rem;
 }
 .side {
@@ -111,9 +164,12 @@ h3 {
 }
 .flex {
 	display: flex;
-	margin: 0 5rem;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: flex-start;
 	border-bottom: 1px solid #ccc;
+}
+.txt {
+	margin-top: 1rem;
+	margin-left: 0.5rem;
 }
 </style>
